@@ -1,0 +1,121 @@
+!
+! Last configuration change at 21:53:55 KRAT Sun Mar 7 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec localtime show-timezone
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$8sPA$VQiTGLzJm2khA8oFNwhU31
+!
+no aaa new-model
+clock timezone KRAT 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+username cisco privilege 15 secret 5 $1$VWtA$tJ64uWq4KpfX.IinxkGwF1
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description Turnk to SW1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/0.3
+ description MNGM
+ encapsulation dot1Q 3
+ ip address 192.168.3.1 255.255.255.0
+!
+interface GigabitEthernet0/0.4
+ description OPERATIONS
+ encapsulation dot1Q 4
+ ip address 192.168.4.1 255.255.255.0
+!
+interface GigabitEthernet0/0.8
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ logging synchronous
+ login
+ transport input none
+line vty 5 15
+ logging synchronous
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end
