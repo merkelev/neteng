@@ -1,7 +1,7 @@
-###Addressing Table
+### Addressing Table
 
-Device | Interface | IP Address | Subnet Mask | Default Gateway
-------------- | -------------
+| Device | Interface | IP Address | Subnet Mask | Default Gateway |
+| ------------- | ------------- | -------- | -------- | -------- |
 R1 | Gi0/0.3 | 192.168.3.1 | 255.255.255.0 | N/A
  | Gi0/0.4 | 192.168.4.1 | 255.255.255.0 | N/A
  | Gi0/0.8 | N/A | N/A | N/A
