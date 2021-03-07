@@ -2,3 +2,6 @@
 
 Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png
 ![Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Topology-VLAN-EVE-NG.png) 
+
+Таблица VLAN
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/VLAN%20Table.md)
