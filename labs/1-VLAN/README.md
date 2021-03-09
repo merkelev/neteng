@@ -26,3 +26,6 @@
 
 Настройки коммутатора SW2
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/SW2-Settings.png)
+
+Ping с PC4 до шлюза, ping с PC4 до PC5 и ping с PC4 до коммутатора SW2
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4-PING-TO-GW-PC5.png)
