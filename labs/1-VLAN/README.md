@@ -136,4 +136,4 @@
 ![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC5.png)  
 
 **6. Проверил маршрутизацию между VLAN, запустив ping с PC4 до PC5**  
-![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4-PING-TO-GW-PC5.png)
+![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/pingPC4-PC5.png)
