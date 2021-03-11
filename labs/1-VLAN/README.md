@@ -20,7 +20,13 @@
        
 **Для VLAN 8:**  
 - переход в настройку интерфейса: interface Gi0/0.8  
-       
+  
+**Приложение:**  
+Конфиг маршрутизатора R1
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Config-R1.txt)  
+Роуты маршрутизатора R1
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/R1-Routes.png)
+
 **2. Настройка коммутатора SW1:**  
 **Настроил транковый порт GigabitEthernet 0/2 для VLAN 3,4 и 8 для соединения с R1:** 
 - переход в настройку интерфейса: interface Gi 0/2  
