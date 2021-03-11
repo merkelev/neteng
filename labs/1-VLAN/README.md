@@ -107,8 +107,11 @@
 Настройки коммутатора SW2
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/SW2-Settings.png)
 
-**4. На PC4 назначил IP адрес:**
+**4. На PC4 назначил IP адрес:**  
+![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4.png)  
 
+**5. На PC5 назначил IP адрес:**
+![]()
 
 Таблица VLAN
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/VLAN%20Table.md)
