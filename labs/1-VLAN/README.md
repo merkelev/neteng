@@ -45,7 +45,24 @@
 - переход в настройку интерфейса: interface Gi 0/0  
 - установил описание: description to PC-4  
 - сделал порт акцесом: switchport mode access        
-- разрешил VLAN 3: switchport access vlan 3  
+- назначил порту VLAN 3: switchport access vlan 3  
+
+**Настроил порты GigabitEthernet 0/3, GigabitEthernet 1/0 - 3 для VLAN 7 и отключил эти порты:**  
+- переход в настройку интерфейса: interface Gi 0/3
+- сделал порт акцесом: switchport mode access        
+- назначил порту VLAN 7: switchport access vlan 7
+- выключил порт: shutdown
+- выход из настройки интерфейса: exit
+- переход в настройку диапозона интерфейсов: interface range Gi 1/0 - 3
+- сделал порты акцесом: switchport mode access        
+- назначил портам VLAN 7: switchport access vlan 7
+- выключил порты: shutdown
+
+**Создал интерфейс VLAN 3, назначил ему IP адрес и указал дефолтный шлюз:**
+- созлал интерфейс: interface vlan 3  
+- назначил адрес: ip address 192.168.3.11 255.255.255.0  
+- выход: exit  
+- указал дефолтный шлюз: ip default-gateway 192.168.3.1  
 
 **Приложение:**  
 Конфиг коммутатора SW1
@@ -65,7 +82,24 @@
 - переход в настройку интерфейса: interface Gi 0/0  
 - установил описание: description to PC-5  
 - сделал порт акцесом: switchport mode access        
-- разрешил VLAN 3: switchport access vlan 4  
+- разрешил VLAN 4: switchport access vlan 4  
+
+**Настроил порты GigabitEthernet 0/2 - 3, GigabitEthernet 1/0 - 3 для VLAN 7 и отключил эти порты:**  
+- переход в настройку диапозона интерфейсов: interface Gi 0/2 - 3
+- сделал порты акцесом: switchport mode access        
+- назначил портам VLAN 7: switchport access vlan 7
+- выключил порты: shutdown
+- выход из настройки интерфейса: exit
+- переход в настройку диапозона интерфейсов: interface range Gi 1/0 - 3
+- сделал порты акцесом: switchport mode access        
+- назначил портам VLAN 7: switchport access vlan 7
+- выключил порты: shutdown
+
+**Создал интерфейс VLAN 3, назначил ему IP адрес и указал дефолтный шлюз:**
+- созлал интерфейс: interface vlan 3  
+- назначил адрес: ip address 192.168.3.12 255.255.255.0  
+- выход: exit  
+- указал дефолтный шлюз: ip default-gateway 192.168.3.1  
 
 **Приложение:**  
 Конфиг коммутатора SW2
