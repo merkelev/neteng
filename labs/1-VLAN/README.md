@@ -110,8 +110,8 @@
 **4. На PC4 назначил IP адрес:**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4.png)  
 
-**5. На PC5 назначил IP адрес:**
-![]()
+**5. На PC5 назначил IP адрес:**  
+![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC5.png)  
 
 Таблица VLAN
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/VLAN%20Table.md)
