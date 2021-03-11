@@ -4,7 +4,7 @@
 ![Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Topology-VLAN-EVE-NG.png) 
 
 **1. Настройка маршрутизатора R1:**  
-Настроил порт GigabitEthernet 0/0 для VLAN 3,4 и 8  
+**Настроил порт GigabitEthernet 0/0 для VLAN 3,4 и 8**  
 
 **Для VLAN 3:**    
 - переход в настройку интерфейса: interface Gi0/0.3  
@@ -22,18 +22,21 @@
 - переход в настройку интерфейса: interface Gi0/0.8  
        
 **2. Настройка коммутатора SW1:**  
-**Настроил транковый порт GigabitEthernet 0/2 для VLAN 3,4 и 8 для соединения с R1:**  
+**Настроил транковый порт GigabitEthernet 0/2 для VLAN 3,4 и 8 для соединения с R1:** 
+- переход в настройку интерфейса: interface Gi 0/2  
 - установил описание: description Trunk to R1  
 - сделал порт транковым: switchport mode trunk  
 - разрешил VLAN 3,4 и 8: switchport trunk allowed vlan 3,4,8  
 
 **Настроил транковый порт GigabitEthernet 0/1 для VLAN 3,4,8 и сменил native VLAN:**  
+- переход в настройку интерфейса: interface Gi 0/1  
 - установил описание: description Trunk to SW2  
 - сделал порт транковым: switchport mode trunk  
 - разрешил VLAN 3,4 и 8: switchport trunk allowed vlan 3,4,8  
 - сменил нативный вилан на 8: switchport trunk native vlan 8  
 
-**Настроил акцес порт GigabitEthernet 0/0 для VLAN 3:**  
+**Настроил акцес порт GigabitEthernet 0/0 для VLAN 3:**
+- переход в настройку интерфейса: interface Gi 0/0  
 - установил описание: description to PC-4  
 - сделал порт акцесом: switchport mode access        
 - разрешил VLAN 3: switchport access vlan 3  
