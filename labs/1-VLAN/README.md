@@ -135,11 +135,5 @@
 **5. На PC5 назначил IP адрес:**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC5.png)  
 
-Таблица VLAN
-(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/VLAN%20Table.md)
-
-Таблица адресов
-(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Addressing%20Table.md)
-
-Ping с PC4 до шлюза, ping с PC4 до PC5 и ping с PC4 до коммутатора SW2
-(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4-PING-TO-GW-PC5.png)
+**6. Проверил маршрутизацию между VLAN, запустив ping с PC4 до PC5**  
+![](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4-PING-TO-GW-PC5.png)
