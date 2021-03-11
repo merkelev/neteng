@@ -51,19 +51,34 @@
 Конфиг коммутатора SW1
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Config-SW1.txt)  
 Настройки коммутатора SW1
-(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/SW1-Settings.png)
-      
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/SW1-Settings.png)  
+
+**3. Настройка коммутатора SW2:**  
+**Настроил транковый порт GigabitEthernet 0/1 для VLAN 3,4 и 8 для соединения с SW1:** 
+- переход в настройку интерфейса: interface Gi 0/1  
+- установил описание: description Trunk to SW1  
+- сделал порт транковым: switchport mode trunk  
+- разрешил VLAN 3,4 и 8: switchport trunk allowed vlan 3,4,8  
+- сменил нативный вилан на 8: switchport trunk native vlan 8  
+
+**Настроил акцес порт GigabitEthernet 0/0 для VLAN 4 для подключения PC5:**
+- переход в настройку интерфейса: interface Gi 0/0  
+- установил описание: description to PC-5  
+- сделал порт акцесом: switchport mode access        
+- разрешил VLAN 3: switchport access vlan 4  
+
+**Приложение:**  
+Конфиг коммутатора SW2
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Config-SW2.txt)  
+Настройки коммутатора SW2
+(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/SW2-Settings.png)
+
+
 Таблица VLAN
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/VLAN%20Table.md)
 
 Таблица адресов
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Addressing%20Table.md)
-
-Конфиг коммутатора SW2
-(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Config-SW2.txt)
-
-Настройки коммутатора SW2
-(https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/SW2-Settings.png)
 
 Ping с PC4 до шлюза, ping с PC4 до PC5 и ping с PC4 до коммутатора SW2
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/PC4-PING-TO-GW-PC5.png)
