@@ -3,6 +3,19 @@
 Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png
 ![Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Topology-VLAN-EVE-NG.png)  
 
+**Таблица адресов IPv4**
+
+| Device | Interface | IP Address | Subnet Mask | Default Gateway |
+| -------- | ------------- | -------- | -------- | -------- |
+| R1 | Gi0/0.3 | 192.168.3.1 | 255.255.255.0 | N/A |
+|   | Gi0/0.4 | 192.168.4.1 | 255.255.255.0 | N/A  |
+|   | Gi0/0.8 | N/A | N/A | N/A |
+| SW1 | VLAN3 | 192.168.3.11 | 255.255.255.0 | 192.168.3.1 |
+| SW2 | VLAN3 | 192.168.3.12 | 255.255.255.0 | 192.168.3.1 |
+| PC4 | NIC | 192.168.3.3 | 255.255.255.0 | 192.168.3.1 |
+| PC5 | NIC | 192.168.4.4 | 255.255.255.0 | 192.168.4.1 |
+
+
 **Таблица VLAN**
 
 | VLAN | Name | Interface Assigned |
