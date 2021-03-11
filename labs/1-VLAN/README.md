@@ -41,7 +41,7 @@
 - разрешил VLAN 3,4 и 8: switchport trunk allowed vlan 3,4,8  
 - сменил нативный вилан на 8: switchport trunk native vlan 8  
 
-**Настроил акцес порт GigabitEthernet 0/0 для VLAN 3:**
+**Настроил акцес порт GigabitEthernet 0/0 для VLAN 3 для подключения PC4:**
 - переход в настройку интерфейса: interface Gi 0/0  
 - установил описание: description to PC-4  
 - сделал порт акцесом: switchport mode access        
