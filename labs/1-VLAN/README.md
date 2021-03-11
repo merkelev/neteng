@@ -3,7 +3,14 @@
 Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png
 ![Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Topology-VLAN-EVE-NG.png)  
 
+**Таблица VLAN**
 
+| VLAN | Name | Interface Assigned |
+| ------------- |:-------------:| ------------|
+| 3 | MNGM | **SW1:** VLAN3, **SW1:** Gi0/0, **SW2:** VLAN3 | 
+| 4 | OPERATIONS | **SW2:** Gi0/0 |
+| 7 | PARKINGLOT | **SW1:** Gi0/3, Gi1/0-3 **SW2:** Gi0/2-3, Gi1/0-3 
+| 8 | NATIVE | N/A |
 
 **1. Настройка маршрутизатора R1:**  
 **Настроил порт GigabitEthernet 0/0 для VLAN 3,4 и 8**  
