@@ -33,11 +33,12 @@
 - разрешил VLAN 3,4 и 8: switchport trunk allowed vlan 3,4,8  
 - сменил нативный вилан на 8: switchport trunk native vlan 8  
 
+**Настроил акцес порт GigabitEthernet 0/0 для VLAN 3:**  
+- установил описание: description to PC-4  
+- сделал порт акцесом: switchport mode access        
+- разрешил VLAN 3: switchport access vlan 3  
 
- 2.3 Настроил акцес порт GigabitEthernet 0/0 для VLAN 3:
-      установил описание: description to PC-4
-      сделал порт акцесом: switchport mode access      
-      разрешил VLAN 3: switchport access vlan 3
+
       
 Таблица VLAN
 (https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/VLAN%20Table.md)
