@@ -1,5 +1,7 @@
 ### Homework VLAN
 
+**Задание: Настроить магистральные каналы между коммутаторами и проверить маршрутизацию между VLAN**  
+
 Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png
 ![Топология в программе EVE-NG: Topology-VLAN-EVE-NG.png](https://github.com/merkelev/neteng/blob/main/labs/1-VLAN/Topology-VLAN-EVE-NG.png)  
 
