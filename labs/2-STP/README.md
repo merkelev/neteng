@@ -135,3 +135,17 @@ interface GigabitEthernet0/3
  media-type rj45  
  negotiation auto  
 !  
+
+**На SW1 включил порты Gi0/0 в сторону SW2 и Gi0/2 в сторону SW3**  
+interface GigabitEthernet0/0  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/2  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ media-type rj45  
+ negotiation auto  
+!  
