@@ -75,3 +75,63 @@ interface GigabitEthernet0/3
  media-type rj45  
  negotiation auto  
 !  
+
+**SW2:**  
+interface GigabitEthernet0/0  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/1  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/2  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/3  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+
+**SW3:**  
+interface GigabitEthernet0/0  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/1  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/2  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/3  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
