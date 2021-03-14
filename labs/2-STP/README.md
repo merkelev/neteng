@@ -41,6 +41,6 @@ interface Vlan1
 **Ping с коммутатора SW1 до коммутаторов SW2 и SW3**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/ping-SW1-to-SW2%26SW3.png)  
 
-**Ping с коммутатора SW2 до коммутатора SW3** 
+**Ping с коммутатора SW2 до коммутатора SW3**   
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/ping-SW2-to-SW3.png)  
 
