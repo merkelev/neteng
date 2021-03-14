@@ -177,3 +177,8 @@ interface GigabitEthernet0/2
  media-type rj45  
  negotiation auto  
 !  
+
+
+**Данные протокола STP на коммутаторах**
+**SW1**  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW1-STP.png)  
