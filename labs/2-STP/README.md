@@ -183,7 +183,7 @@ interface GigabitEthernet0/2
 **SW1**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW1-STP.png)  
 
-**SW2** 
+**SW2**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-STP.png)  
 
 **SW3**  
