@@ -225,3 +225,12 @@ SW3(config-if)#spanning-tree cost 18
 
 **На коммутаторе SW3 в качестве корневого порта выбран Gi0/2, так как стоимость через порты Gi0/0, Gi0/1 выше чем через порт Gi0/2. Порт Gi0/3 не выбран в качестве корневого потому что ID порта Gi0/2 меньше ID порта Gi0/3.**  
 
+
+Конфиг коммутатора SW1:
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW1.txt)  
+
+Конфиг коммутатора SW2:  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW2.txt)  
+
+Конфиг коммутатора SW3:  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW3.txt)  
