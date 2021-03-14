@@ -182,3 +182,9 @@ interface GigabitEthernet0/2
 **Данные протокола STP на коммутаторах**
 **SW1**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW1-STP.png)  
+
+**SW2** 
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-STP.png)  
+
+**SW3**  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW3-STP.png)  
