@@ -200,3 +200,10 @@ interface GigabitEthernet0/2
 SW2(config)#int gigabitEthernet 0/0  
 SW2(config-if)#spanning-tree cost 18  
 
+**STP после изменения стоимость порта.**  
+**SW2**  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-after-cost18.png)  
+
+**SW3**  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW3-after-cost18.png)  
+
