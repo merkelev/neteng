@@ -227,10 +227,10 @@ SW3(config-if)#spanning-tree cost 18
 
 
 Конфиг коммутатора SW1:
-![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW1.txt)  
+(https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW1.txt)  
 
 Конфиг коммутатора SW2:  
-![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW2.txt)  
+(https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW2.txt)  
 
 Конфиг коммутатора SW3:  
-![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW3.txt)  
+(https://github.com/merkelev/neteng/blob/main/labs/2-STP/Config-SW3.txt)  
