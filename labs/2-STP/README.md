@@ -196,10 +196,14 @@ interface GigabitEthernet0/2
 **Порт Gi0/0 на SW3 является альтернативными и заблокирован в данный момент, так как стоимость через порт Gi0/0 до корневого моста выше, чем через порт Gi0/2.**  
 
 **Часть 3:**  
-**Изменил стоимость порта Gi0/0 на SW2 в сторону SW1:**  
-SW2(config)#int gigabitEthernet 0/0  
-SW2(config-if)#spanning-tree cost 18  
-
+Коммутатор SW3 с заблокированным портом Gi0/2
+**Изменил стоимость корневого порта Gi0/2 на SW3:**  
+SW3(config)#int gigabitEthernet 0/2  
+SW3(config-if)#spanning-tree cost 18  
+На SW3 порт Gi0/2 стал заблокированным, а Gi0/0 - корневым. 
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-cost18.png)  
+**Но это не то что требовалось показать основании материала методички.**  
+**На SW2 уменьшаю стоимость корневого порта Gi0/0**   
 **STP после изменения стоимость порта.**  
 **SW2**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-after-cost18.png)  
