@@ -196,6 +196,7 @@ interface GigabitEthernet0/2
 **Порт Gi0/0 на SW3 является альтернативными и заблокирован в данный момент, так как стоимость через порт Gi0/0 до корневого моста выше, чем через порт Gi0/2.**  
 
 **Часть 3:**  
-**Изменил стоимость порта Gi0/2 на SW3 до корневого моста:**  
-SW3(config)#int gigabitEthernet 0/2  
-SW3(config-if)#spanning-tree cost 18  
+**Изменил стоимость порта Gi0/0 на SW2 в сторону SW1:**  
+SW2(config)#int gigabitEthernet 0/0  
+SW2(config-if)#spanning-tree cost 18  
+
