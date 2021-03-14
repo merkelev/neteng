@@ -213,3 +213,12 @@ SW3(config-if)#spanning-tree cost 18
 
 **STP после изменения стоимости порта на коммутаторе SW2, перевел порт Gi0/0 на коммутаторе SW3 в назначенный и заблокировал порт Gi0/0 на SW2 так как стоимость до корневого моста изменилась.**  
 
+**Часть 4:**  
+**После включения все портов на коммутаторах**  
+**SW2** 
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-AllPorts.png)  
+
+**SW3**  
+![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW3-AllPorts.png)  
+
+
