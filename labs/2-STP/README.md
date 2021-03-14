@@ -178,7 +178,7 @@ interface GigabitEthernet0/2
  negotiation auto  
 !  
 
-
+**ВЫВОДЫ:**  
 **Данные протокола STP на коммутаторах**
 **SW1**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW1-STP.png)  
