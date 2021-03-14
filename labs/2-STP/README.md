@@ -44,3 +44,34 @@ interface Vlan1
 **Ping с коммутатора SW2 до коммутатора SW3**   
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/ping-SW2-to-SW3.png)  
 
+**Часть 2:**  
+**Отключил все порты и сделал их транковыми на коммутаторах SW1, SW2 и SW3**  
+**SW1:**  
+interface GigabitEthernet0/0  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/1  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/2  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
+interface GigabitEthernet0/3  
+ switchport trunk encapsulation dot1q  
+ switchport mode trunk  
+ shutdown  
+ media-type rj45  
+ negotiation auto  
+!  
