@@ -215,7 +215,7 @@ SW3(config-if)#spanning-tree cost 18
 
 **Часть 4:**  
 **После включения все портов на коммутаторах**  
-**SW2** 
+**SW2**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/2-STP/SW2-AllPorts.png)  
 
 **SW3**  
