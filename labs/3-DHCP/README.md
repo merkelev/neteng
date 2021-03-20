@@ -81,3 +81,19 @@ interface GigabitEthernet0/0
  media-type rj45
 ```
 
+На коммутаторе SW1 настроил транковый порт на Gi0/1:  
+```
+interface GigabitEthernet0/1
+ switchport trunk allowed vlan 100,200,1000
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 1000
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+```
+
+Настроил VLAN 200:  
+```
+interface Vlan200
+ ip address 192.168.1.66 255.255.255.224
+```
