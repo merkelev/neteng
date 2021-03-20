@@ -371,3 +371,10 @@ DHCPNAK              0
 
 **Конфиг коммутатора SW2:**  
 (https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/Config-SW2.txt)  
+
+
+### Настройка DHCPv6
+**Цель: Настроить DHCPv6 на маршрутизаторе Cisco**  
+
+![Топология сети в программе EVE-NG](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/3-DHCPv6.png)  
+
