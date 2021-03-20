@@ -264,3 +264,91 @@ VPCS> ping 192.168.1.1
 
 **Часть 3:**  
 Настроил relay на машрутизаторе R2:  
+```
+interface GigabitEthernet0/1
+ description CLIENTS
+ ip address 192.168.1.97 255.255.255.240
+ ip helper-address 10.0.0.1
+ duplex auto
+ speed auto
+ media-type rj45
+```
+
+На ПК VPC6 включил DHCP и выполнил пинг до адреса 192.168.1.1:  
+```
+VPCS> ip dhcp
+DORA IP 192.168.1.98/28 GW 192.168.1.97
+
+VPCS> ping 192.168.1.1
+
+84 bytes from 192.168.1.1 icmp_seq=1 ttl=254 time=17.153 ms
+84 bytes from 192.168.1.1 icmp_seq=2 ttl=254 time=15.468 ms
+84 bytes from 192.168.1.1 icmp_seq=3 ttl=254 time=7.624 ms
+84 bytes from 192.168.1.1 icmp_seq=4 ttl=254 time=14.826 ms
+84 bytes from 192.168.1.1 icmp_seq=5 ttl=254 time=7.397 ms
+```
+
+**Вывод команды show ip dhcp binding на маршрутизаторе R1:**  
+```
+R1#sh ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+192.168.1.2         0100.5079.6668.05       Mar 22 2021 05:25 PM    Automatic
+192.168.1.98        0100.5079.6668.06       Mar 22 2021 05:41 PM    Automatic
+```
+
+**Вывод команды show ip dhcp server statistics на маршрутизаторе R1:**  
+```
+R1#sh ip dhcp server statistics
+Memory usage         42140
+Address pools        2
+Database agents      0
+Automatic bindings   2
+Manual bindings      0
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         21
+DHCPREQUEST          7
+DHCPDECLINE          0
+DHCPRELEASE          0
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            7
+DHCPACK              7
+DHCPNAK              0
+```
+
+**Вывод команды show ip dhcp server statistics на маршрутизаторе R2:**  
+```
+R2#sh ip dhcp server statistics
+Memory usage         30757
+Address pools        0
+Database agents      0
+Automatic bindings   0
+Manual bindings      0
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         0
+DHCPREQUEST          0
+DHCPDECLINE          0
+DHCPRELEASE          0
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            0
+DHCPACK              0
+DHCPNAK              0
+```
