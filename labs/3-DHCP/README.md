@@ -421,4 +421,40 @@ interface GigabitEthernet0/3
 !
 ```
 
+Настроил интерфейсы Gi0/0 и Gi0/1 на маршрутизаторе R7 и настроил шлюз по умолчанию**:  
+```
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address 2001:DB8:ACAD:2::1/64
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::1 link-local
+!
+ipv6 route ::/0 2001:DB8:ACAD:2::2
+```
 
+Настроил интерфейсы Gi0/0 и Gi0/1 на маршрутизаторе R8 и настроил шлюз по умолчанию:  
+```
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address 2001:DB8:ACAD:2::2/64
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::1 link-local
+!
+ipv6 route ::/0 2001:DB8:ACAD:2::1
+```
