@@ -392,3 +392,33 @@ DHCPNAK              0
 | VPC11  | NIC       | DHCP    |
 | VPC12  | NIC       | DHCP    |
 
+**Часть 1:**  
+Отключил все неиспользуемые порты на SW9:  
+```
+interface GigabitEthernet0/2
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+```
+
+Отключил все неиспользуемые порты на SW10:  
+```
+interface GigabitEthernet0/2
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+```
+
+
