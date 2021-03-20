@@ -20,4 +20,12 @@
 | VPC5 | NIC | DHCP | DHCP | DHCP |
 | VPC6 | NIC | DHCP | DHCP | DHCP |
 
+**Таблица VLAN**  
+| VLAN | Name | Interface Assigned |
+| ---- | ---- | ------------------ |
+| 1    | N/A  | SW2: Gi0/3         |
+| 100  | Clients | SW1: Gi0/2      |
+| 200  | MNGM | SW1: VLAN 200      |
+| 999  | PRK_LOT | SW1: Gi0/0, Gi0/3, Gi1/0 - 3 |
+| 1000 | Native | N/A              |
 
