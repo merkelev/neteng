@@ -204,15 +204,7 @@ interface GigabitEthernet0/1
  media-type rj45
  ```
  
- На коммутаторе SW2 назначил IP адрес и указал шлюз:  
- ```
- interface Vlan1
- ip address 192.168.1.98 255.255.255.240
-!
-ip default-gateway 192.168.1.97
-```
-
-Выключил все неиспользуемые порты:  
+ На коммутаторе SW2 выключил все неиспользуемые порты:  
 ```
 interface GigabitEthernet0/0
  shutdown
@@ -270,3 +262,5 @@ VPCS> ping 192.168.1.1
 84 bytes from 192.168.1.1 icmp_seq=5 ttl=255 time=6.580 ms
 ```
 
+**Часть 3:**  
+Настроил relay на машрутизаторе R2:  
