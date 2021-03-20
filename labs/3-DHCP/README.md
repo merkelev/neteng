@@ -255,7 +255,7 @@ ip dhcp pool R2_CLIENT_LAN
 ! 
 ``` 
 
-На ПК VPC5 включил DHCP и выполнил пинг до шлюза:  
+На ПК VPC5 включил получение адреса по DHCP и выполнил пинг до шлюза:  
 ```
 VPCS> ip dhcp
 DDORA IP 192.168.1.2/26 GW 192.168.1.1
@@ -281,7 +281,7 @@ interface GigabitEthernet0/1
  media-type rj45
 ```
 
-На ПК VPC6 включил DHCP и выполнил пинг до адреса 192.168.1.1:  
+На ПК VPC6 включил получение адреса по DHCP и выполнил пинг до адреса 192.168.1.1:  
 ```
 VPCS> ip dhcp
 DORA IP 192.168.1.98/28 GW 192.168.1.97
@@ -470,5 +470,13 @@ Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 2001:DB8:ACAD:2::2, timeout is 2 seconds:
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
+```
+
+**Часть 2: Проверка назначения адреса SLAAC из R1.**  
+На ПК VPC11 включил получение адреса по DHCPv6:  
+```
+VPCS> ip auto
+GLOBAL SCOPE      : 2001:db8:acad:1:2050:79ff:fe66:680b/64
+ROUTER LINK-LAYER : 50:01:00:07:00:01
 ```
 
