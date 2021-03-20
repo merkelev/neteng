@@ -449,6 +449,7 @@ interface GigabitEthernet0/0
  duplex auto
  speed auto
  media-type rj45
+ ipv6 address FE80::2 link-local
  ipv6 address 2001:DB8:ACAD:2::2/64
 !
 interface GigabitEthernet0/1
@@ -457,6 +458,7 @@ interface GigabitEthernet0/1
  speed auto
  media-type rj45
  ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:3::1/64
 !
 ipv6 route ::/0 2001:DB8:ACAD:2::1
 ```
