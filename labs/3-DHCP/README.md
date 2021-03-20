@@ -421,7 +421,7 @@ interface GigabitEthernet0/3
 !
 ```
 
-Настроил интерфейсы Gi0/0 и Gi0/1 на маршрутизаторе R7 и настроил шлюз по умолчанию**:  
+Настроил интерфейсы Gi0/0 и Gi0/1 на маршрутизаторе R7 и настроил шлюз по умолчанию:  
 ```
 interface GigabitEthernet0/0
  no ip address
@@ -458,3 +458,13 @@ interface GigabitEthernet0/1
 !
 ipv6 route ::/0 2001:DB8:ACAD:2::1
 ```
+
+Проверил с R7 доступность маршрутизатора R8:
+```
+R7#ping ipv6 2001:DB8:ACAD:2::2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2001:DB8:ACAD:2::2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
+```
+
