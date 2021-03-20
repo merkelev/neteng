@@ -50,5 +50,21 @@ Mask: 255.255.255.240 или 28 бит
 Broadcast: 192.168.1.111  
 Hosts: 14  
 
+На маршрутизаторе R1 настроил VLAN 100,200,1000 и настроил IP адреса:  
+```
+interface GigabitEthernet0/1.100
+ description CLIENTS
+ encapsulation dot1Q 100
+ ip address 192.168.1.1 255.255.255.192
+!
+interface GigabitEthernet0/1.200
+ description MNGM
+ encapsulation dot1Q 200
+ ip address 192.168.1.65 255.255.255.224
+!
+interface GigabitEthernet0/1.1000
+ encapsulation dot1Q 1000
+!
+```
 
 
