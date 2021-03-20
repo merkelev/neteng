@@ -72,5 +72,12 @@ interface GigabitEthernet0/1.1000
  encapsulation dot1Q 1000
 !
 ```
-
+Настроил на маршрутизаторе R1 IP адрес на интерфейсе Gi0/0:  
+```
+interface GigabitEthernet0/0
+ ip address 10.0.0.1 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+```
 
