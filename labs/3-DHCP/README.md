@@ -255,3 +255,18 @@ ip dhcp pool POOL-CLIENTS
  default-router 192.168.1.1
  lease 2 12 30
 ``` 
+
+На ПК VPC5 включил DHCP и выполнил пинг до шлюза:  
+```
+VPCS> ip dhcp
+DDORA IP 192.168.1.2/26 GW 192.168.1.1
+
+VPCS> ping 192.168.1.1
+
+84 bytes from 192.168.1.1 icmp_seq=1 ttl=255 time=5.008 ms
+84 bytes from 192.168.1.1 icmp_seq=2 ttl=255 time=6.268 ms
+84 bytes from 192.168.1.1 icmp_seq=3 ttl=255 time=5.664 ms
+84 bytes from 192.168.1.1 icmp_seq=4 ttl=255 time=4.491 ms
+84 bytes from 192.168.1.1 icmp_seq=5 ttl=255 time=6.580 ms
+```
+
