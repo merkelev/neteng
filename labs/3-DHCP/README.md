@@ -127,7 +127,7 @@ VLAN Name                             Status    Ports
 1004 fddinet-default                  act/unsup
 1005 trnet-default                    act/unsup
 ```
-Настроил порты Gi0/0, Gi0/3, Gi1/0 - 3 и отключил их:  
+Настроил интерфейсы Gi0/0, Gi0/3, Gi1/0 - 3 и отключил их:  
 ```
 interface GigabitEthernet0/0
  switchport access vlan 999
@@ -178,7 +178,7 @@ interface GigabitEthernet1/3
 !
 ```
 
-Настроил порт Gi0/2 как порт доступа для ПК VPC5:  
+Настроил интерфейс Gi0/2 как порт доступа для ПК VPC5:  
 ```
 interface GigabitEthernet0/2
  switchport access vlan 100
@@ -187,3 +187,62 @@ interface GigabitEthernet0/2
  media-type rj45
  negotiation auto
 ```
+
+На маршрутизаторе R2 настроил интерфейсы Gi0/0 и Gi0/1:  
+```
+interface GigabitEthernet0/0
+ ip address 10.0.0.2 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ description CLIENTS
+ ip address 192.168.1.97 255.255.255.240
+ duplex auto
+ speed auto
+ media-type rj45
+ ```
+ 
+ На коммутаторе SW2 назначил IP адрес и указал шлюз:  
+ ```
+ interface Vlan1
+ ip address 192.168.1.98 255.255.255.240
+!
+ip default-gateway 192.168.1.97
+```
+
+Выключил все неиспользуемые порты:  
+```
+interface GigabitEthernet0/0
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+```
+
