@@ -359,3 +359,15 @@ DHCPOFFER            0
 DHCPACK              0
 DHCPNAK              0
 ```
+
+**Конфиг маршрутизатора R1:**  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/Config-R1.txt)  
+
+**Конфиг маршрутизатора R2:**  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/Config-R2.txt)  
+
+**Конфиг коммутатора SW1:**  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/Config-SW1.txt)  
+
+**Конфиг коммутатора SW2:**  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/Config-SW2.txt)  
