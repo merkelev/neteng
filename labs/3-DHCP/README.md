@@ -246,3 +246,12 @@ interface GigabitEthernet1/3
 !
 ```
 
+**Часть 2:**  
+Настроил DHCP на маршрутизаторе R1:  
+```
+ip dhcp pool POOL-CLIENTS
+ network 192.168.1.0 255.255.255.192
+ domain-name ccna-lab.com
+ default-router 192.168.1.1
+ lease 2 12 30
+``` 
