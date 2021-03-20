@@ -50,8 +50,14 @@ Mask: 255.255.255.240 или 28 бит
 Broadcast: 192.168.1.111  
 Hosts: 14  
 
-На маршрутизаторе R1 настроил VLAN 100,200,1000 и настроил IP адреса:  
+На маршрутизаторе R1 на интерфейсе Gi0/1 настроил VLAN 100,200,1000 и настроил IP адреса:  
 ```
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+!
 interface GigabitEthernet0/1.100
  description CLIENTS
  encapsulation dot1Q 100
