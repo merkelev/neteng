@@ -110,4 +110,21 @@ vlan 200
  name MNGM
 vlan 999
  name PRK_LOT
-``` 
+```  
+
+```
+SW1#sh vlan
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active
+100  CLIENTS                          active    Gi0/2
+200  MNGM                             active
+999  VLAN0999                         active    Gi0/0, Gi0/3, Gi1/0, Gi1/1
+                                                Gi1/2, Gi1/3
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+```
+
