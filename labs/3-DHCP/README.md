@@ -245,7 +245,14 @@ ip dhcp pool POOL-CLIENTS
  network 192.168.1.0 255.255.255.192
  domain-name ccna-lab.com
  default-router 192.168.1.1
+ lease 2 12 30 
+!
+ip dhcp pool R2_CLIENT_LAN
+ network 192.168.1.96 255.255.255.240
+ domain-name ccna-lab.com
+ default-router 192.168.1.97
  lease 2 12 30
+! 
 ``` 
 
 На ПК VPC5 включил DHCP и выполнил пинг до шлюза:  
