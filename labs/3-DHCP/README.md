@@ -92,8 +92,22 @@ interface GigabitEthernet0/1
  negotiation auto
 ```
 
-Настроил VLAN 200:  
+Настроил VLAN 200 и назначил IP адрес:  
 ```
 interface Vlan200
  ip address 192.168.1.66 255.255.255.224
 ```
+И указал шлюз:  
+```
+ip default-gateway 192.168.1.65
+```
+
+Настроил VLAN 100,200 и 999:  
+```
+vlan 100
+ name CLIENTS
+vlan 200
+ name MNGM
+vlan 999
+ name PRK_LOT
+``` 
