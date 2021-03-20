@@ -127,4 +127,63 @@ VLAN Name                             Status    Ports
 1004 fddinet-default                  act/unsup
 1005 trnet-default                    act/unsup
 ```
+Настроил порты Gi0/0, Gi0/3, Gi1/0 - 3 и отключил их:  
+```
+interface GigabitEthernet0/0
+ switchport access vlan 999
+ switchport trunk encapsulation dot1q
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ switchport access vlan 999
+ switchport trunk encapsulation dot1q
+ switchport mode access
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ switchport access vlan 999
+ switchport trunk encapsulation dot1q
+ switchport mode access
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ switchport access vlan 999
+ switchport trunk encapsulation dot1q
+ switchport mode access
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ switchport access vlan 999
+ switchport trunk encapsulation dot1q
+ switchport mode access
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ switchport access vlan 999
+ switchport trunk encapsulation dot1q
+ switchport mode access
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+```
 
+Настроил порт Gi0/2 как порт доступа для ПК VPC5:  
+```
+interface GigabitEthernet0/2
+ switchport access vlan 100
+ switchport trunk encapsulation dot1q
+ switchport mode access
+ media-type rj45
+ negotiation auto
+```
