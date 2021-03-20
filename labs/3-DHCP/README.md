@@ -378,8 +378,12 @@ DHCPNAK              0
 
 ![Топология сети в программе EVE-NG](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/3-DHCPv6.png)  
 
-**Таблица адресов**  
+**Таблица адресов IPv6**  
 | Device | Interface | IPv6 Address |
 | ------ | --------- | ------------ |
+| R7     | Gi0/0     | 2001:db8:acad:2::1/64 |
+|        |           | fe80::1 |
+|        | Gi0/1     | 2001:db8:acad:1::1/64 |
+|        |           | fe80::1 |
 
 
