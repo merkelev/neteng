@@ -501,3 +501,15 @@ interface GigabitEthernet0/1
 
 Запустил ping на адрес 2001:DB8:ACAD:3::1 маршрутизатора R8:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path3-2.png)
+
+**Часть 4: Настройка сервера DHCPv6 с отслеживанием состояния на R7.**  
+```
+R7(config)#ipv6 dhcp pool R8-STATEFUL
+R7(config-dhcpv6)#address prefix 2001:DB8:ACAD:3:AAA::/80
+R7(config-dhcpv6)#dns-server 2001:DB8:ACAD::254
+R7(config-dhcpv6)#domain-name STATEFUL.com
+R7(config-dhcpv6)#exit
+R7(config)#int gigabitEthernet 0/0
+R7(config-if)#ipv6 dhcp server R2-STATEFUL
+% Warning: Pool R2-STATEFUL not configured globally - configuring anyway.
+```
