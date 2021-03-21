@@ -478,6 +478,14 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
 VPCS> ip auto
 GLOBAL SCOPE      : 2001:db8:acad:1:2050:79ff:fe66:680b/64
 ROUTER LINK-LAYER : 50:01:00:07:00:01
+
+VPCS> show
+
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCS1  0.0.0.0/0            0.0.0.0
+       fe80::250:79ff:fe66:680b/64
+       2001:db8:acad:1:2050:79ff:fe66:680b/64 eui-64
 ```
+Часть хоста сгенерированна eui-64
 
 **Часть 3: Настройка и проверка сервера DHCPv6 на R1.**  
