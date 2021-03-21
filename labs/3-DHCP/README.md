@@ -474,6 +474,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
 
 **Часть 2: Проверка назначения адреса SLAAC из R7.**  
 На ПК Win7-1:  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/Path2.png)  
 
 Часть хоста сгенерированна eui-64
 
