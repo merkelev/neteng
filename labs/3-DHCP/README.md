@@ -513,3 +513,24 @@ R7(config)#int gigabitEthernet 0/0
 R7(config-if)#ipv6 dhcp server R2-STATEFUL
 % Warning: Pool R2-STATEFUL not configured globally - configuring anyway.
 ```
+
+**Часть 5: Настройка и проверка Relay DHCPv6 на маршрутизаторе R8.**  
+Вывод команды ipconfig /all на ПК Win7-2:  
+![]()  
+
+Настроил Relay DHCPv6 на маршрутизаторе R8 на интерфейсе Gi0/1:  
+```
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:3::1/64
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination 2001:DB8:ACAD:2::1 GigabitEthernet0/0
+!
+```
+
+Вывод команды ipconfig /all на ПК Win7-2:  
+![]()
