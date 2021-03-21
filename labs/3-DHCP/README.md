@@ -488,4 +488,20 @@ VPCS1  0.0.0.0/0            0.0.0.0
 ```
 Часть хоста сгенерированна eui-64
 
-**Часть 3: Настройка и проверка сервера DHCPv6 на R1.**  
+**Часть 3: Настройка и проверка сервера DHCPv6 на R7.**  
+Настроил stateless DHCPv6 на маршрутизаторе R7:  
+```
+ipv6 dhcp pool R7-STATELESS
+ dns-server 2001:DB8:ACAD::254
+ domain-name STATELESS.COM
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:1::1/64
+ ipv6 nd other-config-flag
+ ipv6 dhcp server R7-STATELESS
+ ```
