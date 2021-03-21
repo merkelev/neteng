@@ -532,4 +532,7 @@ interface GigabitEthernet0/1
 ```
 
 Вывод команды ipconfig /all на ПК Win7-2:  
-![]()
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path5-2.png)  
+
+Запустил ping на адрес 2001:db8:acad:1::1 маршрутизатора R7:  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path5-3.png)
