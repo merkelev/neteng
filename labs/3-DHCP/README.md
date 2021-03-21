@@ -499,5 +499,5 @@ interface GigabitEthernet0/1
 Перезагрузил ПК Win7-1, вывод команды ipconfig /all:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path3-1.png)  
 
-Запустил ping до маршрутизатора R8:  
+Запустил ping на адрес 2001:DB8:ACAD:3::1 маршрутизатора R8:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path3-2.png)
