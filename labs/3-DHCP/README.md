@@ -510,8 +510,7 @@ R7(config-dhcpv6)#dns-server 2001:DB8:ACAD::254
 R7(config-dhcpv6)#domain-name STATEFUL.com
 R7(config-dhcpv6)#exit
 R7(config)#int gigabitEthernet 0/0
-R7(config-if)#ipv6 dhcp server R2-STATEFUL
-% Warning: Pool R2-STATEFUL not configured globally - configuring anyway.
+R7(config-if)#ipv6 dhcp server R8-STATEFUL
 ```
 
 **Часть 5: Настройка и проверка Relay DHCPv6 на маршрутизаторе R8.**  
