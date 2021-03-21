@@ -516,7 +516,7 @@ R7(config-if)#ipv6 dhcp server R2-STATEFUL
 
 **Часть 5: Настройка и проверка Relay DHCPv6 на маршрутизаторе R8.**  
 Вывод команды ipconfig /all на ПК Win7-2:  
-![]()  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path5-1.png)  
 
 Настроил Relay DHCPv6 на маршрутизаторе R8 на интерфейсе Gi0/1:  
 ```
