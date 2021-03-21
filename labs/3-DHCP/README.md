@@ -389,8 +389,8 @@ DHCPNAK              0
 |        |           | fe80::2 |
 |        | Gi0/1     | 2001:db8:acad:3::1/64 |
 |        |           | fe80::1 |
-| VPC11  | NIC       | DHCP    |
-| VPC12  | NIC       | DHCP    |
+| Win7-1 | NIC       | DHCP    |
+| Win7-2 | NIC       | DHCP    |
 
 **Часть 1: Базовая настройка маршрутизаторов и коммутаторов.**  
 Отключил все неиспользуемые порты на SW9:  
@@ -472,20 +472,9 @@ Sending 5, 100-byte ICMP Echos to 2001:DB8:ACAD:2::2, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
 ```
 
-**Часть 2: Проверка назначения адреса SLAAC из R1.**  
-На ПК VPC11 включил получение адреса по DHCPv6:  
-```
-VPCS> ip auto
-GLOBAL SCOPE      : 2001:db8:acad:1:2050:79ff:fe66:680b/64
-ROUTER LINK-LAYER : 50:01:00:07:00:01
+**Часть 2: Проверка назначения адреса SLAAC из R7.**  
+На ПК Win7-1:  
 
-VPCS> show
-
-NAME   IP/MASK              GATEWAY                             GATEWAY
-VPCS1  0.0.0.0/0            0.0.0.0
-       fe80::250:79ff:fe66:680b/64
-       2001:db8:acad:1:2050:79ff:fe66:680b/64 eui-64
-```
 Часть хоста сгенерированна eui-64
 
 **Часть 3: Настройка и проверка сервера DHCPv6 на R7.**  
