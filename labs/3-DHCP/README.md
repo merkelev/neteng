@@ -496,5 +496,8 @@ interface GigabitEthernet0/1
  ipv6 dhcp server R7-STATELESS
  ```
 
-Перезагрузил ПК Win7-1:
-![]()
+Перезагрузил ПК Win7-1, вывод команды ipconfig /all:  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path3-1.png)  
+
+Запустил ping до маршрутизатора R8:  
+![](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/path3-2.png)
