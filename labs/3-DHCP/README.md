@@ -376,7 +376,7 @@ DHCPNAK              0
 ### Настройка DHCPv6
 **Цель: Настроить DHCPv6 на маршрутизаторе Cisco**  
 
-![Топология сети в программе EVE-NG](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/3-DHCPv6.png)  
+![Топология сети в программе EVE-NG](https://github.com/merkelev/neteng/blob/main/labs/3-DHCP/DHCPv6.png)  
 
 **Таблица адресов IPv6**  
 | Device | Interface | IPv6 Address |
