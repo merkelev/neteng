@@ -495,3 +495,6 @@ interface GigabitEthernet0/1
  ipv6 nd other-config-flag
  ipv6 dhcp server R7-STATELESS
  ```
+
+Перезагрузил ПК Win7-1:
+![]()
