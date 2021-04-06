@@ -19,5 +19,5 @@
 | 66   | NATIVE| N/A                |
 | 9    | MNGM  |                    |
 | 12   | ACC   |                    |
-| 14   | SKALD |                    |
+| 14   | SKLAD |                    |
 | 54   | PRK-LOT |                  |
