@@ -17,7 +17,7 @@
 | VLAN | Name | Interface Assigned  |
 | ---- | ----- | ------------------ |
 | 66   | NATIVE| N/A                |
-| 9    | MNGM  |                    |
+| 9    | MNGM  | SW4 VLAN9, SW5 VLAN9, SW3 VLAN9, SW2 VLAN9|
 | 12   | ACC   |                    |
 | 14   | SKLAD |                    |
 | 54   | PRK-LOT |                  |
