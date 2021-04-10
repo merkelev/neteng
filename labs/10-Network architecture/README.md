@@ -608,6 +608,76 @@ C        172.18.0.4/30 is directly connected, Ethernet0/3
 L        172.18.0.5/32 is directly connected, Ethernet0/3
 ```  
 
+**R14**  
+```
+Current configuration : 1021 bytes
+!
+! Last configuration change at 15:17:49 +07 Sat Apr 10 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R14
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-R12-ET0/2
+ ip address 172.18.0.14 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R13-ET0/3
+ ip address 172.18.0.6 255.255.255.252
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ description TO-R19-ET0/0
+ ip address 172.19.0.1 255.255.255.252
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+control-plane
+!
+end
+
+```  
+**Таблица маршрутизации на R14**  
+```
+Gateway of last resort is not set
+      172.18.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.18.0.4/30 is directly connected, Ethernet0/1
+L        172.18.0.6/32 is directly connected, Ethernet0/1
+C        172.18.0.12/30 is directly connected, Ethernet0/0
+L        172.18.0.14/32 is directly connected, Ethernet0/0
+      172.19.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.19.0.0/30 is directly connected, Ethernet0/3
+L        172.19.0.1/32 is directly connected, Ethernet0/3
+```  
+
 
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
