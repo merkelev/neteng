@@ -5,7 +5,6 @@
 Добавил линки между R12 и SW5, R13 и SW4, SW3 и SW2. Линки добавил для избыточности когда будет динамическая маршрутизация в сети.    
 Удалил один линк между SW4 и SW5. Заколцевал сеть между коммутаторами на L2.  
 
-
 **Таблица адресов IPv4 г. Москва**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
 | -------- | ------------- | --------   | --------    | --------        |
@@ -38,16 +37,17 @@
 | R19      | Et0/0         | 172.19.0.2  | 255.255.255.252 | 172.19.0.1 |
 | R20      | Et0/0         | 172.19.0.6  | 255.255.255.252 | 172.19.0.5 |
 
-
-
 **Таблица VLAN г. Москва**  
 | VLAN | Name | Interface Assigned  |
 | ---- | ----- | ------------------ |
 | 66   | NATIVE| N/A                |
-| 9    | MNGM  | SW4 VLAN9, SW5 VLAN9, SW3 VLAN9, SW2 VLAN9|
-| 12   | ACC   |                    |
-| 14   | SKLAD |                    |
-| 54   | PRK-LOT |                  |
+| 9    | MNGM  | SW4 VLAN9, SW5 VLAN9, SW3 VLAN9, SW2 VLAN9 |
+| 12   | ACC   | SW3 Et0/2                 |
+| 14   | SKLAD | SW2 Et0/2                 |
+| 54   | PRK-LOT | SW4 Et1/1, Et1/2, Et1/3 |
+|      |         | SW5 Et1/1, Et1/2, Et1/3 |
+|      |         | SW3 Et1/0, Et1/1, Et1/2, Et1/3 |
+|      |         | SW2 Et1/0, Et1/1, Et1/2, Et1/3 |
 
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
