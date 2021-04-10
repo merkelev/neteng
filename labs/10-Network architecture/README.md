@@ -102,18 +102,6 @@ vlan 14
 vlan 54
  name PRK-LOT
 !
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
 interface Ethernet0/0
  switchport trunk allowed vlan 9,12,14
  switchport trunk encapsulation dot1q
@@ -165,27 +153,95 @@ interface Vlan9
  ip address 172.17.9.12 255.255.255.240
 !
 ip forward-protocol nd
+```
+
+**SW2**  
+```
+Current configuration : 1679 bytes
 !
-no ip http server
-no ip http secure-server
+! Last configuration change at 16:06:31 +07 Sat Apr 10 2021
 !
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
 !
+hostname SW2
 !
+boot-start-marker
+boot-end-marker
 !
+no aaa new-model
+clock timezone +07 7 0
 !
+vtp mode transparent
 !
-control-plane
+ip cef
+no ipv6 cef
 !
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
 !
-line con 0
- logging synchronous
-line aux 0
-line vty 0 4
- login
+vlan internal allocation policy ascending
 !
+vlan 9,12,14
+!
+vlan 54
+ name PRK-LOT
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ duplex auto
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ duplex auto
+!
+interface Ethernet0/2
+ switchport access vlan 14
+ switchport mode access
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+!
+interface Ethernet1/0
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan9
+ ip address 172.17.9.13 255.255.255.240
+!
+ip forward-protocol nd
 !
 end
 ```
+
 
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
