@@ -49,6 +49,144 @@
 |      |         | SW3 Et1/0, Et1/1, Et1/2, Et1/3 |
 |      |         | SW2 Et1/0, Et1/1, Et1/2, Et1/3 |
 
+**Конфигурационные файлы коммутаторов:**  
+**SW3**  
+```
+Current configuration : 1755 bytes
+!
+! Last configuration change at 16:07:20 +07 Sat Apr 10 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone +07 7 0
+!
+!
+!
+!
+!
+vtp mode transparent
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 9
+ name MNGM
+!
+vlan 12
+ name ACC
+!
+vlan 14
+ name SKLAD
+!
+vlan 54
+ name PRK-LOT
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ duplex auto
+!
+interface Ethernet0/2
+ switchport access vlan 12
+ switchport mode access
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+!
+interface Ethernet1/0
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan9
+ ip address 172.17.9.12 255.255.255.240
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+!
+!
+end
+```
+
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
 | -------- | ------------- | --------   | --------    | --------        |
