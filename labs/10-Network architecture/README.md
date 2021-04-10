@@ -677,6 +677,198 @@ L        172.18.0.14/32 is directly connected, Ethernet0/0
 C        172.19.0.0/30 is directly connected, Ethernet0/3
 L        172.19.0.1/32 is directly connected, Ethernet0/3
 ```  
+**R15**  
+```
+Current configuration : 1021 bytes
+!
+! Last configuration change at 15:16:25 +07 Sat Apr 10 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R15
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-R13-ET0/2
+ ip address 172.18.0.1 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R12-ET0/3
+ ip address 172.18.0.10 255.255.255.252
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ description TO-R20-ET0/0
+ ip address 172.19.0.5 255.255.255.252
+!
+ip forward-protocol nd
+!
+end
+
+```  
+**Таблица маршрутизации на R15**  
+```
+Gateway of last resort is not set
+      172.18.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.18.0.0/30 is directly connected, Ethernet0/0
+L        172.18.0.1/32 is directly connected, Ethernet0/0
+C        172.18.0.8/30 is directly connected, Ethernet0/1
+L        172.18.0.10/32 is directly connected, Ethernet0/1
+      172.19.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.19.0.4/30 is directly connected, Ethernet0/3
+L        172.19.0.5/32 is directly connected, Ethernet0/3
+```  
+
+**R19**  
+```
+Current configuration : 976 bytes
+!
+! Last configuration change at 15:14:24 +07 Sat Apr 10 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R19
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-R14-ET0/3
+ ip address 172.19.0.2 255.255.255.252
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 172.19.0.1
+!
+end
+
+```  
+
+**Таблица маршрутизации на R19**  
+```
+Gateway of last resort is 172.19.0.1 to network 0.0.0.0
+S*    0.0.0.0/0 [1/0] via 172.19.0.1
+      172.19.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.19.0.0/30 is directly connected, Ethernet0/0
+L        172.19.0.2/32 is directly connected, Ethernet0/0
+```  
+
+**R20**  
+```
+Current configuration : 976 bytes
+!
+! Last configuration change at 15:15:39 +07 Sat Apr 10 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R20
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-R15-ET0/3
+ ip address 172.19.0.6 255.255.255.252
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 172.19.0.5
+!
+end
+```  
+
+**Таблица маршрутизации на R20**  
+```
+Gateway of last resort is 172.19.0.5 to network 0.0.0.0
+S*    0.0.0.0/0 [1/0] via 172.19.0.5
+      172.19.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.19.0.4/30 is directly connected, Ethernet0/0
+L        172.19.0.6/32 is directly connected, Ethernet0/0
+```  
 
 
 **Таблица адресов IPv4 г. Санкт-Петербург**  
