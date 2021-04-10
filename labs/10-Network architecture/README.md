@@ -242,6 +242,112 @@ ip forward-protocol nd
 end
 ```
 
+**SW4**  
+```
+Current configuration : 1950 bytes
+!
+! Last configuration change at 16:12:46 +07 Sat Apr 10 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW4
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+!
+vtp mode transparent
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 9
+ name MNGM
+!
+vlan 12
+ name ACC
+!
+vlan 14
+ name SKLAD
+!
+vlan 54
+ name PRK-LOT
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ duplex auto
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ duplex auto
+!
+interface Ethernet0/2
+ description TO-R13-ET0/1
+ no switchport
+ ip address 172.16.0.10 255.255.255.252
+ duplex auto
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 9,12,14
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 66
+ switchport mode trunk
+ duplex auto
+!
+interface Ethernet1/0
+ description TO-R12-ET0/0
+ no switchport
+ ip address 172.16.0.6 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+ duplex auto
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan9
+ ip address 172.17.9.10 255.255.255.240
+!
+interface Vlan12
+ ip address 172.17.12.1 255.255.255.248
+!
+ip forward-protocol nd
+!
+ip route 0.0.0.0 0.0.0.0 Ethernet1/0 172.16.0.5
+!
+end
+
+```
 
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
