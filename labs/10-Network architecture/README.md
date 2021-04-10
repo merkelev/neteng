@@ -49,7 +49,7 @@
 |      |         | SW3 Et1/0, Et1/1, Et1/2, Et1/3 |
 |      |         | SW2 Et1/0, Et1/1, Et1/2, Et1/3 |
 
-**Конфигурационные файлы коммутаторов:**  
+**Конфигурации коммутаторов:**  
 **SW3**  
 ```
 Current configuration : 1755 bytes
@@ -446,6 +446,169 @@ ip route 0.0.0.0 0.0.0.0 Ethernet1/0 172.16.0.1
 end
 
 ```
+
+**Конфигурации маршрутизаторов**  
+**R12**  
+```
+Current configuration : 1196 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R12
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-SW4-ET1/0
+ ip address 172.16.0.5 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-SW5-ET0/2
+ ip address 172.16.0.13 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R14-ET0/0
+ ip address 172.18.0.13 255.255.255.252
+!
+interface Ethernet0/3
+ description TO-R15-ET0/1
+ ip address 172.18.0.9 255.255.255.252
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+end
+
+```  
+**Таблица маршрутизации на R12**  
+```
+Gateway of last resort is not set
+      172.16.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.16.0.4/30 is directly connected, Ethernet0/0
+L        172.16.0.5/32 is directly connected, Ethernet0/0
+C        172.16.0.12/30 is directly connected, Ethernet0/1
+L        172.16.0.13/32 is directly connected, Ethernet0/1
+      172.18.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.18.0.8/30 is directly connected, Ethernet0/3
+L        172.18.0.9/32 is directly connected, Ethernet0/3
+C        172.18.0.12/30 is directly connected, Ethernet0/2
+L        172.18.0.13/32 is directly connected, Ethernet0/2
+```
+
+**R13**  
+```
+Current configuration : 1194 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R13
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-SW5-ET1/0
+ ip address 172.16.0.1 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-SW4-ET0/2
+ ip address 172.16.0.9 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R15-ET0/0
+ ip address 172.18.0.2 255.255.255.252
+!
+interface Ethernet0/3
+ description TO-R14-ET0/1
+ ip address 172.18.0.5 255.255.255.252
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+end
+
+```  
+**Таблица маршрутизации на R13**  
+```
+Gateway of last resort is not set
+      172.16.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.16.0.0/30 is directly connected, Ethernet0/0
+L        172.16.0.1/32 is directly connected, Ethernet0/0
+C        172.16.0.8/30 is directly connected, Ethernet0/1
+L        172.16.0.9/32 is directly connected, Ethernet0/1
+      172.18.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.18.0.0/30 is directly connected, Ethernet0/2
+L        172.18.0.2/32 is directly connected, Ethernet0/2
+C        172.18.0.4/30 is directly connected, Ethernet0/3
+L        172.18.0.5/32 is directly connected, Ethernet0/3
+```  
+
+
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
 | -------- | ------------- | --------   | --------    | --------        |
