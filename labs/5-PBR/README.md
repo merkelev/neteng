@@ -1,5 +1,8 @@
 **PBR**  
 
+**Схема сети в Чокурдах**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/NET-CHOKURDAH.png)
+
 **Таблица адресов IPv4 Чокурдах**  
 | Device   | Interface     | IP Address | Subnet Mask     | Default Gateway | 
 | -------- | ------------- | --------   | --------        | --------        |
