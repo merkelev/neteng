@@ -13,10 +13,10 @@
 |          | Et0/2.99      | 172.20.9.1 | 255.255.255.248 |                 |
 
 **Таблица VLAN Чокурдах**  
-| VLAN | Name    | Interface Assigned |
-| ---- | -----   | ------------------ |
-| 77   | NATIVE  | N/A                |
-| 99   | MNGM    | SW29: VLAN 99      |
-| 22   |         | SW29: Et0/0        |
-| 24   |         | SW29: Et0/1        |
-| 54   | PRK-LOT |                    |
+| VLAN | Name     | Interface Assigned |
+| ---- | -----    | ------------------ |
+| 77   | NATIVE   | N/A                |
+| 99   | MNGM     | SW29: VLAN 99      |
+| 22   | MARKETING| SW29: Et0/0        |
+| 24   | MANAGERS | SW29: Et0/1        |
+| 54   | PRK-LOT  |                    |
