@@ -3,7 +3,7 @@
 **Цель: Задокументировать и настроить адресное пространство сети в г. Москва и г. Санкт-Петербург**  
 
 **Схема сети г. Москва**  
-![](https://github.com/merkelev/neteng/blob/main/labs/10-Network%20architecture/NET-MOSCOW.png)
+![](https://github.com/merkelev/neteng/blob/main/labs/4-IPv4-IPv6/NET-MOSCOW.png)
 Добавил линки между R12 и SW5, R13 и SW4, SW3 и SW2. Линки добавил для избыточности когда будет динамическая маршрутизация в сети.    
 Удалил один линк между SW4 и SW5. Заколцевал сеть между коммутаторами на L2.  
 
