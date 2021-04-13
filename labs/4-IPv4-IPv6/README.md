@@ -1251,3 +1251,81 @@ L        192.168.18.9/32 is directly connected, Ethernet0/2
 C        192.168.20.16/30 is directly connected, Ethernet0/0
 L        192.168.20.18/32 is directly connected, Ethernet0/0
 ```  
+**R32**  
+```
+Current configuration : 1091 bytes
+!
+! Last configuration change at 12:22:06 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R32
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-R16-ET0/2
+ ip address 192.168.18.10 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R17-ET0/2
+ ip address 192.168.18.14 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-SW9-ET1/0
+ ip address 192.168.20.1 255.255.255.252
+!
+interface Ethernet0/3
+ description TO-SW10-ET1/0
+ ip address 192.168.20.5 255.255.255.252
+!
+end
+```  
+**Таблица маршрутизации на R32**  
+```
+Gateway of last resort is not set
+      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
+C        192.168.18.8/30 is directly connected, Ethernet0/0
+L        192.168.18.10/32 is directly connected, Ethernet0/0
+C        192.168.18.12/30 is directly connected, Ethernet0/1
+L        192.168.18.14/32 is directly connected, Ethernet0/1
+      192.168.20.0/24 is variably subnetted, 4 subnets, 2 masks
+C        192.168.20.0/30 is directly connected, Ethernet0/2
+L        192.168.20.1/32 is directly connected, Ethernet0/2
+C        192.168.20.4/30 is directly connected, Ethernet0/3
+L        192.168.20.5/32 is directly connected, Ethernet0/3
+```  
+
+**Конфигурации рабочих станций**  
+**VPC8**  
+```
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCS1  192.168.22.2/29      192.168.22.1
+       fe80::250:79ff:fe66:6808/64
+```  
+
+**VPC**  
+```
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCS1  192.168.24.2/29      192.168.24.1
+       fe80::250:79ff:fe66:680b/64
+```
