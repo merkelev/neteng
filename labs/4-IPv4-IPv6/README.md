@@ -847,6 +847,21 @@ C        172.18.0.20/30 is directly connected, Ethernet0/0
 L        172.18.0.22/32 is directly connected, Ethernet0/0
 ```  
 
+**Конфигурации рабочих станций**  
+**VPC1**  
+```
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCS1  172.18.12.2/29       172.18.12.1
+       fe80::250:79ff:fe66:6801/64
+```  
+
+**VPC7**  
+```
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCS1  172.18.14.3/29       172.18.14.1
+       fe80::250:79ff:fe66:6807/64
+```
+
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | 
 | -------- | ------------- | --------   | --------    | --------        |
