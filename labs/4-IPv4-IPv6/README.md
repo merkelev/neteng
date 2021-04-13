@@ -446,7 +446,9 @@ end
 **Конфигурации маршрутизаторов**  
 **R12**  
 ```
-Current configuration : 1196 bytes
+Current configuration : 1277 bytes
+!
+! Last configuration change at 11:27:19 +07 Tue Apr 13 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -465,6 +467,7 @@ no mmi auto-configure
 no mmi pvc
 mmi snmp-timeout 180
 !
+no ip domain lookup
 ip cef
 no ipv6 cef
 !
@@ -474,19 +477,19 @@ redundancy
 !
 interface Ethernet0/0
  description TO-SW4-ET1/0
- ip address 172.16.0.5 255.255.255.252
+ ip address 172.18.1.1 255.255.255.252
 !
 interface Ethernet0/1
  description TO-SW5-ET0/2
- ip address 172.16.0.13 255.255.255.252
+ ip address 172.18.1.5 255.255.255.252
 !
 interface Ethernet0/2
  description TO-R14-ET0/0
- ip address 172.18.0.13 255.255.255.252
+ ip address 172.18.0.6 255.255.255.252
 !
 interface Ethernet0/3
  description TO-R15-ET0/1
- ip address 172.18.0.9 255.255.255.252
+ ip address 172.18.0.14 255.255.255.252
 !
 interface Ethernet1/0
  no ip address
@@ -504,29 +507,27 @@ interface Ethernet1/3
  no ip address
  shutdown
 !
-ip forward-protocol nd
-!
 end
-
 ```  
 **Таблица маршрутизации на R12**  
 ```
 Gateway of last resort is not set
-      172.16.0.0/16 is variably subnetted, 4 subnets, 2 masks
-C        172.16.0.4/30 is directly connected, Ethernet0/0
-L        172.16.0.5/32 is directly connected, Ethernet0/0
-C        172.16.0.12/30 is directly connected, Ethernet0/1
-L        172.16.0.13/32 is directly connected, Ethernet0/1
-      172.18.0.0/16 is variably subnetted, 4 subnets, 2 masks
-C        172.18.0.8/30 is directly connected, Ethernet0/3
-L        172.18.0.9/32 is directly connected, Ethernet0/3
-C        172.18.0.12/30 is directly connected, Ethernet0/2
-L        172.18.0.13/32 is directly connected, Ethernet0/2
+      172.18.0.0/16 is variably subnetted, 8 subnets, 2 masks
+C        172.18.0.4/30 is directly connected, Ethernet0/2
+L        172.18.0.6/32 is directly connected, Ethernet0/2
+C        172.18.0.12/30 is directly connected, Ethernet0/3
+L        172.18.0.14/32 is directly connected, Ethernet0/3
+C        172.18.1.0/30 is directly connected, Ethernet0/0
+L        172.18.1.1/32 is directly connected, Ethernet0/0
+C        172.18.1.4/30 is directly connected, Ethernet0/1
+L        172.18.1.5/32 is directly connected, Ethernet0/1
 ```
 
 **R13**  
 ```
-Current configuration : 1194 bytes
+Current configuration : 1279 bytes
+!
+! Last configuration change at 11:27:02 +07 Tue Apr 13 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -545,6 +546,7 @@ no mmi auto-configure
 no mmi pvc
 mmi snmp-timeout 180
 !
+no ip domain lookup
 ip cef
 no ipv6 cef
 !
@@ -554,19 +556,19 @@ redundancy
 !
 interface Ethernet0/0
  description TO-SW5-ET1/0
- ip address 172.16.0.1 255.255.255.252
+ ip address 172.18.1.13 255.255.255.252
 !
 interface Ethernet0/1
  description TO-SW4-ET0/2
- ip address 172.16.0.9 255.255.255.252
+ ip address 172.18.1.9 255.255.255.252
 !
 interface Ethernet0/2
  description TO-R15-ET0/0
- ip address 172.18.0.2 255.255.255.252
+ ip address 172.18.0.18 255.255.255.252
 !
 interface Ethernet0/3
  description TO-R14-ET0/1
- ip address 172.18.0.5 255.255.255.252
+ ip address 172.18.0.10 255.255.255.252
 !
 interface Ethernet1/0
  no ip address
@@ -584,24 +586,20 @@ interface Ethernet1/3
  no ip address
  shutdown
 !
-ip forward-protocol nd
-!
 end
-
 ```  
 **Таблица маршрутизации на R13**  
 ```
 Gateway of last resort is not set
-      172.16.0.0/16 is variably subnetted, 4 subnets, 2 masks
-C        172.16.0.0/30 is directly connected, Ethernet0/0
-L        172.16.0.1/32 is directly connected, Ethernet0/0
-C        172.16.0.8/30 is directly connected, Ethernet0/1
-L        172.16.0.9/32 is directly connected, Ethernet0/1
-      172.18.0.0/16 is variably subnetted, 4 subnets, 2 masks
-C        172.18.0.0/30 is directly connected, Ethernet0/2
-L        172.18.0.2/32 is directly connected, Ethernet0/2
-C        172.18.0.4/30 is directly connected, Ethernet0/3
-L        172.18.0.5/32 is directly connected, Ethernet0/3
+      172.18.0.0/16 is variably subnetted, 8 subnets, 2 masks
+C        172.18.0.8/30 is directly connected, Ethernet0/3
+L        172.18.0.10/32 is directly connected, Ethernet0/3
+C        172.18.0.16/30 is directly connected, Ethernet0/2
+L        172.18.0.18/32 is directly connected, Ethernet0/2
+C        172.18.1.8/30 is directly connected, Ethernet0/1
+L        172.18.1.9/32 is directly connected, Ethernet0/1
+C        172.18.1.12/30 is directly connected, Ethernet0/0
+L        172.18.1.13/32 is directly connected, Ethernet0/0
 ```  
 
 **R14**  
