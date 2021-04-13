@@ -909,3 +909,345 @@ VPCS1  172.18.14.3/29       172.18.14.1
 | 54   | PRK-LOT  | SW10 Et0/1, Et1/1 - 3      |
 |      |          | SW9 Et0/1, Et1/1 - 3       |
 
+**Конфигурации коммутаторов**  
+**SW9**  
+```
+Current configuration : 1462 bytes
+!
+! Last configuration change at 12:40:28 +07 Tue Apr 13 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW9
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface Ethernet0/0
+ description TO-SW10-ET0/0
+ no switchport
+ ip address 192.168.20.10 255.255.255.252
+ duplex auto
+!
+interface Ethernet0/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/2
+ switchport access vlan 22
+ switchport mode access
+!
+interface Ethernet0/3
+ description TO-R17-ET0/0
+ no switchport
+ ip address 192.168.20.13 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/0
+ no switchport
+ ip address 192.168.20.2 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan22
+ ip address 192.168.22.1 255.255.255.248
+!
+ip forward-protocol nd
+!
+end
+```  
+
+**SW10**  
+```
+Current configuration : 1487 bytes
+!
+! Last configuration change at 12:41:00 +07 Tue Apr 13 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW10
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface Ethernet0/0
+ description TO-SW9-ET0/0
+ no switchport
+ ip address 192.168.20.9 255.255.255.252
+ duplex auto
+!
+interface Ethernet0/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/2
+ switchport access vlan 24
+ switchport mode access
+!
+interface Ethernet0/3
+ description To-R16-ET0/0
+ no switchport
+ ip address 192.168.20.17 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/0
+ description TO-R32-ET0/3
+ no switchport
+ ip address 192.168.20.6 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan24
+ ip address 192.168.24.1 255.255.255.248
+!
+end
+```  
+
+**Конфигурации маршрутизаторов**  
+**R18**  
+```
+Current configuration : 1004 bytes
+!
+! Last configuration change at 12:07:37 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-R16-ET0/1
+ ip address 192.168.18.1 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R17-ET0/1
+ ip address 192.168.18.5 255.255.255.252
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+end
+```  
+**Таблица маршрутизации на R18**  
+```
+Gateway of last resort is not set
+      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
+C        192.168.18.0/30 is directly connected, Ethernet0/0
+L        192.168.18.1/32 is directly connected, Ethernet0/0
+C        192.168.18.4/30 is directly connected, Ethernet0/1
+L        192.168.18.5/32 is directly connected, Ethernet0/1
+```  
+**R17**  
+```
+Current configuration : 1048 bytes
+!
+! Last configuration change at 12:25:06 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R17
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-SW9-ET0/3
+ ip address 192.168.20.14 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R18-ET0/1
+ ip address 192.168.18.6 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R32_ET0/1
+ ip address 192.168.18.13 255.255.255.252
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+end
+```  
+**Таблица маршутизации на R17**  
+```
+Gateway of last resort is not set
+      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
+C        192.168.18.4/30 is directly connected, Ethernet0/1
+L        192.168.18.6/32 is directly connected, Ethernet0/1
+C        192.168.18.12/30 is directly connected, Ethernet0/2
+L        192.168.18.13/32 is directly connected, Ethernet0/2
+      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.20.12/30 is directly connected, Ethernet0/0
+L        192.168.20.14/32 is directly connected, Ethernet0/0
+```  
+
+**R16**  
+```
+Current configuration : 1048 bytes
+!
+! Last configuration change at 12:27:27 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R16
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-SW10-ET0/3
+ ip address 192.168.20.18 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R18-ET0/0
+ ip address 192.168.18.2 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R32-ET0/0
+ ip address 192.168.18.9 255.255.255.252
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+end
+```  
+**Таблица маршрутизации на R16**  
+```
+Gateway of last resort is not set
+      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
+C        192.168.18.0/30 is directly connected, Ethernet0/1
+L        192.168.18.2/32 is directly connected, Ethernet0/1
+C        192.168.18.8/30 is directly connected, Ethernet0/2
+L        192.168.18.9/32 is directly connected, Ethernet0/2
+      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.20.16/30 is directly connected, Ethernet0/0
+L        192.168.20.18/32 is directly connected, Ethernet0/0
+```  
