@@ -518,3 +518,17 @@ L        10.0.1.5/32 is directly connected, Ethernet0/1
 **Проверяем IP SLA и track**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK.png)  
 
+Сейчас весь трафик идет через первого провайдера. Отключаем интерфейс Et0/1 на маршрутизаторе R26.  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/R26-Et0-1-DOWN.png)  
+
+**Проверяем IP SLA и track**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK-DOWN.png)  
+
+**Смотрим таблицу маршрутизации на R28**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/R28-IP-ROUTE.png)  
+
+Видим что дефолтный шлюз изменился.  
+Проверяю доступность R27 запустив пинг с рабочей станции VPC31 и VPC30  
+![]()  
+
+
