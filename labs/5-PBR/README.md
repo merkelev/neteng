@@ -529,6 +529,7 @@ L        10.0.1.5/32 is directly connected, Ethernet0/1
 
 Видим что дефолтный шлюз изменился.  
 Проверяю доступность R27 запустив пинг с рабочей станции VPC31 и VPC30  
-![]()  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PING-R27.png)  
+
 
 
