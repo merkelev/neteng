@@ -511,3 +511,10 @@ L        10.0.1.2/32 is directly connected, Ethernet0/2
 C        10.0.1.4/30 is directly connected, Ethernet0/1
 L        10.0.1.5/32 is directly connected, Ethernet0/1
 ```  
+
+**Запускаю пинг с рабочей станции VPC31 до маршрутизатора R27**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PING.png)  
+
+**Проверяем IP SLA и track**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK.png)  
+
