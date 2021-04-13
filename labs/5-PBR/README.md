@@ -247,3 +247,96 @@ ip sla 2
 ip sla schedule 2 start-time now
 !
 ```  
+
+Настроил трэки  
+```
+R28#sh track
+Track 1
+  IP SLA 1 reachability
+  Reachability is Down
+    5 changes, last change 00:12:50
+  Latest operation return code: Timeout
+  Tracked by:
+    Static IP Routing 0
+Track 2
+  IP SLA 2 reachability
+  Reachability is Up
+    2 changes, last change 00:34:25
+  Latest operation return code: OK
+  Latest RTT (millisecs) 1
+  Tracked by:
+    Static IP Routing 0
+  ```  
+  Настроил маршрут по умолчанию для Лабытнанги  
+  ```
+  Current configuration : 1189 bytes
+!
+! Last configuration change at 15:57:43 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R27
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ description TO-ISP-TRIADA
+ ip address 10.0.0.2 255.255.255.252
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+!
+end
+```  
+**Для проверки работы Route-map, PBR, IP SLA я настроил на машрутизаторах провайдера "Триада" (R25, R26) ip адреса.** 
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/NET-TRIADA.png)  
