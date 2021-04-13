@@ -266,9 +266,14 @@ Track 2
   Latest RTT (millisecs) 1
   Tracked by:
     Static IP Routing 0
-  ```  
-  Настроил маршрут по умолчанию для Лабытнанги  
-  ```
+```  
+Настроил маршрут по умолчанию для Лабытнанги  
+```
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+```  
+IP адрес на интерфейсе Et0/0 маршрутизатора R27 - 10.0.0.2  
+
+```
   Current configuration : 1189 bytes
 !
 ! Last configuration change at 15:57:43 +07 Tue Apr 13 2021
