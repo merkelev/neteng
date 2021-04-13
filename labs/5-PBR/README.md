@@ -10,8 +10,8 @@
 **Таблица адресов IPv4 в п. Чокурдах**  
 | Device   | Interface     | IP Address  | Subnet Mask     | Default Gateway | Description   |
 | -------- | ------------- | --------    | --------        | --------        | ------------  |
-| R28      | Et0/1         |             |                 |                 |               |
-|          | Et0/0         |             |                 |                 |               |
+| R28      | Et0/1         | 10.0.0.6    | 255.255.255.252 | 10.0.0.5        | to R25:et0/3  |
+|          | Et0/0         | 10.0.1.6    | 255.255.255.252 | 10.0.1.5        | to R26:et0/1  |
 |          | Et0/2         |             |                 |                 | to SW29:et0/2 |
 |          | Et0/2.32      | 172.20.32.1 | 255.255.255.248 |                 |               |
 |          | Et0/2.34      | 172.20.34.1 | 255.255.255.248 |                 |               |
@@ -340,3 +340,169 @@ end
 ```  
 **Для проверки работы Route-map, PBR, IP SLA я настроил на машрутизаторах провайдера "Триада" (R25, R26) ip адреса.** 
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/NET-TRIADA.png)  
+
+**Конфигурация маршрутизатора R25**  
+```
+Current configuration : 1259 bytes
+!
+! Last configuration change at 15:44:34 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R25
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ description TO-CLIENT-LABYTNANGI
+ ip address 10.0.0.1 255.255.255.252
+!
+interface Ethernet0/2
+ ip address 10.0.1.1 255.255.255.252
+!
+interface Ethernet0/3
+ description TO-CLIENT-CHOK-1
+ ip address 10.0.0.5 255.255.255.252
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 10.0.1.4 255.255.255.252 10.0.1.2
+!
+end
+```  
+**Таблица маршрутизации R25**  
+```
+Gateway of last resort is not set
+
+      10.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
+C        10.0.0.0/30 is directly connected, Ethernet0/1
+L        10.0.0.1/32 is directly connected, Ethernet0/1
+C        10.0.0.4/30 is directly connected, Ethernet0/3
+L        10.0.0.5/32 is directly connected, Ethernet0/3
+C        10.0.1.0/30 is directly connected, Ethernet0/2
+L        10.0.1.1/32 is directly connected, Ethernet0/2
+S        10.0.1.4/30 [1/0] via 10.0.1.2
+```  
+
+**Конфигурация маршрутизатора R26**  
+```
+Current configuration : 1208 bytes
+!
+! Last configuration change at 16:43:15 +07 Tue Apr 13 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R26
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ description TO-CLIENT-2
+ ip address 10.0.1.5 255.255.255.252
+!
+interface Ethernet0/2
+ ip address 10.0.1.2 255.255.255.252
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 10.0.0.0 255.255.255.252 10.0.1.1
+!
+end
+```  
+**Таблица маршрутизации R26**  
+```
+Gateway of last resort is not set
+
+      10.0.0.0/8 is variably subnetted, 5 subnets, 2 masks
+S        10.0.0.0/30 [1/0] via 10.0.1.1
+C        10.0.1.0/30 is directly connected, Ethernet0/2
+L        10.0.1.2/32 is directly connected, Ethernet0/2
+C        10.0.1.4/30 is directly connected, Ethernet0/1
+L        10.0.1.5/32 is directly connected, Ethernet0/1
+```  
