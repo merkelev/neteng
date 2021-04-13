@@ -56,9 +56,9 @@
 **Конфигурации коммутаторов:**  
 **SW3**  
 ```
-Current configuration : 1755 bytes
+Current configuration : 1774 bytes
 !
-! Last configuration change at 16:07:20 +07 Sat Apr 10 2021
+! Last configuration change at 11:22:47 +07 Tue Apr 13 2021
 !
 version 15.2
 service timestamps debug datetime msec
@@ -71,23 +71,14 @@ hostname SW3
 boot-start-marker
 boot-end-marker
 !
-!
-!
 no aaa new-model
 clock timezone +07 7 0
 !
-!
-!
-!
-!
 vtp mode transparent
 !
-!
-!
+no ip domain-lookup
 ip cef
 no ipv6 cef
-!
-!
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
@@ -154,16 +145,18 @@ interface Vlan1
  shutdown
 !
 interface Vlan9
- ip address 172.17.9.12 255.255.255.240
+ ip address 172.18.9.3 255.255.255.248
 !
 ip forward-protocol nd
+!
+end
 ```
 
 **SW2**  
 ```
-Current configuration : 1679 bytes
+Current configuration : 1698 bytes
 !
-! Last configuration change at 16:06:31 +07 Sat Apr 10 2021
+! Last configuration change at 11:26:25 +07 Tue Apr 13 2021
 !
 version 15.2
 service timestamps debug datetime msec
@@ -181,6 +174,7 @@ clock timezone +07 7 0
 !
 vtp mode transparent
 !
+no ip domain-lookup
 ip cef
 no ipv6 cef
 !
@@ -239,7 +233,7 @@ interface Ethernet1/3
  shutdown
 !
 interface Vlan9
- ip address 172.17.9.13 255.255.255.240
+ ip address 172.18.9.4 255.255.255.248
 !
 ip forward-protocol nd
 !
@@ -248,9 +242,9 @@ end
 
 **SW4**  
 ```
-Current configuration : 1950 bytes
+Current configuration : 1949 bytes
 !
-! Last configuration change at 16:12:46 +07 Sat Apr 10 2021
+! Last configuration change at 11:18:08 +07 Tue Apr 13 2021
 !
 version 15.2
 service timestamps debug datetime msec
@@ -271,7 +265,6 @@ vtp mode transparent
 no ip domain-lookup
 ip cef
 no ipv6 cef
-
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
@@ -307,7 +300,7 @@ interface Ethernet0/1
 interface Ethernet0/2
  description TO-R13-ET0/1
  no switchport
- ip address 172.16.0.10 255.255.255.252
+ ip address 172.18.1.10 255.255.255.252
  duplex auto
 !
 interface Ethernet0/3
@@ -320,7 +313,7 @@ interface Ethernet0/3
 interface Ethernet1/0
  description TO-R12-ET0/0
  no switchport
- ip address 172.16.0.6 255.255.255.252
+ ip address 172.18.1.2 255.255.255.252
  duplex auto
 !
 interface Ethernet1/1
@@ -340,24 +333,23 @@ interface Ethernet1/3
  shutdown
 !
 interface Vlan9
- ip address 172.17.9.10 255.255.255.240
+ ip address 172.18.9.1 255.255.255.248
 !
 interface Vlan12
- ip address 172.17.12.1 255.255.255.248
+ ip address 172.18.12.1 255.255.255.248
 !
 ip forward-protocol nd
 !
-ip route 0.0.0.0 0.0.0.0 Ethernet1/0 172.16.0.5
+ip route 0.0.0.0 0.0.0.0 Ethernet1/0 172.18.1.1
 !
 end
-
 ```
 
 **SW5**  
 ```
-Current configuration : 1887 bytes
+Current configuration : 1907 bytes
 !
-! Last configuration change at 16:11:24 +07 Sat Apr 10 2021
+! Last configuration change at 11:18:35 +07 Tue Apr 13 2021
 !
 version 15.2
 service timestamps debug datetime msec
@@ -375,6 +367,7 @@ clock timezone +07 7 0
 !
 vtp mode transparent
 !
+no ip domain-lookup
 ip cef
 no ipv6 cef
 !
@@ -405,7 +398,7 @@ interface Ethernet0/1
 interface Ethernet0/2
  description TO-R12-ET0/1
  no switchport
- ip address 172.16.0.14 255.255.255.252
+ ip address 172.18.1.6 255.255.255.252
  duplex auto
 !
 interface Ethernet0/3
@@ -418,7 +411,7 @@ interface Ethernet0/3
 interface Ethernet1/0
  description TO-R13-ET0/0
  no switchport
- ip address 172.16.0.2 255.255.255.252
+ ip address 172.18.1.14 255.255.255.252
  duplex auto
 !
 interface Ethernet1/1
@@ -438,17 +431,16 @@ interface Ethernet1/3
  shutdown
 !
 interface Vlan9
- ip address 172.17.9.11 255.255.255.240
+ ip address 172.18.9.2 255.255.255.248
 !
 interface Vlan14
- ip address 172.17.14.1 255.255.255.248
+ ip address 172.18.14.1 255.255.255.248
 !
 ip forward-protocol nd
 !
-ip route 0.0.0.0 0.0.0.0 Ethernet1/0 172.16.0.1
+ip route 0.0.0.0 0.0.0.0 Ethernet1/0 172.18.1.13
 !
 end
-
 ```
 
 **Конфигурации маршрутизаторов**  
