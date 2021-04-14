@@ -865,7 +865,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 ```  
 
 **Схема сети г. Санкт-Петербург**  
-![](https://github.com/merkelev/neteng/blob/main/labs/4-IPv4-IPv6/NET-SP.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/4-IPv4-IPv6/NET-SP2.png)  
 
 Добавил линк между R32 и R17.  
 Удалил один линк между SW9 и SW10.  
