@@ -904,6 +904,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 | 24   | MANAGERS | SW10 Et0/2                 |
 | 54   | PRK-LOT  | SW10 Et0/1, Et1/1 - 3      |
 |      |          | SW9 Et0/1, Et1/1 - 3       |
+| 99   | MNGM-NET | SW9 VLAN99, SW10 VLAN99    |
 
 **Конфигурация маршрутизатора R18**  
 ```
@@ -1205,6 +1206,165 @@ Gateway of last resort is not set
       192.168.18.0/24 is variably subnetted, 2 subnets, 2 masks
 C        192.168.18.8/30 is directly connected, Ethernet0/0
 L        192.168.18.10/32 is directly connected, Ethernet0/0
+```  
+**Конфигурация коммутатора SW9**  
+```
+Current configuration : 1675 bytes
+!
+! Last configuration change at 11:39:21 +07 Wed Apr 14 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW9
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+!
+ip cef
+no ipv6 cef
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface Port-channel1
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/2
+ switchport access vlan 22
+ switchport mode access
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet1/0
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan99
+ ip address 172.22.99.5 255.255.255.128
+!
+end
+```  
+**Конфигураци коммутатора SW10**  
+```
+Current configuration : 1676 bytes
+!
+! Last configuration change at 11:42:38 +07 Wed Apr 14 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW10
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+clock timezone +07 7 0
+!
+ip cef
+no ipv6 cef
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface Port-channel1
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/2
+ switchport access vlan 24
+ switchport mode access
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 1,22,24,99
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet1/0
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/1
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 54
+ switchport mode access
+ shutdown
+!
+interface Vlan99
+ ip address 172.22.99.7 255.255.255.128
+!
+end
 ```  
 
 **Конфигурации рабочих станций**  
