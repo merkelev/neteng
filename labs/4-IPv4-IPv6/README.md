@@ -867,9 +867,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 **Схема сети г. Санкт-Петербург**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/4-IPv4-IPv6/NET-SP2.png)  
 
-Добавил линк между R32 и R17.  
-Удалил один линк между SW9 и SW10.  
-Вся сеть сделана на L3.  
+Добавил линк между R16 и R17.    
 
 Для г. Санкт-Петербург использованы адреса - 172.22.0.0/16  
 
@@ -1066,9 +1064,9 @@ end
 **Конфигурации маршрутизаторов**  
 **R18**  
 ```
-Current configuration : 1004 bytes
+Current configuration : 1002 bytes
 !
-! Last configuration change at 12:07:37 +07 Tue Apr 13 2021
+! Last configuration change at 11:21:44 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -1097,11 +1095,11 @@ redundancy
 !
 interface Ethernet0/0
  description TO-R16-ET0/1
- ip address 192.168.18.1 255.255.255.252
+ ip address 172.22.18.1 255.255.255.252
 !
 interface Ethernet0/1
  description TO-R17-ET0/1
- ip address 192.168.18.5 255.255.255.252
+ ip address 172.22.18.5 255.255.255.252
 !
 interface Ethernet0/2
  no ip address
@@ -1111,18 +1109,16 @@ interface Ethernet0/3
  no ip address
  shutdown
 !
-ip forward-protocol nd
-!
 end
 ```  
 **Таблица маршрутизации на R18**  
 ```
 Gateway of last resort is not set
-      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
-C        192.168.18.0/30 is directly connected, Ethernet0/0
-L        192.168.18.1/32 is directly connected, Ethernet0/0
-C        192.168.18.4/30 is directly connected, Ethernet0/1
-L        192.168.18.5/32 is directly connected, Ethernet0/1
+      172.22.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        172.22.18.0/30 is directly connected, Ethernet0/0
+L        172.22.18.1/32 is directly connected, Ethernet0/0
+C        172.22.18.4/30 is directly connected, Ethernet0/1
+L        172.22.18.5/32 is directly connected, Ethernet0/1
 ```  
 **R17**  
 ```
