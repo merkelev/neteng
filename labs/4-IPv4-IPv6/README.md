@@ -869,7 +869,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 
 Добавил линк между R16 и R17.    
 
-Для г. Санкт-Петербург использованы адреса - 172.22.0.0/16  
+Для г. Санкт-Петербург использованы адреса IPv4 - 172.22.0.0/16 и IPv6 - 2001:DB8:ACAD:1::0/64 
 
 **Таблица адресов IPv4 г. Санкт-Петербург**  
 | Device   | Interface     | IP Address | Subnet Mask | Default Gateway | Description  | 
@@ -907,7 +907,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 |          |                | 2001:DB8:ACAD:1::24:2 | /120 |                       |             |
 |          | Ethernet0/0.99 | 2001:DB8:ACAD:1::99:1 | /120 |                       |             |
 |          |                | 2001:DB8:ACAD:1::99:2 | /120 |                       |             |
-|          | Ethernet0/1    | 2001:DB8:ACAD:1::18:6 | /126 |                       |             |
+|          | Ethernet0/1    | 2001:DB8:ACAD:1::18:6 | /126 | 2001:DB8:ACAD:1::18:5 |             |
 |          | Ethernet0/2    | 2001:DB8:ACAD:1::18:1 | /126 |                       |             |
 |          | Ethernet0/3    | 2001:DB8:ACAD:1::18:D | /126 |                       |             |
 | R17      | Ethernet0/0    |                       |      |                       |             |
@@ -917,7 +917,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 |          |                | 2001:DB8:ACAD:1::24:3 | /120 |                       |             |
 |          | Ethernet0/0.99 | 2001:DB8:ACAD:1::99:1 | /120 |                       |             |
 |          |                | 2001:DB8:ACAD:1::99:3 | /120 |                       |             |
-|          | Ethernet0/1    | 2001:DB8:ACAD:1::18:A | /126 |                       |             |
+|          | Ethernet0/1    | 2001:DB8:ACAD:1::18:A | /126 | 2001:DB8:ACAD:1::18:9 |             |
 |          | Ethernet0/3    | 2001:DB8:ACAD:1::18:E | /126 |                       |             |
 | R32      | Ethernet0/0    | 2001:DB8:ACAD:1::18:2 | /126 |                       |             |
 | SW9      | VLAN99         | 2001:DB8:ACAD:1::99:4 | /120 |                       |             |
@@ -937,9 +937,9 @@ VPCS1  172.18.14.3/29       172.18.14.1
 
 **Конфигурация маршрутизатора R18**  
 ```
-Current configuration : 1002 bytes
+Current configuration : 1082 bytes
 !
-! Last configuration change at 11:21:44 +07 Wed Apr 14 2021
+! Last configuration change at 14:52:33 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -969,10 +969,12 @@ redundancy
 interface Ethernet0/0
  description TO-R16-ET0/1
  ip address 172.22.18.1 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:5/126
 !
 interface Ethernet0/1
  description TO-R17-ET0/1
  ip address 172.22.18.5 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:9/126
 !
 interface Ethernet0/2
  no ip address
@@ -984,7 +986,7 @@ interface Ethernet0/3
 !
 end
 ```  
-**Таблица маршрутизации на R18**  
+**Таблица маршрутизации IPv4 на R18**  
 ```
 Gateway of last resort is not set
       172.22.0.0/16 is variably subnetted, 4 subnets, 2 masks
@@ -993,11 +995,27 @@ L        172.22.18.1/32 is directly connected, Ethernet0/0
 C        172.22.18.4/30 is directly connected, Ethernet0/1
 L        172.22.18.5/32 is directly connected, Ethernet0/1
 ```  
-**R17**  
+**Таблица маршрутизации IPv6 на R18**  
 ```
-Current configuration : 1618 bytes
+ND  ::/0 [2/0]
+     via FE80::A8BB:CCFF:FE01:110, Ethernet0/0
+C   2001:DB8:ACAD:1::18:4/126 [0/0]
+     via Ethernet0/0, directly connected
+L   2001:DB8:ACAD:1::18:5/128 [0/0]
+     via Ethernet0/0, receive
+C   2001:DB8:ACAD:1::18:8/126 [0/0]
+     via Ethernet0/1, directly connected
+L   2001:DB8:ACAD:1::18:9/128 [0/0]
+     via Ethernet0/1, receive
+L   FF00::/8 [0/0]
+     via Null0, receive
+```  
+
+**Конфигурация маршрутизатора R17**  
+```
+Current configuration : 2069 bytes
 !
-! Last configuration change at 10:39:52 +07 Wed Apr 14 2021
+! Last configuration change at 15:02:44 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -1018,7 +1036,8 @@ mmi snmp-timeout 180
 !
 no ip domain lookup
 ip cef
-no ipv6 cef
+ipv6 unicast-routing
+ipv6 cef
 !
 multilink bundle-name authenticated
 !
@@ -1037,6 +1056,9 @@ interface Ethernet0/0.22
  standby version 2
  standby 22 ip 172.22.22.1
  standby 22 preempt
+ standby 222 ipv6 2001:DB8:ACAD:1::22:1/120
+ standby 222 preempt
+ ipv6 address 2001:DB8:ACAD:1::22:3/120
 !
 interface Ethernet0/0.24
  encapsulation dot1Q 24
@@ -1044,6 +1066,9 @@ interface Ethernet0/0.24
  standby version 2
  standby 24 ip 172.22.24.1
  standby 24 preempt
+ standby 224 ipv6 2001:DB8:ACAD:1::24:1/120
+ standby 224 preempt
+ ipv6 address 2001:DB8:ACAD:1::24:3/120
 !
 interface Ethernet0/0.99
  encapsulation dot1Q 99
@@ -1051,10 +1076,14 @@ interface Ethernet0/0.99
  standby version 2
  standby 99 ip 172.22.99.1
  standby 99 preempt
+ standby 999 ipv6 2001:DB8:ACAD:1::99:1/120
+ standby 999 preempt
+ ipv6 address 2001:DB8:ACAD:1::99:3/120
 !
 interface Ethernet0/1
  description TO-R18-ET0/1
  ip address 172.22.18.6 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:A/126
 !
 interface Ethernet0/2
  no ip address
@@ -1063,12 +1092,19 @@ interface Ethernet0/2
 interface Ethernet0/3
  description TO-R16-ET0/3
  ip address 172.22.18.14 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:E/126
 !
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
 ip route 0.0.0.0 0.0.0.0 172.22.18.5
+!
+ipv6 route ::/0 2001:DB8:ACAD:1::18:9
 !
 end
 ```  
-**Таблица маршутизации на R17**  
+**Таблица маршутизации IPv4 на R17**  
 ```
 Gateway of last resort is 172.22.18.5 to network 0.0.0.0
 S*    0.0.0.0/0 [1/0] via 172.22.18.5
@@ -1086,12 +1122,39 @@ L        172.22.24.3/32 is directly connected, Ethernet0/0.24
 C        172.22.99.0/25 is directly connected, Ethernet0/0.99
 L        172.22.99.3/32 is directly connected, Ethernet0/0.99
 ```  
+**Таблица маршрутизации IPv6 на R17**  
+```
+S   ::/0 [1/0]
+     via 2001:DB8:ACAD:1::18:9
+C   2001:DB8:ACAD:1::18:8/126 [0/0]
+     via Ethernet0/1, directly connected
+L   2001:DB8:ACAD:1::18:A/128 [0/0]
+     via Ethernet0/1, receive
+C   2001:DB8:ACAD:1::18:C/126 [0/0]
+     via Ethernet0/3, directly connected
+L   2001:DB8:ACAD:1::18:E/128 [0/0]
+     via Ethernet0/3, receive
+C   2001:DB8:ACAD:1::22:0/120 [0/0]
+     via Ethernet0/0.22, directly connected
+L   2001:DB8:ACAD:1::22:3/128 [0/0]
+     via Ethernet0/0.22, receive
+C   2001:DB8:ACAD:1::24:0/120 [0/0]
+     via Ethernet0/0.24, directly connected
+L   2001:DB8:ACAD:1::24:3/128 [0/0]
+     via Ethernet0/0.24, receive
+C   2001:DB8:ACAD:1::99:0/120 [0/0]
+     via Ethernet0/0.99, directly connected
+L   2001:DB8:ACAD:1::99:3/128 [0/0]
+     via Ethernet0/0.99, receive
+L   FF00::/8 [0/0]
+     via Null0, receive
+```  
 
 **Конфигурация маршрутизатора R16**  
 ```
-Current configuration : 1680 bytes
+Current configuration : 2090 bytes
 !
-! Last configuration change at 11:21:27 +07 Wed Apr 14 2021
+! Last configuration change at 15:03:13 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -1112,7 +1175,8 @@ mmi snmp-timeout 180
 !
 no ip domain lookup
 ip cef
-no ipv6 cef
+ipv6 unicast-routing
+ipv6 cef
 !
 multilink bundle-name authenticated
 !
@@ -1120,10 +1184,7 @@ redundancy
 !
 interface Ethernet0/0
  description TO-SW10-ET0/3
- ip address 172.22.20.2 255.255.255.128
- standby version 2
- standby 20 ip 172.22.20.1
- standby 20 priority 120
+ no ip address
 !
 interface Ethernet0/0.22
  encapsulation dot1Q 22
@@ -1131,6 +1192,9 @@ interface Ethernet0/0.22
  standby version 2
  standby 22 ip 172.22.22.1
  standby 22 priority 120
+ standby 222 ipv6 2001:DB8:ACAD:1::22:1/120
+ standby 222 priority 120
+ ipv6 address 2001:DB8:ACAD:1::22:2/120
 !
 interface Ethernet0/0.24
  encapsulation dot1Q 24
@@ -1138,6 +1202,9 @@ interface Ethernet0/0.24
  standby version 2
  standby 24 ip 172.22.24.1
  standby 24 priority 120
+ standby 224 ipv6 2001:DB8:ACAD:1::24:1/120
+ standby 224 priority 120
+ ipv6 address 2001:DB8:ACAD:1::24:2/120
 !
 interface Ethernet0/0.99
  encapsulation dot1Q 99
@@ -1145,36 +1212,46 @@ interface Ethernet0/0.99
  standby version 2
  standby 99 ip 172.22.99.1
  standby 99 priority 120
+ standby 999 ipv6 2001:DB8:ACAD:1::99:1/120
+ standby 999 priority 120
+ ipv6 address 2001:DB8:ACAD:1::99:2/120
 !
 interface Ethernet0/1
  description TO-R18-ET0/0
  ip address 172.22.18.2 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:6/126
 !
 interface Ethernet0/2
  description TO-R32-ET0/0
  ip address 172.22.18.9 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:1/126
 !
 interface Ethernet0/3
  description TO-R17-ET0/3
  ip address 172.22.18.13 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:D/126
 !
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
 ip route 0.0.0.0 0.0.0.0 172.22.18.1
+!
+ipv6 route ::/0 2001:DB8:ACAD:1::18:5
 !
 end
 ```  
-**Таблица маршрутизации на R16**  
+**Таблица маршрутизации IPv4 на R16**  
 ```
 Gateway of last resort is 172.22.18.1 to network 0.0.0.0
 S*    0.0.0.0/0 [1/0] via 172.22.18.1
-      172.22.0.0/16 is variably subnetted, 14 subnets, 3 masks
+      172.22.0.0/16 is variably subnetted, 12 subnets, 3 masks
 C        172.22.18.0/30 is directly connected, Ethernet0/1
 L        172.22.18.2/32 is directly connected, Ethernet0/1
 C        172.22.18.8/30 is directly connected, Ethernet0/2
 L        172.22.18.9/32 is directly connected, Ethernet0/2
 C        172.22.18.12/30 is directly connected, Ethernet0/3
 L        172.22.18.13/32 is directly connected, Ethernet0/3
-C        172.22.20.0/25 is directly connected, Ethernet0/0
-L        172.22.20.2/32 is directly connected, Ethernet0/0
 C        172.22.22.0/25 is directly connected, Ethernet0/0.22
 L        172.22.22.2/32 is directly connected, Ethernet0/0.22
 C        172.22.24.0/25 is directly connected, Ethernet0/0.24
@@ -1182,9 +1259,49 @@ L        172.22.24.2/32 is directly connected, Ethernet0/0.24
 C        172.22.99.0/25 is directly connected, Ethernet0/0.99
 L        172.22.99.2/32 is directly connected, Ethernet0/0.99
 ```  
+**Таблица маршрутизации IPv6 на R16**  
+```
+S   ::/0 [1/0]
+     via 2001:DB8:ACAD:1::18:5
+C   2001:DB8:ACAD:1::18:0/126 [0/0]
+     via Ethernet0/2, directly connected
+L   2001:DB8:ACAD:1::18:1/128 [0/0]
+     via Ethernet0/2, receive
+C   2001:DB8:ACAD:1::18:4/126 [0/0]
+     via Ethernet0/1, directly connected
+L   2001:DB8:ACAD:1::18:6/128 [0/0]
+     via Ethernet0/1, receive
+C   2001:DB8:ACAD:1::18:C/126 [0/0]
+     via Ethernet0/3, directly connected
+L   2001:DB8:ACAD:1::18:D/128 [0/0]
+     via Ethernet0/3, receive
+C   2001:DB8:ACAD:1::22:0/120 [0/0]
+     via Ethernet0/0.22, directly connected
+L   2001:DB8:ACAD:1::22:1/128 [0/0]
+     via Ethernet0/0.22, receive
+L   2001:DB8:ACAD:1::22:2/128 [0/0]
+     via Ethernet0/0.22, receive
+C   2001:DB8:ACAD:1::24:0/120 [0/0]
+     via Ethernet0/0.24, directly connected
+L   2001:DB8:ACAD:1::24:1/128 [0/0]
+     via Ethernet0/0.24, receive
+L   2001:DB8:ACAD:1::24:2/128 [0/0]
+     via Ethernet0/0.24, receive
+C   2001:DB8:ACAD:1::99:0/120 [0/0]
+     via Ethernet0/0.99, directly connected
+L   2001:DB8:ACAD:1::99:1/128 [0/0]
+     via Ethernet0/0.99, receive
+L   2001:DB8:ACAD:1::99:2/128 [0/0]
+     via Ethernet0/0.99, receive
+L   FF00::/8 [0/0]
+     via Null0, receive
+```  
+
 **R32**  
 ```
-Current configuration : 901 bytes
+Current configuration : 1003 bytes
+!
+! Last configuration change at 14:41:20 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -1214,6 +1331,7 @@ redundancy
 interface Ethernet0/0
  description TO-R16-ET0/2
  ip address 192.168.18.10 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:1::18:2/126
 !
 interface Ethernet0/1
  no ip address
@@ -1227,20 +1345,34 @@ interface Ethernet0/3
  no ip address
  shutdown
 !
+ip forward-protocol nd
+!
 end
 ```  
-**Таблица маршрутизации на R32**  
+**Таблица маршрутизации IPv4 на R32**  
 ```
 Gateway of last resort is not set
       192.168.18.0/24 is variably subnetted, 2 subnets, 2 masks
 C        192.168.18.8/30 is directly connected, Ethernet0/0
 L        192.168.18.10/32 is directly connected, Ethernet0/0
 ```  
+**Таблица маршрутизации IPv6 на R32**  
+```
+ND  ::/0 [2/0]
+     via FE80::A8BB:CCFF:FE01:120, Ethernet0/0
+C   2001:DB8:ACAD:1::18:0/126 [0/0]
+     via Ethernet0/0, directly connected
+L   2001:DB8:ACAD:1::18:2/128 [0/0]
+     via Ethernet0/0, receive
+L   FF00::/8 [0/0]
+     via Null0, receive
+```  
+
 **Конфигурация коммутатора SW9**  
 ```
-Current configuration : 1675 bytes
+Current configuration : 1733 bytes
 !
-! Last configuration change at 11:39:21 +07 Wed Apr 14 2021
+! Last configuration change at 13:58:39 +07 Wed Apr 14 2021
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1257,8 +1389,8 @@ no aaa new-model
 clock timezone +07 7 0
 !
 ip cef
-no ipv6 cef
-!
+ipv6 unicast-routing
+ipv6 cef
 !
 spanning-tree mode pvst
 spanning-tree extend system-id
@@ -1313,14 +1445,15 @@ interface Ethernet1/3
 !
 interface Vlan99
  ip address 172.22.99.5 255.255.255.128
+ ipv6 address 2001:DB8:ACAD:1::99:4/120
 !
 end
 ```  
 **Конфигураци коммутатора SW10**  
 ```
-Current configuration : 1676 bytes
+Current configuration : 1734 bytes
 !
-! Last configuration change at 11:42:38 +07 Wed Apr 14 2021
+! Last configuration change at 13:56:15 +07 Wed Apr 14 2021
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1337,7 +1470,8 @@ no aaa new-model
 clock timezone +07 7 0
 !
 ip cef
-no ipv6 cef
+ipv6 unicast-routing
+ipv6 cef
 !
 spanning-tree mode pvst
 spanning-tree extend system-id
@@ -1392,6 +1526,7 @@ interface Ethernet1/3
 !
 interface Vlan99
  ip address 172.22.99.7 255.255.255.128
+ ipv6 address 2001:DB8:ACAD:1::99:5/120
 !
 end
 ```  
@@ -1402,6 +1537,7 @@ end
 NAME   IP/MASK              GATEWAY                             GATEWAY
 VPCS1  172.22.22.6/25       172.22.22.1
        fe80::250:79ff:fe66:6808/64
+       2001:db8:acad:1::22:8/120
 ```  
 
 **VPC**  
@@ -1409,4 +1545,5 @@ VPCS1  172.22.22.6/25       172.22.22.1
 NAME   IP/MASK              GATEWAY                             GATEWAY
 VPCS1  172.22.24.6/25       172.22.24.1
        fe80::250:79ff:fe66:680b/64
+       2001:db8:acad:1::24:8/120
 ```
