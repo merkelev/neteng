@@ -1210,11 +1210,14 @@ L        192.168.18.10/32 is directly connected, Ethernet0/0
 **Конфигурации рабочих станций**  
 **VPC8**  
 ```
-
+NAME   IP/MASK              GATEWAY                             GATEWAY
+VPCS1  172.22.22.6/25       172.22.22.1
+       fe80::250:79ff:fe66:6808/64
 ```  
 
 **VPC**  
 ```
 NAME   IP/MASK              GATEWAY                             GATEWAY
-
+VPCS1  172.22.24.6/25       172.22.24.1
+       fe80::250:79ff:fe66:680b/64
 ```
