@@ -905,164 +905,7 @@ VPCS1  172.18.14.3/29       172.18.14.1
 | 54   | PRK-LOT  | SW10 Et0/1, Et1/1 - 3      |
 |      |          | SW9 Et0/1, Et1/1 - 3       |
 
-**Конфигурации коммутаторов**  
-**SW9**  
-```
-Current configuration : 1462 bytes
-!
-! Last configuration change at 12:40:28 +07 Tue Apr 13 2021
-!
-version 15.2
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-service compress-config
-!
-hostname SW9
-!
-boot-start-marker
-boot-end-marker
-!
-no aaa new-model
-clock timezone +07 7 0
-!
-no ip domain-lookup
-ip cef
-no ipv6 cef
-!
-spanning-tree mode pvst
-spanning-tree extend system-id
-!
-vlan internal allocation policy ascending
-!
-interface Ethernet0/0
- description TO-SW10-ET0/0
- no switchport
- ip address 192.168.20.10 255.255.255.252
- duplex auto
-!
-interface Ethernet0/1
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Ethernet0/2
- switchport access vlan 22
- switchport mode access
-!
-interface Ethernet0/3
- description TO-R17-ET0/0
- no switchport
- ip address 192.168.20.13 255.255.255.252
- duplex auto
-!
-interface Ethernet1/0
- no switchport
- ip address 192.168.20.2 255.255.255.252
- duplex auto
-!
-interface Ethernet1/1
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Ethernet1/2
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Ethernet1/3
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Vlan22
- ip address 192.168.22.1 255.255.255.248
-!
-ip forward-protocol nd
-!
-end
-```  
-
-**SW10**  
-```
-Current configuration : 1487 bytes
-!
-! Last configuration change at 12:41:00 +07 Tue Apr 13 2021
-!
-version 15.2
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-service compress-config
-!
-hostname SW10
-!
-boot-start-marker
-boot-end-marker
-!
-no aaa new-model
-clock timezone +07 7 0
-!
-no ip domain-lookup
-ip cef
-no ipv6 cef
-!
-spanning-tree mode pvst
-spanning-tree extend system-id
-!
-vlan internal allocation policy ascending
-!
-interface Ethernet0/0
- description TO-SW9-ET0/0
- no switchport
- ip address 192.168.20.9 255.255.255.252
- duplex auto
-!
-interface Ethernet0/1
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Ethernet0/2
- switchport access vlan 24
- switchport mode access
-!
-interface Ethernet0/3
- description To-R16-ET0/0
- no switchport
- ip address 192.168.20.17 255.255.255.252
- duplex auto
-!
-interface Ethernet1/0
- description TO-R32-ET0/3
- no switchport
- ip address 192.168.20.6 255.255.255.252
- duplex auto
-!
-interface Ethernet1/1
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Ethernet1/2
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Ethernet1/3
- switchport access vlan 54
- switchport mode access
- shutdown
-!
-interface Vlan24
- ip address 192.168.24.1 255.255.255.248
-!
-end
-```  
-
-**Конфигурации маршрутизаторов**  
-**R18**  
+**Конфигурация маршрутизатора R18**  
 ```
 Current configuration : 1002 bytes
 !
@@ -1122,9 +965,9 @@ L        172.22.18.5/32 is directly connected, Ethernet0/1
 ```  
 **R17**  
 ```
-Current configuration : 1048 bytes
+Current configuration : 1618 bytes
 !
-! Last configuration change at 12:25:06 +07 Tue Apr 13 2021
+! Last configuration change at 10:39:52 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -1153,42 +996,72 @@ redundancy
 !
 interface Ethernet0/0
  description TO-SW9-ET0/3
- ip address 192.168.20.14 255.255.255.252
+ ip address 172.22.20.3 255.255.255.128
+ standby version 2
+ standby 20 ip 172.22.20.1
+ standby 20 preempt
+!
+interface Ethernet0/0.22
+ encapsulation dot1Q 22
+ ip address 172.22.22.3 255.255.255.128
+ standby version 2
+ standby 22 ip 172.22.22.1
+ standby 22 preempt
+!
+interface Ethernet0/0.24
+ encapsulation dot1Q 24
+ ip address 172.22.24.3 255.255.255.128
+ standby version 2
+ standby 24 ip 172.22.24.1
+ standby 24 preempt
+!
+interface Ethernet0/0.99
+ encapsulation dot1Q 99
+ ip address 172.22.99.3 255.255.255.128
+ standby version 2
+ standby 99 ip 172.22.99.1
+ standby 99 preempt
 !
 interface Ethernet0/1
  description TO-R18-ET0/1
- ip address 192.168.18.6 255.255.255.252
+ ip address 172.22.18.6 255.255.255.252
 !
 interface Ethernet0/2
- description TO-R32_ET0/1
- ip address 192.168.18.13 255.255.255.252
-!
-interface Ethernet0/3
  no ip address
  shutdown
 !
-ip forward-protocol nd
+interface Ethernet0/3
+ description TO-R16-ET0/3
+ ip address 172.22.18.14 255.255.255.252
+!
+ip route 0.0.0.0 0.0.0.0 172.22.18.5
 !
 end
 ```  
 **Таблица маршутизации на R17**  
 ```
-Gateway of last resort is not set
-      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
-C        192.168.18.4/30 is directly connected, Ethernet0/1
-L        192.168.18.6/32 is directly connected, Ethernet0/1
-C        192.168.18.12/30 is directly connected, Ethernet0/2
-L        192.168.18.13/32 is directly connected, Ethernet0/2
-      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
-C        192.168.20.12/30 is directly connected, Ethernet0/0
-L        192.168.20.14/32 is directly connected, Ethernet0/0
+Gateway of last resort is 172.22.18.5 to network 0.0.0.0
+S*    0.0.0.0/0 [1/0] via 172.22.18.5
+      172.22.0.0/16 is variably subnetted, 12 subnets, 3 masks
+C        172.22.18.4/30 is directly connected, Ethernet0/1
+L        172.22.18.6/32 is directly connected, Ethernet0/1
+C        172.22.18.12/30 is directly connected, Ethernet0/3
+L        172.22.18.14/32 is directly connected, Ethernet0/3
+C        172.22.20.0/25 is directly connected, Ethernet0/0
+L        172.22.20.3/32 is directly connected, Ethernet0/0
+C        172.22.22.0/25 is directly connected, Ethernet0/0.22
+L        172.22.22.3/32 is directly connected, Ethernet0/0.22
+C        172.22.24.0/25 is directly connected, Ethernet0/0.24
+L        172.22.24.3/32 is directly connected, Ethernet0/0.24
+C        172.22.99.0/25 is directly connected, Ethernet0/0.99
+L        172.22.99.3/32 is directly connected, Ethernet0/0.99
 ```  
 
-**R16**  
+**Конфигурация маршрутизатора R16**  
 ```
-Current configuration : 1048 bytes
+Current configuration : 1680 bytes
 !
-! Last configuration change at 12:27:27 +07 Tue Apr 13 2021
+! Last configuration change at 11:21:27 +07 Wed Apr 14 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -1217,33 +1090,67 @@ redundancy
 !
 interface Ethernet0/0
  description TO-SW10-ET0/3
- ip address 192.168.20.18 255.255.255.252
+ ip address 172.22.20.2 255.255.255.128
+ standby version 2
+ standby 20 ip 172.22.20.1
+ standby 20 priority 120
+!
+interface Ethernet0/0.22
+ encapsulation dot1Q 22
+ ip address 172.22.22.2 255.255.255.128
+ standby version 2
+ standby 22 ip 172.22.22.1
+ standby 22 priority 120
+!
+interface Ethernet0/0.24
+ encapsulation dot1Q 24
+ ip address 172.22.24.2 255.255.255.128
+ standby version 2
+ standby 24 ip 172.22.24.1
+ standby 24 priority 120
+!
+interface Ethernet0/0.99
+ encapsulation dot1Q 99
+ ip address 172.22.99.2 255.255.255.128
+ standby version 2
+ standby 99 ip 172.22.99.1
+ standby 99 priority 120
 !
 interface Ethernet0/1
  description TO-R18-ET0/0
- ip address 192.168.18.2 255.255.255.252
+ ip address 172.22.18.2 255.255.255.252
 !
 interface Ethernet0/2
  description TO-R32-ET0/0
- ip address 192.168.18.9 255.255.255.252
+ ip address 172.22.18.9 255.255.255.252
 !
 interface Ethernet0/3
- no ip address
- shutdown
+ description TO-R17-ET0/3
+ ip address 172.22.18.13 255.255.255.252
+!
+ip route 0.0.0.0 0.0.0.0 172.22.18.1
 !
 end
 ```  
 **Таблица маршрутизации на R16**  
 ```
-Gateway of last resort is not set
-      192.168.18.0/24 is variably subnetted, 4 subnets, 2 masks
-C        192.168.18.0/30 is directly connected, Ethernet0/1
-L        192.168.18.2/32 is directly connected, Ethernet0/1
-C        192.168.18.8/30 is directly connected, Ethernet0/2
-L        192.168.18.9/32 is directly connected, Ethernet0/2
-      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
-C        192.168.20.16/30 is directly connected, Ethernet0/0
-L        192.168.20.18/32 is directly connected, Ethernet0/0
+Gateway of last resort is 172.22.18.1 to network 0.0.0.0
+S*    0.0.0.0/0 [1/0] via 172.22.18.1
+      172.22.0.0/16 is variably subnetted, 14 subnets, 3 masks
+C        172.22.18.0/30 is directly connected, Ethernet0/1
+L        172.22.18.2/32 is directly connected, Ethernet0/1
+C        172.22.18.8/30 is directly connected, Ethernet0/2
+L        172.22.18.9/32 is directly connected, Ethernet0/2
+C        172.22.18.12/30 is directly connected, Ethernet0/3
+L        172.22.18.13/32 is directly connected, Ethernet0/3
+C        172.22.20.0/25 is directly connected, Ethernet0/0
+L        172.22.20.2/32 is directly connected, Ethernet0/0
+C        172.22.22.0/25 is directly connected, Ethernet0/0.22
+L        172.22.22.2/32 is directly connected, Ethernet0/0.22
+C        172.22.24.0/25 is directly connected, Ethernet0/0.24
+L        172.22.24.2/32 is directly connected, Ethernet0/0.24
+C        172.22.99.0/25 is directly connected, Ethernet0/0.99
+L        172.22.99.2/32 is directly connected, Ethernet0/0.99
 ```  
 **R32**  
 ```
