@@ -1198,6 +1198,10 @@ VPCS1  172.18.14.10/25      172.18.14.1
 |      |          | SW9 Et0/1, Et1/1 - 3       |
 | 99   | MNGM-NET | SW9 VLAN99, SW10 VLAN99    |
 
+**На маршрутизаторах R17 и R16 настроен HSRP для IPv4 и IPv6.**  
+![](https://github.com/merkelev/neteng/blob/main/labs/4-IPv4-IPv6/HSRP-R16.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/4-IPv4-IPv6/HSRP-R17.png)  
+
 **Конфигурация маршрутизатора R18**  
 ```
 Current configuration : 1082 bytes
