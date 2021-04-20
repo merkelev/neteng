@@ -281,18 +281,21 @@ ip sla schedule 2 life forever start-time now
 R28#sh track
 Track 1
   IP SLA 1 reachability
-  Reachability is Down
-    5 changes, last change 00:12:50
-  Latest operation return code: Timeout
+  Reachability is Up
+    4 changes, last change 00:21:22
+  Latest operation return code: OK
+  Latest RTT (millisecs) 1
   Tracked by:
+    Route Map 0
     Static IP Routing 0
 Track 2
   IP SLA 2 reachability
   Reachability is Up
-    2 changes, last change 00:34:25
+    4 changes, last change 00:21:37
   Latest operation return code: OK
   Latest RTT (millisecs) 1
   Tracked by:
+    Route Map 0
     Static IP Routing 0
 ```  
 Настроил маршрут по умолчанию для Лабытнанги  
