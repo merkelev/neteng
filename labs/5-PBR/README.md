@@ -574,6 +574,5 @@ L        10.0.1.5/32 is directly connected, Ethernet0/1
 
 **Включаю интерфейс Et0/1 на маршрутизаторе R26**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/R26-ET0-1-UP.png)  
-**Проверяю IP SLA, track и дефолтный маршрут на маршрутизаторе R28**  
-![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK-AFTER.png)  
-![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-ROUTE-AFTER.png)  
+**Проверяю IP SLA, track и дефолтный маршрут на маршрутизаторе R28**   
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK-IP-ROUTE-R28-AFTER.png)  
