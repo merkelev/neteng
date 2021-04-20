@@ -96,9 +96,9 @@ end
 
 **Конфигурация маршрутизатора R28**  
 ```
-Current configuration : 2466 bytes
+Current configuration : 2877 bytes
 !
-! Last configuration change at 16:25:01 +07 Tue Apr 13 2021
+! Last configuration change at 11:32:03 +07 Tue Apr 20 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -149,12 +149,14 @@ interface Ethernet0/2.32
  ip address 172.20.32.1 255.255.255.248
  ip nat inside
  ip virtual-reassembly in
+ ip policy route-map PBR
 !
 interface Ethernet0/2.34
  encapsulation dot1Q 34
  ip address 172.20.34.1 255.255.255.248
  ip nat inside
  ip virtual-reassembly in
+ ip policy route-map PBR
 !
 interface Ethernet0/2.99
  encapsulation dot1Q 99
@@ -188,7 +190,7 @@ ip nat translation timeout 5
 ip nat inside source route-map RM-ISP-1 interface Ethernet0/0 overload
 ip nat inside source route-map RM-ISP-2 interface Ethernet0/1 overload
 ip route 0.0.0.0 0.0.0.0 10.0.1.5 track 1
-ip route 0.0.0.0 0.0.0.0 10.0.0.5 2 track 2
+ip route 0.0.0.0 0.0.0.0 10.0.0.5 10 track 2
 !
 ip access-list extended ACL-NAT-32
  permit ip 172.20.32.0 0.0.0.7 any
@@ -198,24 +200,34 @@ ip access-list extended ACL-NAT-34
 ip sla 1
  icmp-echo 10.0.1.5 source-ip 10.0.1.6
  frequency 30
-ip sla schedule 1 start-time now
+ip sla schedule 1 life forever start-time now
 ip sla 2
  icmp-echo 10.0.0.5 source-ip 10.0.0.6
  frequency 30
-ip sla schedule 2 start-time now
+ip sla schedule 2 life forever start-time now
+!
+route-map PBR permit 10
+ match ip address ACL-NAT-32
+ set ip next-hop verify-availability 10.0.1.5 1 track 1
+ set ip next-hop verify-availability 10.0.0.5 2 track 2
+!
+route-map PBR permit 20
+ match ip address ACL-NAT-34
+ set ip next-hop verify-availability 10.0.0.5 1 track 2
+ set ip next-hop verify-availability 10.0.1.5 2 track 1
 !
 route-map RM-ISP-1 permit 10
  match ip address ACL-NAT-32 ACL-NAT-34
  match interface Ethernet0/0
 !
 route-map RM-ISP-2 permit 10
- match ip address ACL-NAT-32 ACL-NAT-34
+ match ip address ACL-NAT-34 ACL-NAT-32
  match interface Ethernet0/1
 !
 end
 ```  
 
-Настроил маршрутные карты  
+Настроил маршрутные карты для NAT  
 ```
 route-map RM-ISP-1 permit 10
  match ip address ACL-NAT-32 ACL-NAT-34
@@ -226,13 +238,28 @@ route-map RM-ISP-2 permit 10
  match interface Ethernet0/1
 !
 ```  
-Весь трафик идет через первого провайдера (интерфейс Et0/0) в случае отказа первого провайдера, трафик идет через второго провайдера (интерфейс Et0/1)  
+
+Настроил маршрутную карту для PBR  
+```
+route-map PBR permit 10
+ match ip address ACL-NAT-32
+ set ip next-hop verify-availability 10.0.1.5 1 track 1
+ set ip next-hop verify-availability 10.0.0.5 2 track 2
+!
+route-map PBR permit 20
+ match ip address ACL-NAT-34
+ set ip next-hop verify-availability 10.0.0.5 1 track 2
+ set ip next-hop verify-availability 10.0.1.5 2 track 1
+!
+```  
+
+Трафик сети 172.20.32.0/29 (VLAN32) идет через первого провайдера (интерфейс Et0/0). Трафик сети 172.20.34.0/29 (VLAN34) идет через второго провайдера (интерфейс Et0/1). В случае отказа первого провайдера, трафик сети 172.20.32.0/29 идет через второго провайдера, а в случае отказа второго провайдера трафик сети 172.20.34.0/29 идет через первого провайдера.  
 Маршруты и NAT  
 ```
 ip nat inside source route-map RM-ISP-1 interface Ethernet0/0 overload
 ip nat inside source route-map RM-ISP-2 interface Ethernet0/1 overload
 ip route 0.0.0.0 0.0.0.0 10.0.1.5 track 1
-ip route 0.0.0.0 0.0.0.0 10.0.0.5 2 track 2
+ip route 0.0.0.0 0.0.0.0 10.0.0.5 10 track 2
 ```  
 
 Настроил отслеживание линков через IP SLA    
@@ -240,11 +267,11 @@ ip route 0.0.0.0 0.0.0.0 10.0.0.5 2 track 2
 ip sla 1
  icmp-echo 10.0.1.5 source-ip 10.0.1.6
  frequency 30
-ip sla schedule 1 start-time now
+ip sla schedule 1 life forever start-time now
 ip sla 2
  icmp-echo 10.0.0.5 source-ip 10.0.0.6
  frequency 30
-ip sla schedule 2 start-time now
+ip sla schedule 2 life forever start-time now
 !
 ```  
 
