@@ -551,21 +551,26 @@ L        10.0.1.5/32 is directly connected, Ethernet0/1
 
 Как видим хост VPC30 идет через первого провайдера, хост VPC31 идет через второго провайдера.  
 
+**Таблица маршрутизации на R28**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-ROUTE-R28-BEFORE.png)  
+
 **Проверяем IP SLA и track**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK.png)  
 
-**Сейчас весь трафик идет через первого провайдера. Отключаем интерфейс Et0/1 на маршрутизаторе R26**  
+**Отключаю интерфейс Et0/1 на маршрутизаторе R26**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/R26-Et0-1-DOWN.png)  
 
 **Проверяем IP SLA и track**  
-![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK-DOWN.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/SH-IP-SLA-TRACK.png)  
 
 **Смотрим таблицу маршрутизации на R28**  
-![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/R28-IP-ROUTE.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-ROUTE-R28-AFTER.png)  
 
 **Видим что дефолтный шлюз изменился.  
 Проверяю доступность R27 запустив пинг с рабочей станции VPC31 и VPC30**  
-![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PING-R27.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PING-VPC30-VPC31-TO-R27.png)  
+
+Обе сети идут через второго провайдера.  
 
 **Включаю интерфейс Et0/1 на маршрутизаторе R26**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/R26-ET0-1-UP.png)  
