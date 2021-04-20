@@ -544,7 +544,12 @@ L        10.0.1.5/32 is directly connected, Ethernet0/1
 ```  
 
 **Запускаю пинг с рабочей станции VPC31 до маршрутизатора R27**  
-![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PING.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PINGVPC31-TO-R27.png)  
+
+**Запускаю пинг с рабочей станции VPC30 до маршрутизатора R27**  
+![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/PING-VPC30-TO-R27.png)
+
+Как видим хост VPC30 идет через первого провайдера, хост VPC31 идет через второго провайдера.  
 
 **Проверяем IP SLA и track**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/5-PBR/IP-SLA-TRACK.png)  
