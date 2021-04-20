@@ -239,7 +239,7 @@ route-map RM-ISP-2 permit 10
 !
 ```  
 
-Настроил маршрутную карту для PBR  
+Настроил маршрутную карту для PBR и привязал к интерфейсам Ethernet0/2.32, Ethernet0/2.34  
 ```
 route-map PBR permit 10
  match ip address ACL-NAT-32
