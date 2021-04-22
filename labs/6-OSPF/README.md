@@ -56,7 +56,7 @@ router ospf 10
 !
 ```  
 
-Интерфейс Et0/0 и Et0/1 находятся в зоне 0. Интерфейс Et0/3 находиться в зоне 101. 
+Интерфейс Et0/0 и Et0/1 находятся в зоне 0. Интерфейс Et0/3 находиться в зоне 101.  
 Таблица маршрутизации IPv4 и IPv6:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R14.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R14.png)  
