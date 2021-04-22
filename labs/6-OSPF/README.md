@@ -244,8 +244,8 @@ ipv6 router ospf 10
 **По условиям задачи маршрутизатор получает маршрут по умолчанию.**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R13.png)  
 
-**3. Настроил OSPF IPv4 и IPv6 на маршрутизаторе R19 для зоны 101.**  
-**Настройки маршрутизатора R19.**  
+**3. Настроил OSPF на маршрутизаторе R19 для зоны 101.**  
+**Настройки IPv4 и IPv6 на маршрутизаторе R19.**  
 ```
 interface Ethernet0/0
  description TO-R14-ET0/3
@@ -266,3 +266,35 @@ ipv6 router ospf 10
 Интерфейс Et0/0 находятся в stub зоне 101 и получает только маршрут по умолчанию.
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R19.png)  
 
+**4. Настроил OSPF на маршрутизаторе R20 для зоны 102.**  
+**Настройки OSPF IPv4 и IPv6 на маршрутизаторе R20.**  
+```
+interface Ethernet0/0
+ description TO-R15-ET0/3
+ ip address 172.18.0.22 255.255.255.252
+ ip ospf 10 area 102
+ ipv6 address 2001:DB8:ACAD:2::18:16/126
+ ipv6 ospf 10 area 102
+!
+router ospf 10
+ router-id 172.18.0.22
+ passive-interface default
+ no passive-interface Ethernet0/0
+!
+ipv6 router ospf 10
+!
+```  
+
+По условия задачи настроил фильтрацию маршрутов, что-бы R20 получал все маршруты, кроме маршрутов до сетей зоны 101 (сеть 172.18.0.0/30)  
+На R15 настроил префикс-листы:
+```
+ip prefix-list FILTER-TO-R20 seq 5 deny 172.18.0.0/30
+ip prefix-list FILTER-TO-R20 seq 10 permit 0.0.0.0/0 le 32
+```  
+и назначил фильтр на зону 102:  
+```
+area 102 filter-list prefix FILTER-TO-R20 in
+```  
+
+Как видим фильтрация выполняется и маршрут до сети 172.18.0.0/30 не присутствует в таблице маршрутизатора R20:  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R20.png)  
