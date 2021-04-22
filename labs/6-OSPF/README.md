@@ -33,6 +33,17 @@ interface Ethernet0/3
  ipv6 address 2001:DB8:ACAD:2::18:2/126
  ipv6 ospf 10 area 101
 !
+router ospfv3 10
+ router-id 172.18.0.5
+ area 101 stub no-summary
+ !
+ address-family ipv6 unicast
+  passive-interface default
+  no passive-interface Ethernet0/0
+  no passive-interface Ethernet0/1
+  no passive-interface Ethernet0/3
+ exit-address-family
+!
 router ospf 10
  router-id 172.18.0.1
  area 101 stub no-summary
@@ -78,6 +89,15 @@ interface Ethernet0/3
  ipv6 address 2001:DB8:ACAD:2::18:15/126
  ipv6 ospf 10 area 102
  ipv6 ospf priority 10
+!
+router ospfv3 10
+ router-id 172.18.0.2
+ area 101 stub
+ !
+ address-family ipv6 unicast
+  passive-interface default
+  no passive-interface Ethernet0/0
+ exit-address-family
 !
 router ospf 10
  router-id 172.18.0.21
@@ -262,6 +282,15 @@ interface Ethernet0/0
  ipv6 address 2001:DB8:ACAD:2::18:1/126
  ipv6 ospf 10 area 101
 !
+router ospfv3 10
+ router-id 172.18.0.2
+ area 101 stub
+ !
+ address-family ipv6 unicast
+  passive-interface default
+  no passive-interface Ethernet0/0
+ exit-address-family
+!
 router ospf 10
  router-id 172.18.0.2
  area 101 stub
@@ -271,8 +300,12 @@ router ospf 10
 ipv6 router ospf 10
 !
 ```  
-Интерфейс Et0/0 находятся в stub зоне 101 и получает только маршрут по умолчанию.
+Интерфейс Et0/0 находятся в stub зоне 101 и получает только маршрут по умолчанию для IPv4 и IPv6.
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R19.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R19.png)  
+
+Соседство OSPF IPv4 и IPv6:  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/OSPF-R19.png)  
 
 **4. Настроил OSPF на маршрутизаторе R20 для зоны 102.**  
 **Настройки OSPF IPv4 и IPv6 на маршрутизаторе R20.**  
