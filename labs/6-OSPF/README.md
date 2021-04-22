@@ -53,8 +53,6 @@ router ospf 10
  no passive-interface Ethernet0/3
  default-information originate always
 !
-ipv6 router ospf 10
-!
 ```  
 
 Интерфейс Et0/0 и Et0/1 находятся в зоне 0. Интерфейс Et0/3 находиться в зоне 101. 
