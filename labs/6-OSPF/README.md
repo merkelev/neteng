@@ -242,4 +242,27 @@ ipv6 router ospf 10
 ```  
 Интерфейс Et0/0.9, Et0/0.12, Et0/0.14 и Et0/1 находятся в зоне 10. Интерфейс Et0/2, Et0/3 находятся в зоне 0.  
 **По условиям задачи маршрутизатор получает маршрут по умолчанию.**  
-![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R13.png)
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R13.png)  
+
+**3. Настроил OSPF IPv4 и IPv6 на маршрутизаторе R19 для зоны 101.**  
+**Настройки маршрутизатора R19.**  
+```
+interface Ethernet0/0
+ description TO-R14-ET0/3
+ ip address 172.18.0.2 255.255.255.252
+ ip ospf 10 area 101
+ ipv6 address 2001:DB8:ACAD:2::18:1/126
+ ipv6 ospf 10 area 101
+!
+router ospf 10
+ router-id 172.18.0.2
+ area 101 stub
+ passive-interface default
+ no passive-interface Ethernet0/0
+!
+ipv6 router ospf 10
+!
+```  
+Интерфейс Et0/0 находятся в stub зоне 101 и получает только маршрут по умолчанию.
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R19.png)  
+
