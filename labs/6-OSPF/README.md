@@ -54,6 +54,9 @@ ipv6 router ospf 10
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R14.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R14.png)  
 
+Соседство OSPF IPv4 и IPv6:  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/OSPF-R14.png)  
+
 **Настройки OSPF IPv4 и IPv6 на маршрутизаторе R15**  
 ```
 interface Ethernet0/0
