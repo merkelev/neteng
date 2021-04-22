@@ -42,6 +42,7 @@ router ospfv3 10
   no passive-interface Ethernet0/0
   no passive-interface Ethernet0/1
   no passive-interface Ethernet0/3
+  default-information originate always
  exit-address-family
 !
 router ospf 10
@@ -96,6 +97,7 @@ router ospfv3 10
   no passive-interface Ethernet0/1
   no passive-interface Ethernet0/3
   distribute-list prefix-list FILTER-IPV6-TO-R20 in
+  default-information originate always
  exit-address-family
 !
 router ospf 10
@@ -209,7 +211,7 @@ router ospf 10
 **По условиям задачи маршрутизатор получает маршрут по умолчанию.**  
 Таблица маршрутизации IPv4 и IPv6:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R12.png)  
-![]()  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R12.png)  
 
 Соседство OSPF IPv4 и IPv6:  
 ![]()
