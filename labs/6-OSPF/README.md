@@ -354,3 +354,6 @@ distribute-list prefix-list FILTER-IPV6-TO-R20 in
 Как видим фильтрация выполняется и маршрут до сети 172.18.0.0/30 и 2001:DB8:ACAD:2::18:0/126 не присутствует в таблице маршрутизатора R20:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R20.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R20.png)  
+
+Соседство OSPF IPv4 & IPv6:  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/OSPF-R20.png)
