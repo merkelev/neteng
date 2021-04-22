@@ -95,3 +95,76 @@ ipv6 router ospf 10
 ```  
 
 Интерфейс Et0/0 и Et0/1 находятся в зоне 0. Интерфейс Et0/3 находиться в зоне 102. Для зоны 0 маршрутизатор является ABR.
+
+**2. Настроил OSPF на маршрутизаторах R12 и R13 для зоны 0 и 10**  
+**Настройки OSPF IPv4 и IPv6 на маршрутизаторе R12**  
+```
+interface Ethernet0/0.9
+ encapsulation dot1Q 9
+ ip address 172.18.9.2 255.255.255.128
+ standby version 2
+ standby 9 ip 172.18.9.1
+ standby 9 priority 120
+ standby 209 ipv6 2001:DB8:ACAD:2::9:1/120
+ standby 209 priority 120
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::9:2/120
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/0.12
+ encapsulation dot1Q 12
+ ip address 172.18.12.2 255.255.255.128
+ standby version 2
+ standby 12 ip 172.18.12.1
+ standby 12 priority 120
+ standby 212 ipv6 2001:DB8:ACAD:2::12:1/120
+ standby 212 priority 120
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::12:2/120
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/0.14
+ encapsulation dot1Q 14
+ ip address 172.18.14.2 255.255.255.128
+ standby version 2
+ standby 14 ip 172.18.14.1
+ standby 14 priority 120
+ standby 214 ipv6 2001:DB8:ACAD:2::14:1/120
+ standby 214 priority 120
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::14:2/120
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/1
+ description TO-SW5-ET0/2
+ ip address 172.18.0.26 255.255.255.252
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::18:D/126
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/2
+ description TO-R14-ET0/0
+ ip address 172.18.0.6 255.255.255.252
+ ip ospf 10 area 0
+ ipv6 address 2001:DB8:ACAD:2::18:6/126
+ ipv6 ospf 10 area 0
+!
+interface Ethernet0/3
+ description TO-R15-ET0/1
+ ip address 172.18.0.14 255.255.255.252
+ ip ospf 10 area 0
+ ipv6 address 2001:DB8:ACAD:2::18:1A/126
+ ipv6 ospf 10 area 0
+!
+router ospf 10
+ router-id 172.18.0.14
+ passive-interface default
+ no passive-interface Ethernet0/0.12
+ no passive-interface Ethernet0/1
+ no passive-interface Ethernet0/2
+ no passive-interface Ethernet0/3
+!
+ipv6 router ospf 10
+!
+```  
+Интерфейс Et0/0.9, Et0/0.12, Et0/0.14 и Et0/1 находятся в зоне 10. Интерфейс Et0/2, Et0/3 находятся в зоне 0.  
