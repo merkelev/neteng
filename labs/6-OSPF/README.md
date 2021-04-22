@@ -89,12 +89,13 @@ interface Ethernet0/3
  ipv6 ospf priority 10
 !
 router ospfv3 10
- router-id 172.18.0.2
- area 101 stub
- !
+ router-id 172.18.0.21
  address-family ipv6 unicast
   passive-interface default
   no passive-interface Ethernet0/0
+  no passive-interface Ethernet0/1
+  no passive-interface Ethernet0/3
+  distribute-list prefix-list FILTER-IPV6-TO-R20 in
  exit-address-family
 !
 router ospf 10
@@ -108,7 +109,9 @@ router ospf 10
 !
 ip prefix-list FILTER-TO-R20 seq 5 deny 172.18.0.0/30
 ip prefix-list FILTER-TO-R20 seq 10 permit 0.0.0.0/0 le 32
-ipv6 router ospf 10
+!
+ipv6 prefix-list FILTER-IPV6-TO-R20 seq 5 deny 2001:DB8:ACAD:2::18:0/126
+ipv6 prefix-list FILTER-IPV6-TO-R20 seq 10 permit ::/0 le 128
 !
 ```  
 
@@ -324,15 +327,22 @@ ipv6 router ospf 10
 !
 ```  
 
-По условиям задачи настроил фильтрацию маршрутов, что-бы R20 получал все маршруты, кроме маршрутов до сетей зоны 101 (сеть 172.18.0.0/30)  
+По условиям задачи настроил фильтрацию маршрутов, что-бы R20 получал все маршруты, кроме маршрутов до сетей зоны 101 (сеть IPv4 - 172.18.0.0/30 и сеть IPv6 - 2001:DB8:ACAD:2::18:0/126)  
 На R15 настроил префикс-листы:
 ```
 ip prefix-list FILTER-TO-R20 seq 5 deny 172.18.0.0/30
 ip prefix-list FILTER-TO-R20 seq 10 permit 0.0.0.0/0 le 32
+!
+ipv6 prefix-list FILTER-IPV6-TO-R20 seq 5 deny 2001:DB8:ACAD:2::18:0/126
+ipv6 prefix-list FILTER-IPV6-TO-R20 seq 10 permit ::/0 le 128
 ```  
 и назначил фильтр на зону 102:  
 ```
+Для IPv4
 area 102 filter-list prefix FILTER-TO-R20 in
+
+Для IPv6
+distribute-list prefix-list FILTER-IPV6-TO-R20 in
 ```  
 
 Как видим фильтрация выполняется и маршрут до сети 172.18.0.0/30 не присутствует в таблице маршрутизатора R20:  
