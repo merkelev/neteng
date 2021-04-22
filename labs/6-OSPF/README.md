@@ -181,15 +181,28 @@ interface Ethernet0/3
  ipv6 address 2001:DB8:ACAD:2::18:1A/126
  ipv6 ospf 10 area 0
 !
+router ospfv3 10
+ router-id 172.18.0.14
+ !
+ address-family ipv6 unicast
+  passive-interface default
+  no passive-interface Ethernet0/0.9
+  no passive-interface Ethernet0/0.12
+  no passive-interface Ethernet0/0.14
+  no passive-interface Ethernet0/1
+  no passive-interface Ethernet0/2
+  no passive-interface Ethernet0/3
+ exit-address-family
+!
 router ospf 10
  router-id 172.18.0.14
  passive-interface default
+ no passive-interface Ethernet0/0.9
  no passive-interface Ethernet0/0.12
+ no passive-interface Ethernet0/0.14
  no passive-interface Ethernet0/1
  no passive-interface Ethernet0/2
  no passive-interface Ethernet0/3
-!
-ipv6 router ospf 10
 !
 ```  
 Интерфейс Et0/0.9, Et0/0.12, Et0/0.14 и Et0/1 находятся в зоне 10. Интерфейс Et0/2, Et0/3 находятся в зоне 0.  
@@ -298,8 +311,6 @@ router ospf 10
  passive-interface default
  no passive-interface Ethernet0/0
 !
-ipv6 router ospf 10
-!
 ```  
 Интерфейс Et0/0 находятся в stub зоне 101 и получает только маршрут по умолчанию для IPv4 и IPv6.
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R19.png)  
@@ -352,6 +363,7 @@ distribute-list prefix-list FILTER-IPV6-TO-R20 in
 ```  
 
 Как видим фильтрация выполняется и маршрут до сети 172.18.0.0/30 и 2001:DB8:ACAD:2::18:0/126 не присутствует в таблице маршрутизатора R20:  
+
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R20.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R20.png)  
 
