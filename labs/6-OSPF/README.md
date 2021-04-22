@@ -214,7 +214,7 @@ router ospf 10
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R12.png)  
 
 Соседство OSPF IPv4 и IPv6:  
-![]()
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/OSPF-R12.png)
 
 **Настройки OSPF IPv4 и IPv6 на маршрутизаторе R13**  
 ```
@@ -274,19 +274,39 @@ interface Ethernet0/3
  ipv6 address 2001:DB8:ACAD:2::18:A/126
  ipv6 ospf 10 area 0
 !
+router ospfv3 10
+ router-id 172.18.0.10
+ !
+ address-family ipv6 unicast
+  passive-interface default
+  no passive-interface Ethernet0/0.9
+  no passive-interface Ethernet0/0.12
+  no passive-interface Ethernet0/0.14
+  no passive-interface Ethernet0/1
+  no passive-interface Ethernet0/2
+  no passive-interface Ethernet0/3
+ exit-address-family
+!
 router ospf 10
  router-id 172.18.0.10
  passive-interface default
+ no passive-interface Ethernet0/0.9
+ no passive-interface Ethernet0/0.12
+ no passive-interface Ethernet0/0.14
  no passive-interface Ethernet0/1
  no passive-interface Ethernet0/2
  no passive-interface Ethernet0/3
 !
-ipv6 router ospf 10
-!
 ```  
+
 Интерфейс Et0/0.9, Et0/0.12, Et0/0.14 и Et0/1 находятся в зоне 10. Интерфейс Et0/2, Et0/3 находятся в зоне 0.  
 **По условиям задачи маршрутизатор получает маршрут по умолчанию.**  
+Таблица маршрутизации IPv4 и IPv6:  
 ![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R13.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IPv6-ROUTE-R13.png)  
+
+Соседство OSPF IPv4 & IPv6:  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/OSPF-R13.png)  
 
 **3. Настроил OSPF на маршрутизаторе R19 для зоны 101.**  
 **Настройки IPv4 и IPv6 на маршрутизаторе R19.**  
