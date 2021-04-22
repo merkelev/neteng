@@ -168,3 +168,78 @@ ipv6 router ospf 10
 !
 ```  
 Интерфейс Et0/0.9, Et0/0.12, Et0/0.14 и Et0/1 находятся в зоне 10. Интерфейс Et0/2, Et0/3 находятся в зоне 0.  
+**По условиям задачи маршрутизатор получает маршрут по умолчанию.**  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R12.png)  
+
+**Настройки OSPF IPv4 и IPv6 на маршрутизаторе R13**  
+```
+interface Ethernet0/0.9
+ encapsulation dot1Q 9
+ ip address 172.18.9.3 255.255.255.128
+ standby version 2
+ standby 9 ip 172.18.9.1
+ standby 9 preempt
+ standby 209 ipv6 2001:DB8:ACAD:2::9:1/120
+ standby 209 preempt
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::9:3/120
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/0.12
+ encapsulation dot1Q 12
+ ip address 172.18.12.3 255.255.255.128
+ standby version 2
+ standby 12 ip 172.18.12.1
+ standby 12 preempt
+ standby 212 ipv6 2001:DB8:ACAD:2::12:1/120
+ standby 212 preempt
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::12:3/120
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/0.14
+ encapsulation dot1Q 14
+ ip address 172.18.14.3 255.255.255.128
+ standby version 2
+ standby 14 ip 172.18.14.1
+ standby 14 preempt
+ standby 214 ipv6 2001:DB8:ACAD:2::14:1/120
+ standby 214 preempt
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::14:3/120
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/1
+ description TO-SW4-ET0/2
+ ip address 172.18.0.25 255.255.255.252
+ ip ospf 10 area 10
+ ipv6 address 2001:DB8:ACAD:2::18:E/126
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/2
+ description TO-R15-ET0/0
+ ip address 172.18.0.18 255.255.255.252
+ ip ospf 10 area 0
+ ipv6 address 2001:DB8:ACAD:2::18:11/126
+ ipv6 ospf 10 area 0
+!
+interface Ethernet0/3
+ description TO-R14-ET0/1
+ ip address 172.18.0.10 255.255.255.252
+ ip ospf 10 area 0
+ ipv6 address 2001:DB8:ACAD:2::18:A/126
+ ipv6 ospf 10 area 0
+!
+router ospf 10
+ router-id 172.18.0.10
+ passive-interface default
+ no passive-interface Ethernet0/1
+ no passive-interface Ethernet0/2
+ no passive-interface Ethernet0/3
+!
+ipv6 router ospf 10
+!
+```  
+Интерфейс Et0/0.9, Et0/0.12, Et0/0.14 и Et0/1 находятся в зоне 10. Интерфейс Et0/2, Et0/3 находятся в зоне 0.  
+**По условиям задачи маршрутизатор получает маршрут по умолчанию.**  
+![](https://github.com/merkelev/neteng/blob/main/labs/6-OSPF/IP-ROUTE-R13.png)
