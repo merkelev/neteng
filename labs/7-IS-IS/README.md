@@ -255,3 +255,7 @@ router isis
 !
 end
 ```  
+
+**Соседство IS-IS IPv4 & IPv6 и таблицы маршрутизации IPv4 & IPv6 на маршрутизаторе R23**  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R23-IS-IS.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R23-ROUTING.png)  
