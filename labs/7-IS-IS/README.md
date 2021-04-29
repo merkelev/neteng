@@ -5,7 +5,7 @@
 **3. R26 находится в зоне 26**  
 
 **Схема сети ISP Триада**  
-![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/NET-ISP-TRIADA.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/NET-ISP-TRIADA2.png)  
 
 Для ISP Триада использованы адреса IPv4 - 172.24.0.0/16 и IPv6 - 2001:DB8:ACAD:3::0/64  
 
