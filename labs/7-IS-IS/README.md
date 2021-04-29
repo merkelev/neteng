@@ -259,3 +259,11 @@ end
 **Соседство IS-IS IPv4 & IPv6 и таблицы маршрутизации IPv4 & IPv6 на маршрутизаторе R23**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R23-IS-IS.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R23-ROUTING.png)  
+
+**Соседство IS-IS IPv4 & IPv6 и таблицы маршрутизации IPv4 & IPv6 на маршрутизаторе R25**  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R25-IS-IS.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R25-ROUTING.png)  
+
+**Соседство IS-IS IPv4 & IPv6 и таблицы маршрутизации IPv4 & IPv6 на маршрутизаторе R24**  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R24-Is-IS.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/7-IS-IS/R24-ROUTING.png)  
