@@ -82,6 +82,7 @@ interface Ethernet0/1
  ip router isis
  ipv6 address 2001:DB8:ACAD:3::24:2/126
  ipv6 router isis
+ isis circuit-type level-1
 !
 interface Ethernet0/2
  ip address 172.24.0.14 255.255.255.252
@@ -130,6 +131,7 @@ interface Ethernet0/0
  ip router isis
  ipv6 address 2001:DB8:ACAD:3::24:1/126
  ipv6 router isis
+ isis circuit-type level-1
 !
 interface Ethernet0/1
  description TO-CLIENT-LABYTNANGI
