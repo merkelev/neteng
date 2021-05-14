@@ -401,3 +401,17 @@ ip prefix-list EIGRP-TO-R32 seq 10 permit 0.0.0.0/0 le 32
 ipv6 prefix-list EIGRP-IPV6-TO-R32 seq 5 deny 2001:DB8:ACAD:1::/64
 ipv6 prefix-list EIGRP-IPV6-TO-R32 seq 10 permit ::/0
 ```  
+И назначил листы на направление out интерфейса Ethernet 0/2 маршрутизатора R16  
+```
+ address-family ipv4 unicast autonomous-system 4
+  !
+  topology base
+   distribute-list prefix EIGRP-TO-R32 out Ethernet0/2
+  exit-af-topology
+
+address-family ipv6 unicast autonomous-system 6
+  !
+  topology base
+   distribute-list prefix-list EIGRP-IPV6-TO-R32 out Ethernet0/2
+  exit-af-topology
+```  
