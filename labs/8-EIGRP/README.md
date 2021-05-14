@@ -4,6 +4,9 @@
 1. R32 получает только маршрут по-умолчанию  
 2. R16-17 анонсируют только суммарные префиксы  
 
+**Схема сети в г. Санкт-Петербург**  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/NET-SP.png)  
+
 **Таблица IPv6 link-local адресов**  
 | Device | Interface | Address   |
 | ------ | --------- | -------   |
