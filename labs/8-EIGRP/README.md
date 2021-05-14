@@ -277,7 +277,7 @@ router eigrp SP-EIGRP
 !
 ip forward-protocol nd
 !
-ip prefix-list EIGRP-TO-R32 seq 5 deny 172.22.0.0/16 ge 25 le 25
+ip prefix-list EIGRP-TO-R32 seq 5 deny 172.22.0.0/16 ge 25 le 30
 ip prefix-list EIGRP-TO-R32 seq 10 permit 0.0.0.0/0 le 32
 !
 ipv6 prefix-list EIGRP-IPV6-TO-R32 seq 5 deny 2001:DB8:ACAD:1::/64
