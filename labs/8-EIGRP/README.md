@@ -396,7 +396,7 @@ router eigrp SP-EIGRP
 end
 ```  
 
-**По условиям задачи маршрутизатор R32 должен получать только маршрут по умолчанию**  
+**1. По условиям задачи маршрутизатор R32 должен получать только маршрут по умолчанию**  
 На маршрутизаторе R16 настроил prefix-list's для IPv4 & IPv6  
 ```
 ip prefix-list EIGRP-TO-R32 seq 5 deny 172.22.0.0/16 ge 25 le 30
@@ -420,8 +420,26 @@ address-family ipv6 unicast autonomous-system 6
   exit-af-topology
 ```  
 
-**Проверям таблицу маршрутизации на R32**  
-**Таблица маршрутизации IPv4 & IPv6 на маршрутизаторе R32**  
+**Проверям таблицу маршрутизации на R32**   
 ![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/ROUTE-IPV4-IPV6-R32.png)  
 **На маршрутизатор R32 приходит только маршрут по умолчанию**  
 
+**2. По условия задачи маршрутизаторы R16 & R17 должны анонсировать только суммарные префиксы**  
+Настроил суммаризацию на интерфейсах Ethernet0/1 маршрутизаторов R16 & R17 смотрящих в сторону соседа - маршрутизатора R18   
+**R16**  
+```
+ address-family ipv4 unicast autonomous-system 4
+  !
+  af-interface Ethernet0/1
+   summary-address 172.22.0.0 255.255.0.0
+  exit-af-interface
+```  
+**R17**  
+```
+ address-family ipv4 unicast autonomous-system 4
+  !
+  af-interface Ethernet0/1
+   summary-address 172.22.0.0 255.255.0.0
+  exit-af-interface
+
+```  
