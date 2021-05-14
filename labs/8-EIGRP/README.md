@@ -415,3 +415,7 @@ address-family ipv6 unicast autonomous-system 6
    distribute-list prefix-list EIGRP-IPV6-TO-R32 out Ethernet0/2
   exit-af-topology
 ```  
+
+**Проверям таблицу маршрутизации на R32**  
+**Таблица маршрутизации IPv4 & IPv6 на маршрутизаторе R32**  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/ROUTE-IPV4-IPV6-R32.png)  
