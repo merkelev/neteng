@@ -465,3 +465,16 @@ address-family ipv6 unicast autonomous-system 6
 
 **Проверяем таблицу маршрутизации на R18**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/ROUTE-IPV4-IPV6-R18.png)  
+
+**Соседства на маршрутизаторах:**  
+**R18**  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/EIGRP-R18.png)  
+
+**R32**  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/EIGRP-R32.png)   
+
+**R16**  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/EIGRP-R16.png)  
+
+**R17**  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/EIGRP-R17.png)  
