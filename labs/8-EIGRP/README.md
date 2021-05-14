@@ -257,10 +257,13 @@ router eigrp SP-EIGRP
  !
  address-family ipv4 unicast autonomous-system 4
   !
+  af-interface Ethernet0/1
+   summary-address 172.22.0.0 255.255.0.0
+  exit-af-interface
+  !
   topology base
    distribute-list prefix EIGRP-TO-R32 out Ethernet0/2
   exit-af-topology
-  network 172.22.0.0
   network 172.22.18.0 0.0.0.3
   network 172.22.18.8 0.0.0.3
   network 172.22.18.12 0.0.0.3
@@ -274,8 +277,6 @@ router eigrp SP-EIGRP
   exit-af-topology
   eigrp router-id 172.22.44.3
  exit-address-family
-!
-ip forward-protocol nd
 !
 ip prefix-list EIGRP-TO-R32 seq 5 deny 172.22.0.0/16 ge 25 le 30
 ip prefix-list EIGRP-TO-R32 seq 10 permit 0.0.0.0/0 le 32
@@ -374,9 +375,12 @@ router eigrp SP-EIGRP
  !
  address-family ipv4 unicast autonomous-system 4
   !
+  af-interface Ethernet0/1
+   summary-address 172.22.0.0 255.255.0.0
+  exit-af-interface
+  !
   topology base
   exit-af-topology
-  network 172.22.0.0
   network 172.22.18.4 0.0.0.3
   network 172.22.18.12 0.0.0.3
   eigrp router-id 172.22.44.2
@@ -419,3 +423,5 @@ address-family ipv6 unicast autonomous-system 6
 **Проверям таблицу маршрутизации на R32**  
 **Таблица маршрутизации IPv4 & IPv6 на маршрутизаторе R32**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/ROUTE-IPV4-IPV6-R32.png)  
+**На маршрутизатор R32 приходит только маршрут по умолчанию**  
+
