@@ -270,7 +270,11 @@ router eigrp SP-EIGRP
   eigrp router-id 172.22.44.3
  exit-address-family
  !
- address-family ipv6 unicast autonomous-system 6
+  address-family ipv6 unicast autonomous-system 6
+  !
+  af-interface Ethernet0/1
+   summary-address 2001:DB8:ACAD:1::/64
+  exit-af-interface
   !
   topology base
    distribute-list prefix-list EIGRP-IPV6-TO-R32 out Ethernet0/2
@@ -386,7 +390,11 @@ router eigrp SP-EIGRP
   eigrp router-id 172.22.44.2
  exit-address-family
  !
- address-family ipv6 unicast autonomous-system 6
+  address-family ipv6 unicast autonomous-system 6
+  !
+  af-interface Ethernet0/1
+   summary-address 2001:DB8:ACAD:1::/64
+  exit-af-interface
   !
   topology base
   exit-af-topology
@@ -433,6 +441,12 @@ address-family ipv6 unicast autonomous-system 6
   af-interface Ethernet0/1
    summary-address 172.22.0.0 255.255.0.0
   exit-af-interface
+  
+ address-family ipv6 unicast autonomous-system 6
+  !
+  af-interface Ethernet0/1
+   summary-address 2001:DB8:ACAD:1::/64
+  exit-af-interface
 ```  
 **R17**  
 ```
@@ -442,4 +456,12 @@ address-family ipv6 unicast autonomous-system 6
    summary-address 172.22.0.0 255.255.0.0
   exit-af-interface
 
+address-family ipv6 unicast autonomous-system 6
+  !
+  af-interface Ethernet0/1
+   summary-address 2001:DB8:ACAD:1::/64
+  exit-af-interface
 ```  
+
+**Проверяем таблицу маршрутизации на R18**  
+![]()  
