@@ -35,9 +35,9 @@
 
 **Конфигурация маршрутизатора R18**  
 ```
-Current configuration : 1637 bytes
+Current configuration : 1838 bytes
 !
-! Last configuration change at 14:45:11 +07 Fri May 14 2021
+! Last configuration change at 19:24:30 +07 Tue May 18 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -75,6 +75,14 @@ interface Ethernet0/1
  ipv6 address FE80::A:1 link-local
  ipv6 address 2001:DB8:ACAD:1::18:9/126
 !
+interface Ethernet0/2
+ ip address 172.22.50.1 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:5::1/126
+!
+interface Ethernet0/3
+ ip address 172.22.51.1 255.255.255.252
+ ipv6 address 2001:DB8:ACAD:6::1/126
+!
 router eigrp SP-EIGRP
  !
  address-family ipv4 unicast autonomous-system 4
@@ -97,9 +105,13 @@ router eigrp SP-EIGRP
 !
 ip forward-protocol nd
 !
-ip route 0.0.0.0 0.0.0.0 Null0
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 172.22.50.2
+ip route 0.0.0.0 0.0.0.0 172.22.51.2 10
 !
-ipv6 route ::/0 Null0
+ipv6 route ::/0 2001:DB8:ACAD:6::2 10
+ipv6 route ::/0 2001:DB8:ACAD:5::2
 !
 end
 ```  
