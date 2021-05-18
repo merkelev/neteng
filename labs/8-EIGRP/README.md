@@ -476,7 +476,7 @@ address-family ipv6 unicast autonomous-system 6
 ```  
 
 **Проверяем таблицу маршрутизации на R18**  
-![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/ROUTE-IPV4-IPV6-R18.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/8-EIGRP/ROUTE-IPV4_IPV6_R18.png)  
 
 **Соседства на маршрутизаторах:**  
 **R18**  
