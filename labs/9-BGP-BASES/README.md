@@ -57,6 +57,24 @@
 |        | et0/3     | 2001:DB8:ACAD:6::1     | /126       | to R26 et0/3 |
 |        |           | FE80::6:1              | link-local |              |
 
+**Таблица AS**  
+| AS   | Location   | Device | Interface | Description |
+| ---- | ---------  | ------ | --------- | ----------- |
+| 1001 | г. Москва  | R14    | et0/2     | Стык с ISP Киторн R22  |
+|      |            | R15    | et0/2     | Стык с ISP Ламас  R21  |
+| 101  | ISP Киторн | R22    | et0/0     | Стык с г. Москва R14   |
+|      |            |        | et0/1     | Стык с ISP Ламас R21   |
+|      |            |        | et0/2     | Стык с ISP Триада R23  |
+| 301  | ISP Ламас  | R21    | et0/0     | Стык с г. Москва R15   |
+|      |            |        | et0/1     | Стык с ISP Киторн R22  |
+|      |            |        | et0/2     | Стык с ISP Триада R24  |
+| 520  | ISP Триада | R23    | et0/0     | Стык с ISP Киторн R22  |
+|      |            | R24    | et0/0     | Стык с ISP Ламас R21   |
+|      |            |        | et0/3     | Стык с г С.Петербург R18 |
+|      |            | R26    | et0/3     | Стык с г С.Петербург R18 |
+| 2042 | г. С.Петербург | R18| et0/2     | Стык с ISP Триада R24  |
+|      |                |    | et0/3     | Стык с ISP Триада R26  |
+
 **1. Настроика eBGP между офисом Москва и двумя провайдерами - Киторн и Ламас**  
 **Схема сети**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-MSK-KRITON-LAMAS.png)  
@@ -104,7 +122,7 @@ router bgp 1001
 !
 ```  
 
-Настройки BGP маршрутизатора R22 (Критон)  
+Настройки BGP маршрутизатора R22 (Киторн)  
 ```
 router bgp 101
  bgp log-neighbor-changes
@@ -161,7 +179,7 @@ router bgp 301
 !
 ```  
 
-Проверим состояние соседства R14 (г. Москва) & R22 (Критон)  
+Проверим состояние соседства R14 (г. Москва) & R22 (Киторн)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R14-BGP-R22.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R14-BGPIPv6-R22.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R14.png)  
@@ -181,7 +199,7 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R21.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R21.png)  
 
-**3. Настройка eBGP между Ламас, Критон и Триада**  
+**3. Настройка eBGP между Ламас, Киторн и Триада**  
 **Схема сети**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-KRITON-LAMAS-TRIADA.png)  
 Настройки BGP маршрутизатора R23 (Триада)  
