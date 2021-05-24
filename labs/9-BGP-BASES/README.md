@@ -60,7 +60,7 @@
 **1. Настроика eBGP между офисом Москва и двумя провайдерами - Киторн и Ламас**  
 **Схема сети**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-MSK-KRITON-LAMAS.png)  
-Конфигурация BGP маршрутизатора R14 (г. Москва)  
+Настройки BGP маршрутизатора R14 (г. Москва)  
 ```
 router bgp 1001
  bgp log-neighbor-changes
@@ -82,7 +82,7 @@ router bgp 1001
 !
 ```  
 
-Конфигурация BGP маршрутизатора R15 (г. Москва)  
+Настройки BGP маршрутизатора R15 (г. Москва)  
 ```
 router bgp 1001
  bgp log-neighbor-changes
@@ -104,7 +104,7 @@ router bgp 1001
 !
 ```  
 
-Конфигурация BGP маршрутизатора R22 (Критон)  
+Настройки BGP маршрутизатора R22 (Критон)  
 ```
 router bgp 101
  bgp log-neighbor-changes
@@ -133,7 +133,7 @@ router bgp 101
 !
 ```  
 
-Конфигурация BGP маршрутизатора R21 (Ламас)  
+Настройки BGP маршрутизатора R21 (Ламас)  
 ```
 router bgp 301
  bgp log-neighbor-changes
@@ -285,3 +285,84 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R24-BGPIPv6-R21.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGP-R24.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGPIPv6-R24.png)  
+
+**4. Настроика eBGP между офисом С.-Петербург и провайдером Триада**  
+**Схема сети**  
+ ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-SP-TRIADA.png)  
+ 
+ Настройки BGP маршрутизатора R24 (Триада)  
+ ```
+ router bgp 520
+ bgp log-neighbor-changes
+ neighbor 10.0.4.2 remote-as 2042
+ neighbor 10.0.6.2 remote-as 301
+ neighbor 2001:DB7:ACAB:5::1 remote-as 301
+ neighbor 2001:DB8:ACAD:5::1 remote-as 2042
+ !
+ address-family ipv4
+  neighbor 10.0.4.2 activate
+  neighbor 10.0.6.2 activate
+  no neighbor 2001:DB7:ACAB:5::1 activate
+  no neighbor 2001:DB8:ACAD:5::1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:5::1 activate
+  neighbor 2001:DB8:ACAD:5::1 activate
+ exit-address-family
+!
+ ```  
+ 
+ Настройки BGP маршрутизатора R26 (Триада)  
+ ```
+ router bgp 520
+ bgp log-neighbor-changes
+ neighbor 10.0.5.2 remote-as 2042
+ neighbor 2001:DB8:ACAD:6::1 remote-as 2042
+ !
+ address-family ipv4
+  neighbor 10.0.5.2 activate
+  no neighbor 2001:DB8:ACAD:6::1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB8:ACAD:6::1 activate
+ exit-address-family
+!
+ ```  
+ 
+ Настройки BGP маршрутизота R18 (Санкт-Петербург)  
+ ```
+ router bgp 2042
+ bgp log-neighbor-changes
+ neighbor 10.0.4.1 remote-as 520
+ neighbor 10.0.5.1 remote-as 520
+ neighbor 2001:DB8:ACAD:5::2 remote-as 520
+ neighbor 2001:DB8:ACAD:6::2 remote-as 520
+ !
+ address-family ipv4
+  network 172.22.0.0
+  neighbor 10.0.4.1 activate
+  neighbor 10.0.5.1 activate
+  no neighbor 2001:DB8:ACAD:5::2 activate
+  no neighbor 2001:DB8:ACAD:6::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:1::/64
+  neighbor 2001:DB8:ACAD:5::2 activate
+  neighbor 2001:DB8:ACAD:6::2 activate
+ exit-address-family
+!
+ ```  
+ 
+ Проверяем состояние соседства  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R18-BGP-R24.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R18-BGP-R26.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R18-BGPIPv6-R24.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R18-BGPIPv6-R26.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R24-BGP-R18.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R24-BGPIPv6-R18.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R26-BGP-R18.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R26-BGPIPv6-R18.png)  
+ 
