@@ -176,6 +176,8 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R21.png)  
 
 **3. Настройка eBGP между Ламас, Критон и Триада**  
+**Схема сети**  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-KRITON-LAMAS-TRIADA.png)
 Настройки BGP маршрутизатора R23 (Триада)  
 ```
 
