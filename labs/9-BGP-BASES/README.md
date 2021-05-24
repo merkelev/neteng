@@ -367,7 +367,7 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R26-BGPIPv6-R18.png)  
  
 **5. Организация IP доступности между офисами Москва и С.-Петербург**  
-На маршрутизаторах в офисе г. Москва, на маршрутизаторах R14 & R15 добавил в BGP сети IPv4 & IPv6. Это сети которые назанчаются только клиентским машинам.  
+На маршрутизаторах в офисе г. Москва, на маршрутизаторах R14 & R15 добавил в BGP сети IPv4 - 172.18.12.0/25 и 172.18.14.0/25 & IPv6 - 2001:DB8:ACAD:2::12:0/120 и 2001:DB8:ACAD:2::14:0/120. Это сети которые назанчаются только клиентским машинам.  
 На R14  
 ```
  address-family ipv4
@@ -407,3 +407,57 @@ address-family ipv4
 
 На R15  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R15-BGP-4-6.png)  
+Видим что сети анонсируются.
+
+На маршрутизаторе R18 в офисе г. Санкт-Петербург добавил в BGP сеть IPv4 - 172.22.0.0/16 & сеть IPv6 - 2001:DB8:ACAD:1::/64.  
+```
+ address-family ipv4
+  network 172.22.0.0
+  neighbor 10.0.4.1 activate
+  neighbor 10.0.5.1 activate
+  no neighbor 2001:DB8:ACAD:5::2 activate
+  no neighbor 2001:DB8:ACAD:6::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:1::/64
+  neighbor 2001:DB8:ACAD:5::2 activate
+  neighbor 2001:DB8:ACAD:6::2 activate
+ exit-address-family
+!
+```  
+Так же на R18 настроил редистрибуцию маршрутов из BGP в EIGRP.  
+```
+router eigrp SP-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 4
+  !
+  topology base
+   redistribute static
+   redistribute bgp 2042 metric 10000000 30 255 20 1400
+  exit-af-topology
+  network 172.22.18.0 0.0.0.3
+  network 172.22.18.4 0.0.0.3
+  eigrp router-id 172.22.44.1
+ exit-address-family
+ !
+ address-family ipv6 unicast autonomous-system 6
+  !
+  topology base
+   redistribute static
+   redistribute bgp 2042 metric 10000000 30 255 20 1400
+  exit-af-topology
+  eigrp router-id 172.22.44.1
+ exit-address-family
+!
+```  
+
+Проверяем анонсы сетей IPv4 & IPv6 в BGP
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R18-BGP-4-6.png)  
+Видим что сеть анонсируется.
+
+Проверяем доступность с ПК VPC7 (г. Москва) до VPC8 (г. Санкт-Петербург)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/PING-VPC7-TO-VPC8.png)  
+
+Проверяем доступность с ПК VPC (г. Санкт-Петербург) до VPC1 (г. Москва)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/PING-VPC-TO-VPC1.png)  
