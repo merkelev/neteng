@@ -366,3 +366,44 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R26-BGP-R18.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R26-BGPIPv6-R18.png)  
  
+**5. Организация IP доступности между офисами Москва и С.-Петербург**  
+На маршрутизаторах в офисе г. Москва, на маршрутизаторах R14 & R15 добавил в BGP сети IPv4 & IPv6. Это сети которые назанчаются только клиентским машинам.  
+На R14  
+```
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  neighbor 10.0.2.1 activate
+  no neighbor 2001:DB7:ACAB:1::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:1::2 activate
+ exit-address-family
+!
+```  
+На R15  
+```
+address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  neighbor 10.0.2.5 activate
+  no neighbor 2001:DB7:ACAB:3::1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:3::1 activate
+ exit-address-family
+!
+```  
+
+Проверяем анонсы сетей IPv4 & IPv6 в BGP  
+На R14  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R14-BGP-4-6.png)  
+
+На R15  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R15-BGP-4-6.png)  
