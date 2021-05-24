@@ -177,8 +177,78 @@ router bgp 301
 
 **3. Настройка eBGP между Ламас, Критон и Триада**  
 **Схема сети**  
-![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-KRITON-LAMAS-TRIADA.png)
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-KRITON-LAMAS-TRIADA.png)  
 Настройки BGP маршрутизатора R23 (Триада)  
 ```
+router bgp 520
+ bgp log-neighbor-changes
+ neighbor 10.0.7.1 remote-as 101
+ neighbor 2001:DB7:ACAB:4::1 remote-as 101
+ !
+ address-family ipv4
+  neighbor 10.0.7.1 activate
+  no neighbor 2001:DB7:ACAB:4::1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:4::1 activate
+ exit-address-family
+!
+```  
+Настройки BGP маршрутизатора R22 (Критон)  
+```
+router bgp 101
+ bgp log-neighbor-changes
+ neighbor 10.0.2.2 remote-as 1001
+ neighbor 10.0.2.9 remote-as 301
+ neighbor 10.0.7.2 remote-as 520
+ neighbor 2001:DB7:ACAB:1::1 remote-as 1001
+ neighbor 2001:DB7:ACAB:2::2 remote-as 301
+ neighbor 2001:DB7:ACAB:4::2 remote-as 520
+ !
+ address-family ipv4
+  network 172.30.0.0 mask 255.255.255.0
+  neighbor 10.0.2.2 activate
+  neighbor 10.0.2.9 activate
+  neighbor 10.0.7.2 activate
+  no neighbor 2001:DB7:ACAB:1::1 activate
+  no neighbor 2001:DB7:ACAB:2::2 activate
+  no neighbor 2001:DB7:ACAB:4::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:1::1 activate
+  neighbor 2001:DB7:ACAB:2::2 activate
+  neighbor 2001:DB7:ACAB:4::2 activate
+ exit-address-family
+!
+```  
 
+Проверяем состояние соседства  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R23-BGP-R22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R23-BGPIPv6-R22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R23.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R23.png)  
+
+Настройки BGP маршрутизатора R24 (Триада)  
+```
+router bgp 520
+ bgp log-neighbor-changes
+ neighbor 10.0.4.2 remote-as 2042
+ neighbor 10.0.6.2 remote-as 301
+ neighbor 2001:DB7:ACAB:5::1 remote-as 301
+ neighbor 2001:DB8:ACAD:5::1 remote-as 2042
+ !
+ address-family ipv4
+  neighbor 10.0.4.2 activate
+  neighbor 10.0.6.2 activate
+  no neighbor 2001:DB7:ACAB:5::1 activate
+  no neighbor 2001:DB8:ACAD:5::1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:5::1 activate
+  neighbor 2001:DB8:ACAD:5::1 activate
+ exit-address-family
+!
 ```  
