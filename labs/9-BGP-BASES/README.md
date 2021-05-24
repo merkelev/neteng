@@ -252,3 +252,36 @@ router bgp 520
  exit-address-family
 !
 ```  
+
+Настройки BGP маршрутизатора R21 (Ламас)  
+```
+router bgp 301
+ bgp log-neighbor-changes
+ neighbor 10.0.2.6 remote-as 1001
+ neighbor 10.0.2.10 remote-as 101
+ neighbor 10.0.6.1 remote-as 520
+ neighbor 2001:DB7:ACAB:2::1 remote-as 101
+ neighbor 2001:DB7:ACAB:3::2 remote-as 1001
+ neighbor 2001:DB7:ACAB:5::2 remote-as 520
+ !
+ address-family ipv4
+  neighbor 10.0.2.6 activate
+  neighbor 10.0.2.10 activate
+  neighbor 10.0.6.1 activate
+  no neighbor 2001:DB7:ACAB:2::1 activate
+  no neighbor 2001:DB7:ACAB:3::2 activate
+  no neighbor 2001:DB7:ACAB:5::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:2::1 activate
+  neighbor 2001:DB7:ACAB:3::2 activate
+  neighbor 2001:DB7:ACAB:5::2 activate
+ exit-address-family
+!
+```  
+Проверяем состояние соседства  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R24-BGP-R21.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R24-BGPIPv6-R21.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGP-R24.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGPIPv6-R24.png)  
