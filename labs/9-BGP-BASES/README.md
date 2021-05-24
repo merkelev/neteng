@@ -56,3 +56,112 @@
 |        |           | FE80::2:1              | link-local |              |
 |        | et0/3     | 2001:DB8:ACAD:6::1     | /126       | to R26 et0/3 |
 |        |           | FE80::6:1              | link-local |              |
+
+**1. Настроика eBGP между офисом Москва и двумя провайдерами - Киторн и Ламас**  
+Конфигурация BGP маршрутизатора R14 (г. Москва)  
+```
+router bgp 1001
+ bgp log-neighbor-changes
+ neighbor 10.0.2.1 remote-as 101
+ neighbor 2001:DB7:ACAB:1::2 remote-as 101
+ !
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  neighbor 10.0.2.1 activate
+  no neighbor 2001:DB7:ACAB:1::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:1::2 activate
+ exit-address-family
+!
+```  
+
+Конфигурация BGP маршрутизатора R15 (г. Москва)  
+```
+router bgp 1001
+ bgp log-neighbor-changes
+ neighbor 10.0.2.5 remote-as 301
+ neighbor 2001:DB7:ACAB:3::1 remote-as 301
+ !
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  neighbor 10.0.2.5 activate
+  no neighbor 2001:DB7:ACAB:3::1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:3::1 activate
+ exit-address-family
+!
+```  
+
+Конфигурация BGP маршрутизатора R22 (Критон)  
+```
+router bgp 101
+ bgp log-neighbor-changes
+ neighbor 10.0.2.2 remote-as 1001
+ neighbor 10.0.2.9 remote-as 301
+ neighbor 10.0.7.2 remote-as 520
+ neighbor 2001:DB7:ACAB:1::1 remote-as 1001
+ neighbor 2001:DB7:ACAB:2::2 remote-as 301
+ neighbor 2001:DB7:ACAB:4::2 remote-as 520
+ !
+ address-family ipv4
+  network 172.30.0.0 mask 255.255.255.0
+  neighbor 10.0.2.2 activate
+  neighbor 10.0.2.9 activate
+  neighbor 10.0.7.2 activate
+  no neighbor 2001:DB7:ACAB:1::1 activate
+  no neighbor 2001:DB7:ACAB:2::2 activate
+  no neighbor 2001:DB7:ACAB:4::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:1::1 activate
+  neighbor 2001:DB7:ACAB:2::2 activate
+  neighbor 2001:DB7:ACAB:4::2 activate
+ exit-address-family
+!
+```  
+
+Конфигурация BGP маршрутизатора R21 (Ламас)  
+```
+router bgp 301
+ bgp log-neighbor-changes
+ neighbor 10.0.2.6 remote-as 1001
+ neighbor 10.0.2.10 remote-as 101
+ neighbor 10.0.6.1 remote-as 520
+ neighbor 2001:DB7:ACAB:2::1 remote-as 101
+ neighbor 2001:DB7:ACAB:3::2 remote-as 1001
+ neighbor 2001:DB7:ACAB:5::2 remote-as 520
+ !
+ address-family ipv4
+  neighbor 10.0.2.6 activate
+  neighbor 10.0.2.10 activate
+  neighbor 10.0.6.1 activate
+  no neighbor 2001:DB7:ACAB:2::1 activate
+  no neighbor 2001:DB7:ACAB:3::2 activate
+  no neighbor 2001:DB7:ACAB:5::2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:2::1 activate
+  neighbor 2001:DB7:ACAB:3::2 activate
+  neighbor 2001:DB7:ACAB:5::2 activate
+ exit-address-family
+!
+```  
+
+Проверим состояние соседства R14 (г. Москва) & R22 (Критон)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R14-BGP-R22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R14-BGPIPv6-R22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R14.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R14.png)  
+
