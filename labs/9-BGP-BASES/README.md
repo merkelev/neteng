@@ -36,15 +36,23 @@
 |        |           | FE80::6:2              | link-local |              |
 |        | et0/1     | 2001:db7:acab:2::1     | /126       | to R21 et0/1 |
 |        |           | FE80::7:1              | link-local |              |
-|        | et0/2     | 10.0.7.1     | /30  | to R23 et0/0 |
+|        | et0/2     | 2001:db7:acab:4::1     | /126       | to R23 et0/0 |
+|        |           | FE80::4:1              | link-local |              |
 | R21    | et0/0     | 2001:db7:acab:3::1     | /126       | to R15 et0/2 |
 |        |           | FE80::8:1              | link-local |              |
 |        | et0/1     | 2001:db7:acab:2::2     | /126       | to R22 et0/1 |
 |        |           | FE80::7:2              | link-local |              |
-|        | et0/2     | 10.0.6.2     | /30  | to R24 et0/0 |
-| R23    | et0/0     | 10.0.7.2     | /30  | to R22 et0/2 |
-| R24    | et0/0     | 10.0.6.1     | /30  | to R21 et0/2 |
-|        | et0/3     | 10.0.4.1     | /30  | to R18 et0/2 |
-| R26    | et0/3     | 10.0.5.1     | /30  | to R18 et0/3 |
-| R18    | et0/2     | 10.0.4.2     | /30  | to R24 et0/3 |
-|        | et0/3     | 10.0.5.2     | /30  | to R26 et0/3 |
+|        | et0/2     | 2001:db7:acab:5::1     | /126       | to R24 et0/0 |
+|        |           | FE80::5:1              | link-local |              |
+| R23    | et0/0     | 2001:db7:acab:4::2     | /126       | to R22 et0/2 |
+|        |           | FE80::4::2             | link-local |              |
+| R24    | et0/0     | 2001:db7:acab:5::2     | /126       | to R21 et0/2 |
+|        |           | FE80::5:2              | link-local |              |
+|        | et0/3     | 2001:DB8:ACAD:5::2     | /126       | to R18 et0/2 |
+|        |           | FE80::5:2              | link-local |              |
+| R26    | et0/3     | 2001:DB8:ACAD:6::2     | /126       | to R18 et0/3 |
+|        |           | FE80::6:2              | link-local |              |
+| R18    | et0/2     | 2001:DB8:ACAD:5::1     | /126       | to R24 et0/3 |
+|        |           | FE80::2:1              | link-local |              |
+|        | et0/3     | 2001:DB8:ACAD:6::1     | /126       | to R26 et0/3 |
+|        |           | FE80::6:1              | link-local |              |
