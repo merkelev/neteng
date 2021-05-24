@@ -59,7 +59,7 @@
 
 **1. Настроика eBGP между офисом Москва и двумя провайдерами - Киторн и Ламас**  
 **Схема сети**  
-![]()  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/NET-MSK-KRITON-LAMAS.png)  
 Конфигурация BGP маршрутизатора R14 (г. Москва)  
 ```
 router bgp 1001
