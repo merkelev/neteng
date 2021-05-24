@@ -58,6 +58,8 @@
 |        |           | FE80::6:1              | link-local |              |
 
 **1. Настроика eBGP между офисом Москва и двумя провайдерами - Киторн и Ламас**  
+**Схема сети**  
+![]()  
 Конфигурация BGP маршрутизатора R14 (г. Москва)  
 ```
 router bgp 1001
@@ -164,4 +166,12 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R14-BGPIPv6-R22.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R14.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R14.png)  
+
+**2. Настройка eBGP между провайдерами Киторн и Ламас**  
+В пункте 1 есть настройки eBGP между R22 & R21  
+Проверим состояние соседства R22 (Критон) & R21 (Ламас)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGP-R22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGPIPv6-R22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R21.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R21.png)  
 
