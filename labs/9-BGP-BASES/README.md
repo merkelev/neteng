@@ -167,6 +167,12 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGP-R14.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R22-BGPIPv6-R14.png)  
 
+Проверим состояние соседства R15 (г. Москва) & R21 (Ламас)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R15-BGP-R21.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R15-BGPIPv6-R21.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGP-R15.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R21-BGPIPv6-R15.png)  
+
 **2. Настройка eBGP между провайдерами Киторн и Ламас**  
 В пункте 1 есть настройки eBGP между R22 & R21  
 Проверим состояние соседства R22 (Критон) & R21 (Ламас)  
@@ -452,7 +458,7 @@ router eigrp SP-EIGRP
 !
 ```  
 
-Проверяем анонсы сетей IPv4 & IPv6 в BGP
+Проверяем анонсы сетей IPv4 & IPv6 в BGP  
 ![](https://github.com/merkelev/neteng/blob/main/labs/9-BGP-BASES/R18-BGP-4-6.png)  
 Видим что сеть анонсируется.
 
