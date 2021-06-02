@@ -327,3 +327,27 @@ router bgp 520
 ![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R24-iBGP.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R25-iBGP.png)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R26-iBGP.png)  
+
+**3. Настройка офис Москва так, чтобы приоритетным провайдером стал Ламас.**  
+Для это я использовал атрибут LOCAL-PREFERENCE и ROUTE-MAP на R14
+```
+route-map LOCAL-PREF permit 10
+ set local-preference 160
+```
+
+```
+address-family ipv4
+  neighbor 172.18.10.15 route-map LOCAL-PREF in
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB8:ACAD:2::1001:15 route-map LOCAL-PREF in
+ exit-address-family
+!
+```  
+
+Проверяем таблицу BGP на R14 & R15  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R14-BGP.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R15-BGP.png)  
+
+Видим что все маршруты наружу идут через ISP Ламас (IPv4 - 95.188.1.1, IPv6 - 2001:DB7:ACAB:3::1)  
