@@ -82,3 +82,75 @@
 |      |            | R26    | et0/3     | Стык с г С.Петербург R18 |
 | 2042 | г. С.Петербург | R18| et0/2     | Стык с ISP Триада R24  |
 |      |                |    | et0/3     | Стык с ISP Триада R26  |
+
+
+**1.**  
+**Таблица iBGP в С.-Петербург.**  
+| Device | Interface | Address                  |
+| ------ | --------- | ------------------------ |
+| R14    | Loopback0 | 172.18.10.14             |
+|        |           | 2001:DB8:ACAD:2::1001:14 |
+| R15    | Loopback0 | 172.18.10.15             |
+|        |           | 2001:DB8:ACAD:2::1001:15 |
+
+Настройка iBGP на R14  
+```
+router bgp 1001
+ bgp log-neighbor-changes
+ neighbor 2001:DB7:ACAB:1::2 remote-as 101
+ neighbor 2001:DB8:ACAD:2::1001:15 remote-as 1001
+ neighbor 2001:DB8:ACAD:2::1001:15 update-source Loopback0
+ neighbor 95.188.0.1 remote-as 101
+ neighbor 172.18.10.15 remote-as 1001
+ neighbor 172.18.10.15 update-source Loopback0
+ !
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  no neighbor 2001:DB7:ACAB:1::2 activate
+  no neighbor 2001:DB8:ACAD:2::1001:15 activate
+  neighbor 95.188.0.1 activate
+  neighbor 172.18.10.15 activate
+  neighbor 172.18.10.15 next-hop-self
+  neighbor 172.18.10.15 route-map LOCAL-PREF in
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:1::2 activate
+  neighbor 2001:DB8:ACAD:2::1001:15 activate
+  neighbor 2001:DB8:ACAD:2::1001:15 next-hop-self
+ exit-address-family
+!
+```  
+
+Настройка iBGP на R15  
+```
+router bgp 1001
+ bgp log-neighbor-changes
+ neighbor 2001:DB7:ACAB:3::1 remote-as 301
+ neighbor 2001:DB8:ACAD:2::1001:14 remote-as 1001
+ neighbor 95.188.1.1 remote-as 301
+ neighbor 172.18.10.14 remote-as 1001
+ neighbor 172.18.10.14 update-source Loopback0
+ !
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  no neighbor 2001:DB7:ACAB:3::1 activate
+  no neighbor 2001:DB8:ACAD:2::1001:14 activate
+  neighbor 95.188.1.1 activate
+  neighbor 172.18.10.14 activate
+  neighbor 172.18.10.14 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:3::1 activate
+  neighbor 2001:DB8:ACAD:2::1001:14 activate
+  neighbor 2001:DB8:ACAD:2::1001:14 next-hop-self
+ exit-address-family
+!
+```  
