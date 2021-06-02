@@ -156,8 +156,8 @@ router bgp 1001
 ```  
 
 **Проверяем соседство на R14 & R15**  
-![]()  
-![]()  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R14-iBGP.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R15-iBGP.png)  
 
 **2. Настройка iBGP в провайдере Триада.**  
 **Таблица iBGP ISP Триада.**  
