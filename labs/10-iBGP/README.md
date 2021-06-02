@@ -351,3 +351,22 @@ address-family ipv4
 ![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R15-BGP.png)  
 
 Видим что все маршруты наружу идут через ISP Ламас (IPv4 - 95.188.1.1, IPv6 - 2001:DB7:ACAB:3::1)  
+
+**4. Настройка офис С.-Петербург так, чтобы трафик до любого офиса распределялся по двум линкам одновременно.**  
+Для этого сначала использовал PREFIX-LIST  
+```
+ip prefix-list NET-22-22 seq 5 permit 172.22.22.0/25
+ip prefix-list NET-22-22 seq 10 permit 172.22.0.0/16
+!
+ip prefix-list NET-22-24 seq 5 permit 172.22.24.0/25
+ip prefix-list NET-22-24 seq 10 permit 172.22.0.0/16
+```  
+
+Но трафик упорно идет через лучший маршрут. Поэтому в настройках BGP использовал -  bgp bestpath as-path multipath-relax и maximum-paths 2. Трафик в сети которые прилетают по BGP - балансируется:
+**Трасировка до ПК в г. Москва (VPC1 172.18.12.10) с ПК в г. С.-Петербург (VPC8 172.22.22.6)**  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/%20TO-VPC1%20172.18.12.10.png)  
+Видим что улетает через хоп 95.188.40.1
+
+**Трасировка до ПК в г. Москва (VPC7 172.18.14.10) с ПК в г. С.-Петербург (VPC 172.22.24.6)**  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/TO-VPC7%20172.18.14.10.png)  
+Видим что улетает через хоп 95.188.30.1
