@@ -7,5 +7,5 @@
 **Все сети в лабораторной работе должны иметь IP связность;**  
 
 **Схема сети:**  
-![]()  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/NET.png)  
 
