@@ -171,3 +171,159 @@ router bgp 1001
 |        |           | 2001:db8:acad:520::25    |
 | R26    | Loopback0 | 172.24.52.26             |
 |        |           | 2001:db8:acad:520::26    |
+
+Настройки iBGP на R23  
+```
+router bgp 520
+ bgp log-neighbor-changes
+ neighbor 2001:DB7:ACAB:4::1 remote-as 101
+ neighbor 2001:DB8:ACAD:520::24 remote-as 520
+ neighbor 2001:DB8:ACAD:520::24 update-source Loopback0
+ neighbor 2001:DB8:ACAD:520::25 remote-as 520
+ neighbor 2001:DB8:ACAD:520::25 update-source Loopback0
+ neighbor 95.188.20.2 remote-as 101
+ neighbor 172.24.52.24 remote-as 520
+ neighbor 172.24.52.24 update-source Loopback0
+ neighbor 172.24.52.25 remote-as 520
+ neighbor 172.24.52.25 update-source Loopback0
+ !
+ address-family ipv4
+  redistribute isis as520 level-1-2 route-map RM-REDIST-ISIS
+  no neighbor 2001:DB7:ACAB:4::1 activate
+  no neighbor 2001:DB8:ACAD:520::24 activate
+  no neighbor 2001:DB8:ACAD:520::25 activate
+  neighbor 95.188.20.2 activate
+  neighbor 172.24.52.24 activate
+  neighbor 172.24.52.24 route-reflector-client
+  neighbor 172.24.52.24 next-hop-self
+  neighbor 172.24.52.25 activate
+  neighbor 172.24.52.25 route-reflector-client
+  neighbor 172.24.52.25 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:4::1 activate
+  neighbor 2001:DB8:ACAD:520::24 activate
+  neighbor 2001:DB8:ACAD:520::24 next-hop-self
+  neighbor 2001:DB8:ACAD:520::25 activate
+  neighbor 2001:DB8:ACAD:520::25 next-hop-self
+ exit-address-family
+!
+```  
+
+Настройки iBGP на R24  
+```
+router bgp 520
+ bgp log-neighbor-changes
+ neighbor 2001:DB7:ACAB:5::1 remote-as 301
+ neighbor 2001:DB8:ACAD:5::1 remote-as 2042
+ neighbor 2001:DB8:ACAD:520::23 remote-as 520
+ neighbor 2001:DB8:ACAD:520::23 update-source Loopback0
+ neighbor 2001:DB8:ACAD:520::26 remote-as 520
+ neighbor 2001:DB8:ACAD:520::26 update-source Loopback0
+ neighbor 95.188.10.2 remote-as 301
+ neighbor 95.188.30.2 remote-as 2042
+ neighbor 172.24.52.23 remote-as 520
+ neighbor 172.24.52.23 update-source Loopback0
+ neighbor 172.24.52.26 remote-as 520
+ neighbor 172.24.52.26 update-source Loopback0
+ !
+ address-family ipv4
+  redistribute isis as520 level-1-2 route-map RM-REDIST-ISIS
+  no neighbor 2001:DB7:ACAB:5::1 activate
+  no neighbor 2001:DB8:ACAD:5::1 activate
+  no neighbor 2001:DB8:ACAD:520::23 activate
+  no neighbor 2001:DB8:ACAD:520::26 activate
+  neighbor 95.188.10.2 activate
+  neighbor 95.188.30.2 activate
+  neighbor 172.24.52.23 activate
+  neighbor 172.24.52.23 next-hop-self
+  neighbor 172.24.52.26 activate
+  neighbor 172.24.52.26 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:5::1 activate
+  neighbor 2001:DB8:ACAD:5::1 activate
+  neighbor 2001:DB8:ACAD:520::23 activate
+  neighbor 2001:DB8:ACAD:520::23 next-hop-self
+  neighbor 2001:DB8:ACAD:520::26 activate
+  neighbor 2001:DB8:ACAD:520::26 next-hop-self
+ exit-address-family
+!
+```  
+
+Настройки iBGP на R25  
+```
+router bgp 520
+ bgp log-neighbor-changes
+ neighbor 2001:DB8:ACAD:520::23 remote-as 520
+ neighbor 2001:DB8:ACAD:520::23 update-source Loopback0
+ neighbor 2001:DB8:ACAD:520::26 remote-as 520
+ neighbor 2001:DB8:ACAD:520::26 update-source Loopback0
+ neighbor 172.24.52.23 remote-as 520
+ neighbor 172.24.52.23 update-source Loopback0
+ neighbor 172.24.52.26 remote-as 520
+ neighbor 172.24.52.26 update-source Loopback0
+ !
+ address-family ipv4
+  network 10.0.0.0 mask 255.255.255.0
+  redistribute rip
+  no neighbor 2001:DB8:ACAD:520::23 activate
+  no neighbor 2001:DB8:ACAD:520::26 activate
+  neighbor 172.24.52.23 activate
+  neighbor 172.24.52.23 next-hop-self
+  neighbor 172.24.52.26 activate
+  neighbor 172.24.52.26 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB8:ACAD:520::23 activate
+  neighbor 2001:DB8:ACAD:520::23 next-hop-self
+  neighbor 2001:DB8:ACAD:520::26 activate
+  neighbor 2001:DB8:ACAD:520::26 next-hop-self
+ exit-address-family
+!
+```  
+
+Настройки iBGP на R26  
+```
+router bgp 520
+ bgp log-neighbor-changes
+ neighbor 2001:DB8:ACAD:6::1 remote-as 2042
+ neighbor 2001:DB8:ACAD:520::24 remote-as 520
+ neighbor 2001:DB8:ACAD:520::24 update-source Loopback0
+ neighbor 2001:DB8:ACAD:520::25 remote-as 520
+ neighbor 2001:DB8:ACAD:520::25 update-source Loopback0
+ neighbor 95.188.40.2 remote-as 2042
+ neighbor 172.24.52.24 remote-as 520
+ neighbor 172.24.52.24 update-source Loopback0
+ neighbor 172.24.52.25 remote-as 520
+ neighbor 172.24.52.25 update-source Loopback0
+ !
+ address-family ipv4
+  no neighbor 2001:DB8:ACAD:6::1 activate
+  no neighbor 2001:DB8:ACAD:520::24 activate
+  no neighbor 2001:DB8:ACAD:520::25 activate
+  neighbor 95.188.40.2 activate
+  neighbor 172.24.52.24 activate
+  neighbor 172.24.52.24 next-hop-self
+  neighbor 172.24.52.25 activate
+  neighbor 172.24.52.25 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB8:ACAD:6::1 activate
+  neighbor 2001:DB8:ACAD:520::24 activate
+  neighbor 2001:DB8:ACAD:520::24 next-hop-self
+  neighbor 2001:DB8:ACAD:520::25 activate
+  neighbor 2001:DB8:ACAD:520::25 next-hop-self
+ exit-address-family
+!
+```  
+
+**Проверяем соседство на R23, R24, R25 & R26**  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R23-iBGP.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R24-iBGP.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R25-iBGP.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/10-iBGP/R26-iBGP.png)  
