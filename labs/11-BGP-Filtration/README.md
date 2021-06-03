@@ -10,7 +10,7 @@
 ![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/NET.png)  
 
 **3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по-умолчанию.**  
-Для этого создал prefix-list и route-map  
+Для этого на R22 создал prefix-list и route-map  
 ```
 ip prefix-list DEFAULT seq 5 permit 0.0.0.0/0
 !
@@ -22,7 +22,7 @@ route-map DEF-ROUTE-V6 permit 10
  match ipv6 address DEFAULT-V6
 !
 ```  
-И привезял route-map к соседу R14  
+И привязал route-map к соседу R14  
 ```
 router bgp 101
  neighbor 2001:DB7:ACAB:1::1 remote-as 1001
@@ -45,4 +45,41 @@ router bgp 101
 
 Видим что ни каких префиксов не анонсируем - только дефолт.  
 
+**4. Настройка провайдера Ламас так, чтобы в офис Москва отдавался только маршрут по-умолчанию и префикс офиса С.-Петербург**  
+Для этого на R21 создал prefix-list и route-map  
+```
+ip prefix-list ROUTE-MSK seq 5 permit 172.22.0.0/16
+ip prefix-list ROUTE-MSK seq 10 permit 0.0.0.0/0
+!
+!
+ipv6 prefix-list ROUTE-MSK-V6 seq 5 permit 2001:DB8:ACAD:1::/64
+ipv6 prefix-list ROUTE-MSK-V6 seq 10 permit ::/0
+route-map RM-MSK-V6 permit 10
+ match ipv6 address prefix-list ROUTE-MSK-V6
+!
+route-map RM-MSK permit 10
+ match ip address prefix-list ROUTE-MSK
+!
+```  
+И привязал route-map к соседу R15  
+```
+router bgp 301
+ neighbor 2001:DB7:ACAB:3::2 remote-as 1001
+ neighbor 95.188.1.2 remote-as 1001
+ !
+ address-family ipv4
+  neighbor 95.188.1.2 default-originate
+  neighbor 95.188.1.2 route-map RM-MSK out
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:3::2 default-originate
+  neighbor 2001:DB7:ACAB:3::2 route-map RM-MSK-V6 out
+ exit-address-family
+!
+```  
 
+Проверяем маршруты которые мы отдаем соседу R15  
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R21-ADVER.png)  
+
+Видим что анонсируем префик офиса С.-Петербург и дефолт.
