@@ -9,3 +9,40 @@
 
 ![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/NET.png)  
 
+**3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по-умолчанию.**  
+Для этого создал prefix-list и route-map  
+```
+ip prefix-list DEFAULT seq 5 permit 0.0.0.0/0
+!
+ipv6 prefix-list DEFAULT-V6 seq 5 permit ::/0
+route-map DEF-ROUTE permit 10
+ match ip address prefix-list DEFAULT
+!
+route-map DEF-ROUTE-V6 permit 10
+ match ipv6 address DEFAULT-V6
+!
+```  
+И привезял route-map к соседу R14  
+```
+router bgp 101
+ neighbor 2001:DB7:ACAB:1::1 remote-as 1001
+ neighbor 95.188.0.2 remote-as 1001
+ !
+ address-family ipv4
+  neighbor 95.188.0.2 default-originate
+  neighbor 95.188.0.2 route-map DEF-ROUTE out
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB7:ACAB:1::1 default-originate
+  neighbor 2001:DB7:ACAB:1::1 route-map DEF-ROUTE-V6 out
+ exit-address-family
+!
+```  
+
+Проверяем маршруты которые мы отдаем соседу R14  
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R22-ADVER.png)  
+
+Видим что ни каких префиксов не анонсируем - только дефолт.  
+
+
