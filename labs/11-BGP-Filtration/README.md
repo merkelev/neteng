@@ -88,3 +88,8 @@ router bgp 301
 ![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R21-ADVER.png)  
 
 Видим что анонсируем префик офиса С.-Петербург и дефолт.
+
+На R15 проверяем что мы получаем от соседа R21  
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R15-ROUTES-BGP.png)  
+
+Видим префикс офиса С.-Петербург и дефолт.
