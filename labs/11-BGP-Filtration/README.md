@@ -106,9 +106,8 @@ router bgp 2042
 !
 ```  
 Проверяем что отдаем соседям  
-![]()  
-![]()  
-
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R18-ADVER-IPV4.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R18-ADVER-IPV6.png)  
 
 **3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по-умолчанию.**  
 Для этого на R22 создал prefix-list и route-map  
