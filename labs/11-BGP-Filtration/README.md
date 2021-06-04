@@ -64,6 +64,52 @@ router bgp 1001
 Проверяем что мы отдаем соседу  
 ![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R15-ADVER.png)  
 
+**2. Настройка фильтраци в офисе С.-Петербург так, чтобы не появилось транзитного трафика(Prefix-list)**  
+Настройки на R18  
+prefix-list для фильтрации in & out   
+```
+ip prefix-list FILTER-TRANS-IPV4-IN seq 5 permit 0.0.0.0/0
+!
+ip prefix-list FILTER-TRANS-IPV4-OUT seq 5 permit 172.22.0.0/16
+ip prefix-list FILTER-TRANS-IPV4-OUT seq 10 deny 0.0.0.0/0 le 32
+!
+!
+ipv6 prefix-list FILTER-TRANS-IPV6-IN seq 5 permit ::/0
+!
+ipv6 prefix-list FILTER-TRANS-IPV6-OUT seq 5 permit 2001:DB8:ACAD:1::/64
+ipv6 prefix-list FILTER-TRANS-IPV6-OUT seq 10 deny ::/0 le 128
+```  
+
+Настройки BGP  
+```
+router bgp 2042
+ !
+ address-family ipv4
+  network 172.22.0.0
+  neighbor 95.188.30.1 activate
+  neighbor 95.188.30.1 prefix-list FILTER-TRANS-IPV4-IN in
+  neighbor 95.188.30.1 prefix-list FILTER-TRANS-IPV4-OUT out
+  neighbor 95.188.40.1 activate
+  neighbor 95.188.40.1 prefix-list FILTER-TRANS-IPV4-IN in
+  neighbor 95.188.40.1 prefix-list FILTER-TRANS-IPV4-OUT out
+  maximum-paths 2
+ exit-address-family
+ !
+ address-family ipv6
+  maximum-paths 2
+  network 2001:DB8:ACAD:1::/64
+  neighbor 2001:DB8:ACAD:5::2 prefix-list FILTER-TRANS-IPV6-IN in
+  neighbor 2001:DB8:ACAD:5::2 prefix-list FILTER-TRANS-IPV6-OUT out
+  neighbor 2001:DB8:ACAD:6::2 prefix-list FILTER-TRANS-IPV6-IN in
+  neighbor 2001:DB8:ACAD:6::2 prefix-list FILTER-TRANS-IPV6-OUT out
+ exit-address-family
+!
+```  
+Проверяем что отдаем соседям  
+![]()  
+![]()  
+
+
 **3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по-умолчанию.**  
 Для этого на R22 создал prefix-list и route-map  
 ```
