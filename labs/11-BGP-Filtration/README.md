@@ -9,6 +9,61 @@
 
 ![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/NET.png)  
 
+**1. Настройка фильтрации в офисе Москва так, чтобы не появилось транзитного трафика(As-path)**  
+Настройки на R14  
+acl as-path  
+```
+ip as-path access-list 1 permit ^$
+ip as-path access-list 1 deny .*
+```  
+Настройки BGP  
+
+```
+router bgp 1001
+ !
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  neighbor 95.188.0.1 filter-list 1 out
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:1::2 filter-list 1 out
+ exit-address-family
+!
+```  
+Проверяем что мы отдаем соседу  
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R14-ADVER.png)  
+
+Настройки на R15  
+acl as-path  
+```
+ip as-path access-list 1 permit ^$
+ip as-path access-list 1 deny .*
+```  
+Настройки BGP  
+
+```
+router bgp 1001
+ !
+ address-family ipv4
+  network 172.18.12.0 mask 255.255.255.128
+  network 172.18.14.0 mask 255.255.255.128
+  neighbor 95.188.1.1 filter-list 1 out
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:ACAD:2::12:0/120
+  network 2001:DB8:ACAD:2::14:0/120
+  neighbor 2001:DB7:ACAB:3::1 filter-list 1 out
+ exit-address-family
+!
+```  
+Проверяем что мы отдаем соседу  
+![](https://github.com/merkelev/neteng/blob/main/labs/11-BGP-Filtration/R15-ADVER.png)  
+
 **3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по-умолчанию.**  
 Для этого на R22 создал prefix-list и route-map  
 ```
