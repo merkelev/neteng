@@ -51,3 +51,6 @@ Extended IP access list ACL-NAT-NETWORK-14
 
 Проверяем работу NAT для хостов VPC1 & VPC7, запускаю ping до узлов 95.188.120.2 & 95.188.50.2   
 ![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NAT-TRANS-R15.png)  
+
+Трафик идет через R15, в случае отказа R15, маршрутизатор R14 - свляеся резервным. Отключаю маршрутизатор R15 и проверяю NAT  
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NAT-TRANS-R14.png)  
