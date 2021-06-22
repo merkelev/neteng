@@ -48,3 +48,6 @@ Extended IP access list ACL-NAT-NETWORK-14
     10 permit ip 172.18.14.0 0.0.0.255 any
 ```  
 НАТятся сети 172.18.12.0/25 и 172.18.14.0/25
+
+Проверяем работу NAT для хостов VPC1 & VPC7, запускаю ping до узлов 95.188.120.2 & 95.188.50.2   
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NAT-TRANS-R15.png)  
