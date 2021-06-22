@@ -84,3 +84,61 @@ ip nat inside source static 172.18.0.22 109.226.218.20 extendable
 ```  
 В случае отказа R15, R14 будет НАТить R20. Прверяю работу NAT, запускаю ping до узла 95.188.100.2
 ![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NAT-R20.png)  
+
+**4. Настроить NAT так, чтобы R19 был доступен с любого узла для удаленного управления.**  
+Настройка на R14  
+```
+ip nat inside source static tcp 172.18.0.2 22 109.226.219.22 4222 extendable
+```  
+
+Настройка на R15  
+```
+ip nat inside source static tcp 172.18.0.66 22 109.226.219.22 4222 extendable
+```  
+В случае отказа R15, R14 будет НАТить R19. Прверяю работу NAT и доступность управления по SSH с R27 и R28  
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/ACCESS-R19.png)  
+
+**5. Настроить статический NAT(PAT) для офиса Чокурдах.**  
+Настраивал ранее в лабе по PBR. Настройка на R28  
+```
+ip nat translation timeout 5
+ip nat inside source route-map RM-ISP-1 interface Ethernet0/0 overload
+ip nat inside source route-map RM-ISP-2 interface Ethernet0/1 overload
+ip route 0.0.0.0 0.0.0.0 95.188.50.1 track 1
+ip route 0.0.0.0 0.0.0.0 95.188.100.1 10 track 2
+!
+ip access-list extended ACL-NAT-32
+ permit ip 172.20.32.0 0.0.0.7 any
+ip access-list extended ACL-NAT-34
+ permit ip 172.20.34.0 0.0.0.7 any
+!
+ip sla 1
+ icmp-echo 95.188.50.1 source-ip 95.188.50.2
+ frequency 30
+ip sla schedule 1 life forever start-time now
+ip sla 2
+ icmp-echo 95.188.100.1 source-ip 95.188.100.2
+ frequency 30
+ip sla schedule 2 life forever start-time now
+!
+route-map PBR permit 10
+ match ip address ACL-NAT-32
+ set ip next-hop verify-availability 95.188.50.1 1 track 1
+ set ip next-hop verify-availability 95.188.100.1 2 track 2
+!
+route-map PBR permit 20
+ match ip address ACL-NAT-34
+ set ip next-hop verify-availability 95.188.100.1 1 track 2
+ set ip next-hop verify-availability 95.188.50.1 2 track 1
+!
+route-map RM-ISP-1 permit 10
+ match ip address ACL-NAT-32 ACL-NAT-34
+ match interface Ethernet0/0
+!
+route-map RM-ISP-2 permit 10
+ match ip address ACL-NAT-34 ACL-NAT-32
+ match interface Ethernet0/1
+!
+```  
+Проверяем работу NAT для хостов VPC30 & VPC31, запускаю ping до узла 95.188.120.2
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NAT-TRANS-R28.png)  
