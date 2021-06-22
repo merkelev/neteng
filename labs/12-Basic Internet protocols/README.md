@@ -279,3 +279,27 @@ interface Ethernet0/0.14
 ![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/DHCPv6.png)  
 
 **7. Настроить NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13.**  
+Настройка NTP сервера на R12  
+```
+interface Loopback86
+ description FOR-NTP
+ ip address 172.18.86.1 255.255.255.255
+ ip ospf 10 area 0
+!
+ntp master 2
+ntp update-calendar
+```  
+
+Настройка NTP сервера на R13  
+```
+interface Loopback86
+ description FOR-NTP
+ ip address 172.18.86.2 255.255.255.255
+ ip ospf 10 area 0
+!
+ntp master 2
+ntp update-calendar
+```  
+
+Проверяем работу NTP на маршрутизаторах  
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NTP.png)  
