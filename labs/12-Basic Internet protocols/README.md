@@ -142,3 +142,138 @@ route-map RM-ISP-2 permit 10
 ```  
 Проверяем работу NAT для хостов VPC30 & VPC31, запускаю ping до узла 95.188.120.2
 ![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/NAT-TRANS-R28.png)  
+
+**6. Настроить DHCP сервер в офисе Москва на маршрутизаторах R12 и R13. VPC1 и VPC7 должны получать сетевые настройки по DHCP.**  
+Настройка DHCPv4 & v6 на R12  
+```
+!
+ip dhcp excluded-address 172.18.12.1
+ip dhcp excluded-address 172.18.12.2
+ip dhcp excluded-address 172.18.12.3
+ip dhcp excluded-address 172.18.14.1
+ip dhcp excluded-address 172.18.14.2
+ip dhcp excluded-address 172.18.14.3
+!
+ip dhcp pool NET-12
+ network 172.18.12.0 255.255.255.128
+ default-router 172.18.12.1
+!
+ip dhcp pool NET-14
+ network 172.18.14.0 255.255.255.128
+ default-router 172.18.14.1
+!
+ipv6 dhcp pool POOL-VLAN12
+ address prefix 2001:DB8:ACAD:2::12:1/120
+ domain-name msk.com
+!
+ipv6 dhcp pool POOL-VLAN14
+ address prefix 2001:DB8:ACAD:2::14:1/120
+ domain-name msk.com
+!
+interface Ethernet0/0.12
+ encapsulation dot1Q 12
+ ip address 172.18.12.2 255.255.255.128
+ ip nat inside
+ ip virtual-reassembly in
+ standby version 2
+ standby 12 ip 172.18.12.1
+ standby 12 priority 120
+ standby 212 ipv6 2001:DB8:ACAD:2::12:1/120
+ standby 212 priority 120
+ ip ospf 10 area 10
+ ipv6 address FE80::12:1 link-local
+ ipv6 address 2001:DB8:ACAD:2::12:2/120
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ ipv6 dhcp server POOL-VLAN12
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/0.14
+ encapsulation dot1Q 14
+ ip address 172.18.14.2 255.255.255.128
+ standby version 2
+ standby 14 ip 172.18.14.1
+ standby 14 priority 120
+ standby 214 ipv6 2001:DB8:ACAD:2::14:1/120
+ standby 214 priority 120
+ ip ospf 10 area 10
+ ipv6 address FE80::14:1 link-local
+ ipv6 address 2001:DB8:ACAD:2::14:2/120
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ ipv6 dhcp server POOL-VLAN14
+ ipv6 ospf 10 area 10
+!
+```  
+
+Настройка DHCPv4 & v6 на R13  
+```
+!
+ip dhcp excluded-address 172.18.12.1
+ip dhcp excluded-address 172.18.12.2
+ip dhcp excluded-address 172.18.12.3
+ip dhcp excluded-address 172.18.14.1
+ip dhcp excluded-address 172.18.14.2
+ip dhcp excluded-address 172.18.14.3
+!
+ip dhcp pool NET-12
+ network 172.18.12.0 255.255.255.128
+ default-router 172.18.12.1
+!
+ip dhcp pool NET-14
+ network 172.18.14.0 255.255.255.128
+ default-router 172.18.14.1
+!
+ipv6 dhcp pool POOL-VLAN12
+ address prefix 2001:DB8:ACAD:2::12:1/120
+ domain-name msk.com
+!
+ipv6 dhcp pool POOL-VLAN14
+ address prefix 2001:DB8:ACAD:2::14:1/120
+ domain-name msk.com
+!
+interface Ethernet0/0.12
+ encapsulation dot1Q 12
+ ip address 172.18.12.3 255.255.255.128
+ ip nat inside
+ ip virtual-reassembly in
+ standby version 2
+ standby 12 ip 172.18.12.1
+ standby 12 preempt
+ standby 212 ipv6 2001:DB8:ACAD:2::12:1/120
+ standby 212 preempt
+ ip ospf 10 area 10
+ ipv6 address FE80::12:2 link-local
+ ipv6 address 2001:DB8:ACAD:2::12:3/120
+ ipv6 enable
+ ipv6 nd prefix 2001:DB8:ACAD:2::/120 no-advertise
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ ipv6 dhcp server POOL-VLAN12
+ ipv6 ospf 10 area 10
+!
+interface Ethernet0/0.14
+ encapsulation dot1Q 14
+ ip address 172.18.14.3 255.255.255.128
+ standby version 2
+ standby 14 ip 172.18.14.1
+ standby 14 preempt
+ standby 214 ipv6 2001:DB8:ACAD:2::14:1/120
+ standby 214 preempt
+ ip ospf 10 area 10
+ ipv6 address FE80::14:2 link-local
+ ipv6 address 2001:DB8:ACAD:2::14:3/120
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ ipv6 dhcp server POOL-VLAN14
+ ipv6 ospf 10 area 10
+!
+```  
+Проверяем выдачу адресов на VPC1 & VPC7  
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/DHCPv4.png)  
+
+На маршрутизаторах R12 & R13 я настроил DHCPv6 с отслеживанием состояния для полного контроля выдачи адресов. В качестве клиентов выступают R6 & R33 так как VPC не позволяет получать адреса от сервера DHCPv6 с отслеживанием состояния. Проверяю выдачу адресов на R6 & R33  
+![](https://github.com/merkelev/neteng/blob/main/labs/12-Basic%20Internet%20protocols/images/DHCPv6.png)  
