@@ -261,5 +261,37 @@ router ospf 10
 Проверяю соседство OSPF  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/OSPF-R15-R18.png)  
 
-Запускаю ping с узла VPC1 до узла VPC8 (Санкт-Петербург)  
+Запускаю ping с узла VPC1 (Москва) до узла VPC8 (Санкт-Петербург)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-VPC1-TO-VPC8.png)  
+
+Настройки OSPF на R28 (Чокурдах)  
+```
+router ospf 10
+ router-id 10.200.0.3
+ passive-interface default
+ no passive-interface Ethernet0/2.32
+ no passive-interface Ethernet0/2.34
+ no passive-interface Tunnel10
+ no passive-interface Tunnel20
+!
+```  
+
+Настройки OSPF на R27 (Лабытнанги)  
+```
+router ospf 10
+ router-id 10.200.0.2
+ passive-interface default
+ no passive-interface Ethernet0/1
+ no passive-interface Tunnel10
+ no passive-interface Tunnel20
+!
+```  
+
+Проверяю соседство OSPF - R14, R15, R27 & R28  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/OSPF-R14-R15-R27-R28.png)  
+
+Запускаю ping с узла VPC30 (Чокурдах) до узла VPC (Санкт-Петербург)  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_17-05-23.png)  
+
+Запускаю ping с узла VPC7 (Москва) до узла R27 (Лабытнанги). На R27 весит сеть 172.28.0.0/24 на Et0/1  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_17-07-22.png)
