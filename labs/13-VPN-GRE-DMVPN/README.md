@@ -87,7 +87,7 @@ interface Tunnel100
  tunnel destination 109.226.218.80
 ```  
 
-Проверяюсостояние туннеля и пинг между узлами  
+Проверяю состояние туннеля и пинг между узлами  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/GRE-R15-R18.png)  
 
 Туннель работает. В случает отказа R15, туннель перестроится на R14.  
@@ -206,8 +206,8 @@ Tunnel10 подключается к R15, Tunnel20 подключается к R
 Проверяю DMVPN на маршрутизаторах  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/DMVPN-R14-R15_R27-R28.png)  
 
-Для связи между офисами настроил OSPF. 
-Настройки OSPF на R18  
+**Для связи между офисами настроил OSPF.**  
+Настройки OSPF на R18 (Санкт-Петербург)  
 ```
 router ospf 10
  router-id 10.100.0.2
@@ -224,3 +224,42 @@ route-map RM-REDIST-LAN permit 10
 !
 ip prefix-list LIST-LAN seq 5 permit 172.22.0.0/16
 ```  
+
+Настройки OSPF на R14 (Москва)  
+```
+router ospf 10
+ router-id 172.18.0.1
+ area 101 stub no-summary
+ passive-interface default
+ no passive-interface Ethernet0/0
+ no passive-interface Ethernet0/1
+ no passive-interface Ethernet0/3
+ no passive-interface Ethernet1/0
+ no passive-interface Loopback0
+ no passive-interface Tunnel20
+ no passive-interface Tunnel100
+ default-information originate always
+!
+```  
+Настройки OSPF на R15 (Москва)  
+```
+router ospf 10
+ router-id 172.18.0.21
+ area 102 filter-list prefix FILTER-TO-R20 in
+ passive-interface default
+ no passive-interface Ethernet0/0
+ no passive-interface Ethernet0/1
+ no passive-interface Ethernet0/3
+ no passive-interface Ethernet1/0
+ no passive-interface Loopback0
+ no passive-interface Tunnel10
+ no passive-interface Tunnel100
+ default-information originate always
+!
+```  
+
+Проверяю соседство OSPF  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/OSPF-R15-R18.png)  
+
+Запускаю ping с узла VPC1 до узла VPC8 (Санкт-Петербург)  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-VPC1-TO-VPC8.png)  
