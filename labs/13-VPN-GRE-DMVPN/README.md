@@ -44,7 +44,7 @@ interface Loopback80
 
 ```
 interface Tunnel100
- description GRE-TUNNEL-TO-R18-SP
+ description GRE-TUNNEL-TO-SP
  ip address 10.100.0.1 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
@@ -61,7 +61,7 @@ interface Loopback80
 
 ```
 interface Tunnel100
- description GRE-TUNNEL-TO-R18-SP
+ description GRE-TUNNEL-TO-SP
  ip address 10.100.0.1 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
@@ -78,7 +78,7 @@ interface Loopback80
 
 ```
 interface Tunnel100
- description GRE-TUNNEL-TO-R15-MSK
+ description GRE-TUNNEL-TO-MSK
  ip address 10.100.0.2 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
