@@ -205,3 +205,22 @@ Tunnel10 подключается к R15, Tunnel20 подключается к R
 
 Проверяю DMVPN на маршрутизаторах  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/DMVPN-R14-R15_R27-R28.png)  
+
+Для связи между офисами настроил OSPF. 
+Настройки OSPF на R18  
+```
+router ospf 10
+ router-id 10.100.0.2
+ redistribute eigrp 4 metric 110 subnets route-map RM-REDIST-LAN
+ passive-interface default
+ no passive-interface Tunnel100
+!
+```  
+
+Prefix-list & Route-map для редистрибуции EIGRP  
+```
+route-map RM-REDIST-LAN permit 10
+ match ip address prefix-list LIST-LAN
+!
+ip prefix-list LIST-LAN seq 5 permit 172.22.0.0/16
+```  
