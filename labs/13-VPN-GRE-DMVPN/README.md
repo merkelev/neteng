@@ -6,3 +6,13 @@
 
 **Схема сети**  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_15-47-13.png)  
+
+**Таблица адресов GRE туннелей**  
+| Device   | Address        | Mask | Interface  |
+| -------- | ---------      | ---- | ---------  |
+| R15      | 109.226.218.80 | /32  | Loopback80 |
+|          | 10.100.0.1     | /30  | Tunnel100  |
+| R14      | 109.226.218.80 | /32  | Loopback80 |
+|          | 10.100.0.1     | /30  | Tunnel100  |
+| R18      | 75.100.20.80   | /32  | Loopback80 |
+|          | 10.100.0.2     | /30  | Tunnel100  | 
