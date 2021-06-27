@@ -1,11 +1,13 @@
 ## VPN. GRE. DMVPN
 
+**Схема сети**  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_15-47-13.png)  
+
 **Цель:**  
 **1. Настроить GRE между офисами Москва и С.-Петербург**  
 **2. Настроить DMVPN между офисами Москва и Чокурдах, Лабытнанги**  
 
-**Схема сети**  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_15-47-13.png)  
+**Выполнение**  
 
 **Таблица адресов GRE туннелей**  
 | Device   | Address        | Mask | Interface  |
@@ -31,3 +33,59 @@
 | R27      | 95.188.120.2   | /30  | Et0/0      |
 |          | 10.200.0.2     | /24  | Tunnel10   |
 |          | 10.120.0.3     | /24  | Tunnel20   |
+
+**1. Настроить GRE между офисами Москва и С.-Петербург**  
+Настройки GRE на R14 & R15  
+R14  
+```
+interface Loopback80
+ ip address 109.226.218.80 255.255.255.255
+```  
+
+```
+interface Tunnel100
+ description GRE-TUNNEL-TO-R18-SP
+ ip address 10.100.0.1 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf 10 area 0
+ tunnel source 109.226.218.80
+ tunnel destination 75.100.20.80
+```  
+
+R15  
+```
+interface Loopback80
+ ip address 109.226.218.80 255.255.255.255
+```  
+
+```
+interface Tunnel100
+ description GRE-TUNNEL-TO-R18-SP
+ ip address 10.100.0.1 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf 10 area 0
+ tunnel source 109.226.218.80
+ tunnel destination 75.100.20.80
+```  
+
+Настройка GRE на R18  
+```
+interface Loopback80
+ ip address 75.100.20.80 255.255.255.255
+```  
+
+```
+interface Tunnel100
+ description GRE-TUNNEL-TO-R15-MSK
+ ip address 10.100.0.2 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf 10 area 0
+ tunnel source 75.100.20.80
+ tunnel destination 109.226.218.80
+```  
+
+Проверяюсостояние туннеля и пинг между узлами  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/GRE-R15-R18.png)  
