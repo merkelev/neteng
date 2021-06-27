@@ -132,7 +132,7 @@ interface Tunnel20
 
 ```
 interface Tunnel10
- description DMVPN-SPOKE-R15
+ description DMVPN-SPOKE
  ip address 10.200.0.3 255.255.255.0
  no ip redirects
  ip mtu 1400
@@ -148,7 +148,7 @@ interface Tunnel10
  tunnel mode gre multipoint
 !
 interface Tunnel20
- description DMVPN-SPOKE-R15
+ description DMVPN-SPOKE
  ip address 10.120.0.2 255.255.255.0
  no ip redirects
  ip mtu 1400
