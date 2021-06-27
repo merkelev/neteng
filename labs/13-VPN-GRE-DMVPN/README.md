@@ -96,71 +96,112 @@ interface Tunnel100
 Настройка DMVPN на R15 (Москва)  
 ```
 interface Tunnel10
-description DMVPN-HUB
-ip address 10.200.0.1 255.255.255.0
-no ip redirects
-ip mtu 1400
-ip nhrp map multicast dynamic
-ip nhrp network-id 100
-ip tcp adjust-mss 1360
-ip ospf network broadcast
-ip ospf priority 120
-ip ospf 10 area 0
-tunnel source 109.226.218.6
-tunnel mode gre multipoint
+ description DMVPN-HUB
+ ip address 10.200.0.1 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 100
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 120
+ ip ospf 10 area 0
+ tunnel source 109.226.218.6
+ tunnel mode gre multipoint
 ```  
 
 Настройка DMVPN на R14 (Москва)  
 ```
 interface Tunnel20
-description DMVPN-HUB
-ip address 10.120.0.1 255.255.255.0
-no ip redirects
-ip mtu 1400
-ip nhrp map multicast dynamic
-ip nhrp network-id 200
-ip tcp adjust-mss 1360
-ip ospf network broadcast
-ip ospf priority 10
-ip ospf 10 area 0
-keepalive 5 2
-tunnel source 109.226.218.5
-tunnel mode gre multipoint
+ description DMVPN-HUB
+ ip address 10.120.0.1 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 200
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 10
+ ip ospf 10 area 0
+ keepalive 5 2
+ tunnel source 109.226.218.5
+ tunnel mode gre multipoint
 ```  
  
 Настройка DMVPN на R28 (Чокурдах)  
 
 ```
 interface Tunnel10
-description DMVPN-SPOKE-R15
-ip address 10.200.0.3 255.255.255.0
-no ip redirects
-ip mtu 1400
-ip nhrp map multicast 109.226.218.6
-ip nhrp map 10.200.0.1 109.226.218.6
-ip nhrp network-id 100
-ip nhrp nhs 10.200.0.1
-ip tcp adjust-mss 1360
-ip ospf network broadcast
-ip ospf priority 20
-ip ospf 10 area 0
-tunnel source 95.188.50.2
-tunnel mode gre multipoint
+ description DMVPN-SPOKE-R15
+ ip address 10.200.0.3 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast 109.226.218.6
+ ip nhrp map 10.200.0.1 109.226.218.6
+ ip nhrp network-id 100
+ ip nhrp nhs 10.200.0.1
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 20
+ ip ospf 10 area 0
+ tunnel source 95.188.50.2
+ tunnel mode gre multipoint
 !
 interface Tunnel20
-description DMVPN-SPOKE-R15
-ip address 10.120.0.2 255.255.255.0
-no ip redirects
-ip mtu 1400
-ip nhrp map multicast 109.226.218.5
-ip nhrp map 10.120.0.1 109.226.218.5
-ip nhrp network-id 200
-ip nhrp nhs 10.120.0.1
-ip tcp adjust-mss 1360
-ip ospf network broadcast
-ip ospf priority 10
-ip ospf 10 area 0
-tunnel source 95.188.100.2
-tunnel mode gre multipoint
+ description DMVPN-SPOKE-R15
+ ip address 10.120.0.2 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast 109.226.218.5
+ ip nhrp map 10.120.0.1 109.226.218.5
+ ip nhrp network-id 200
+ ip nhrp nhs 10.120.0.1
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 10
+ ip ospf 10 area 0
+ tunnel source 95.188.100.2
+ tunnel mode gre multipoint
 !
 ```  
+Tunnel10 подключается к R15, Tunnel20 подключается к R14. В случае отказа одного из маршрутизаторов связь между офисами будет.
+
+Настройка DMVPN на R27 (Лабытнанги)  
+```
+interface Tunnel10
+ description DMVPN-SPOKE
+ ip address 10.200.0.2 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast 109.226.218.6
+ ip nhrp map 10.200.0.1 109.226.218.6
+ ip nhrp network-id 100
+ ip nhrp nhs 10.200.0.1
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 6
+ ip ospf 10 area 0
+ tunnel source 95.188.120.2
+ tunnel mode gre multipoint
+!
+interface Tunnel20
+ description DMVPN-SPOKE
+ ip address 10.120.0.3 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast 109.226.218.5
+ ip nhrp map 10.120.0.1 109.226.218.5
+ ip nhrp network-id 100
+ ip nhrp nhs 10.120.0.1
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 0
+ ip ospf 10 area 0
+ tunnel source 95.188.120.2
+ tunnel mode gre multipoint
+!
+```  
+Tunnel10 подключается к R15, Tunnel20 подключается к R14. В случае отказа одного из маршрутизаторов связь между офисами будет.
+
+Проверяю DMVPN на маршрутизаторах  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/DMVPN-R14-R15_R27-R28.png)  
