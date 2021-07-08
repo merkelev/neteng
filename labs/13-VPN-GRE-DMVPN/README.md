@@ -328,8 +328,8 @@ router eigrp SP-EIGRP
 
 Запускаю ping с узла VPC30 (Чокурдах) до узла VPC (Санкт-Петербург), ping с узла VPC7 (Москва) до узла R27 (Лабытнанги).  
 На R27 весит сеть 172.28.0.0/24 на Et0/1  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_17-07-22.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-R27-VPC30-VPC-VPC7.png)  
 
 Таблицы маршрутизации EIGRP на R14, R15, R18, R27 & R28  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-R27-VPC30-VPC-VPC7.png)  
+![]()  
 
