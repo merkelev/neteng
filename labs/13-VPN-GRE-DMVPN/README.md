@@ -290,34 +290,46 @@ ip prefix-list LAN-FOR-TUNNEL seq 10 permit 172.18.14.0/25
 Запускаю ping с узла VPC1 (Москва) до узла VPC8 (Санкт-Петербург)  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-VPC-VPC8.png)  
 
-Настройки OSPF на R28 (Чокурдах)  
+Настройки EIGRP на R28 (Чокурдах)  
 ```
-router ospf 10
- router-id 10.200.0.3
- passive-interface default
- no passive-interface Ethernet0/2.32
- no passive-interface Ethernet0/2.34
- no passive-interface Tunnel10
- no passive-interface Tunnel20
+router eigrp SP-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 4
+  !
+  topology base
+  exit-af-topology
+  network 10.120.0.0 0.0.0.255
+  network 10.200.0.0 0.0.0.255
+  network 172.20.32.0 0.0.0.7
+  network 172.20.34.0 0.0.0.7
+  eigrp router-id 10.200.0.3
+ exit-address-family
 !
 ```  
 
-Настройки OSPF на R27 (Лабытнанги)  
+Настройки EIGRP на R27 (Лабытнанги)  
 ```
-router ospf 10
- router-id 10.200.0.2
- passive-interface default
- no passive-interface Ethernet0/1
- no passive-interface Tunnel10
- no passive-interface Tunnel20
+router eigrp SP-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 4
+  !
+  topology base
+  exit-af-topology
+  network 10.120.0.0 0.0.0.255
+  network 10.200.0.0 0.0.0.255
+  network 172.28.0.0 0.0.0.255
+  eigrp router-id 10.200.0.5
+ exit-address-family
 !
 ```  
 
-Проверяю соседство OSPF - R14, R15, R27 & R28  
+Проверяю соседство EIGRP - R14, R15, R27 & R28  
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/OSPF-R14-R15-R27-R28.png)  
 
-Запускаю ping с узла VPC30 (Чокурдах) до узла VPC (Санкт-Петербург)  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_17-05-23.png)  
+Запускаю ping с узла VPC30 (Чокурдах) до узла VPC (Санкт-Петербург), ping с узла VPC7 (Москва) до узла R27 (Лабытнанги).  
+На R27 весит сеть 172.28.0.0/24 на Et0/1  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_17-07-22.png)  
 
-Запускаю ping с узла VPC7 (Москва) до узла R27 (Лабытнанги). На R27 весит сеть 172.28.0.0/24 на Et0/1  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/2021-06-27_17-07-22.png)
+Таблицы маршрутизации EIGRP на R14, R15, R18, R27 & R28  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-R27-VPC30-VPC-VPC7.png)  
+
