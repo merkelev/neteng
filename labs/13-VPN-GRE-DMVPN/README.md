@@ -324,7 +324,7 @@ router eigrp SP-EIGRP
 ```  
 
 Проверяю соседство EIGRP - R14, R15, R27 & R28  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/OSPF-R14-R15-R27-R28.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/EIGRP-NEIG-R14-R15-R27-R28.png)  
 
 Запускаю ping с узла VPC30 (Чокурдах) до узла VPC (Санкт-Петербург), ping с узла VPC7 (Москва) до узла R27 (Лабытнанги).  
 На R27 весит сеть 172.28.0.0/24 на Et0/1  
