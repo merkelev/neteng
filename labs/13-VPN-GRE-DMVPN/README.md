@@ -331,5 +331,4 @@ router eigrp SP-EIGRP
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-R27-VPC30-VPC-VPC7.png)  
 
 Таблицы маршрутизации EIGRP на R14, R15, R18, R27 & R28  
-![]()  
-
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/ROUTE-EIGRP.png)  
