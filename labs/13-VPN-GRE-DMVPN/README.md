@@ -197,7 +197,7 @@ interface Tunnel20
 Tunnel10 подключается к R15, Tunnel20 подключается к R14. В случае отказа одного из маршрутизаторов связь между офисами будет.
 
 Проверяю DMVPN на маршрутизаторах  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/DMVPN-R14-R15_R27-R28.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/DMVPN.png)  
 
 **Для связи между офисами настроил OSPF.**  
 Настройки OSPF на R18 (Санкт-Петербург)  
