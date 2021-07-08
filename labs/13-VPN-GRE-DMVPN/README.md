@@ -288,7 +288,7 @@ ip prefix-list LAN-FOR-TUNNEL seq 10 permit 172.18.14.0/25
 ![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/EIGRP-NEIG-R15-R18.png)  
 
 Запускаю ping с узла VPC1 (Москва) до узла VPC8 (Санкт-Петербург)  
-![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-VPC1-TO-VPC8.png)  
+![](https://github.com/merkelev/neteng/blob/main/labs/13-VPN-GRE-DMVPN/images/PING-VPC-VPC8.png)  
 
 Настройки OSPF на R28 (Чокурдах)  
 ```
