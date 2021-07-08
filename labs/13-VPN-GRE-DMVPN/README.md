@@ -22,9 +22,9 @@
 **Таблица адресов DMVPN**  
 | Device   | Address        | Mask | Interface  |
 | -------- | ---------      | ---- | ---------  |
-| R15      | 109.226.218.6  | /30  | Et0/1      |
+| R15      | 109.226.218.100| /30  | Loopback100|
 |          | 10.200.0.1     | /24  | Tunnel100  |
-| R14      | 109.226.218.5  | /30  | Et0/1      |
+| R14      | 95.188.0.2     | /30  | Et0/1      |
 |          | 10.120.0.1     | /24  | Tunnel20   |
 | R28      | 95.188.50.2    | /30  | Et0/0      |
 |          | 10.200.0.3     | /24  | Tunnel10   |
@@ -39,16 +39,16 @@
 R14  
 ```
 interface Loopback80
+ description FOR-GRE-TUNNEL-TO-R18
  ip address 109.226.218.80 255.255.255.255
 ```  
 
 ```
 interface Tunnel100
- description GRE-TUNNEL-TO-SP
+ description GRE-TUNNEL-TO-R18-SP
  ip address 10.100.0.1 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip ospf 10 area 0
  tunnel source 109.226.218.80
  tunnel destination 75.100.20.80
 ```  
@@ -56,16 +56,17 @@ interface Tunnel100
 R15  
 ```
 interface Loopback80
+ description GRE-TUNNEL-TO-R18-SP
  ip address 109.226.218.80 255.255.255.255
 ```  
 
 ```
 interface Tunnel100
- description GRE-TUNNEL-TO-SP
+ description GRE-TUNNEL-TO-R18-SP
  ip address 10.100.0.1 255.255.255.252
+ no ip redirects
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip ospf 10 area 0
  tunnel source 109.226.218.80
  tunnel destination 75.100.20.80
 ```  
@@ -80,9 +81,9 @@ interface Loopback80
 interface Tunnel100
  description GRE-TUNNEL-TO-MSK
  ip address 10.100.0.2 255.255.255.252
+ no ip redirects
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip ospf 10 area 0
  tunnel source 75.100.20.80
  tunnel destination 109.226.218.80
 ```  
