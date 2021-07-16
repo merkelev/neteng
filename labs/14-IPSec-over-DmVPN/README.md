@@ -34,7 +34,7 @@
 |          | 10.120.0.3     | /24  | Tunnel20   |  
 
 **1. Настройка GRE поверх IPSec между офисами Москва и С.-Петербург**  
-Настройка IPSec на R18  
+**Настройка IPSec на R18**  
 ```
 crypto isakmp policy 10
  encr aes
@@ -72,5 +72,86 @@ interface Tunnel100
  ip tcp adjust-mss 1360
  tunnel source 75.100.20.80
  tunnel destination 109.226.218.80
+ tunnel protection ipsec profile IPSEC-MSK
+```  
+
+**Настройка IPSec на R14**  
+```
+crypto isakmp policy 10
+ encr aes
+ hash sha256
+ authentication pre-share
+ group 2
+!
+crypto isakmp key SP address 75.100.20.80
+!
+crypto ipsec transform-set TS-IPSEC-MSK esp-aes
+ mode transport
+!
+crypto ipsec profile IPSEC-MSK
+ set transform-set TS-IPSEC-MSK
+!
+crypto map CM-GRE 10 ipsec-isakmp
+ set peer 109.226.218.80
+ match address ACL-GRE
+```  
+
+ACL на R14 - ACL-GRE  
+```
+ip access-list extended ACL-GRE
+ permit gre host 109.226.218.80 host 75.100.20.80 log
+ permit gre host 75.100.20.80 host 109.226.218.80 log
+```  
+
+Настройка туннеля  
+```
+interface Tunnel100
+ description GRE-TUNNEL-TO-R18-SP
+ ip address 10.100.0.1 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source 109.226.218.80
+ tunnel destination 75.100.20.80
+ tunnel protection ipsec profile IPSEC-MSK
+```  
+
+**Настройка IPSec на R15**  
+```
+crypto isakmp policy 10
+ encr aes
+ hash sha256
+ authentication pre-share
+ group 2
+!
+crypto isakmp key SP address 75.100.20.80
+!
+crypto ipsec transform-set TS-IPSEC-MSK esp-aes
+ mode transport
+!
+crypto ipsec profile IPSEC-MSK
+ set transform-set TS-IPSEC-MSK
+!
+crypto map CM-GRE 10 ipsec-isakmp
+ set peer 109.226.218.80
+ match address ACL-GRE
+```  
+
+ACL на R15 - ACL-GRE  
+```
+ip access-list extended ACL-GRE
+ permit gre host 109.226.218.80 host 75.100.20.80 log
+ permit gre host 75.100.20.80 host 109.226.218.80 log
+```  
+
+Настройка туннеля  
+```
+interface Tunnel100
+ description GRE-TUNNEL-TO-R18-SP
+ ip address 10.100.0.1 255.255.255.252
+ no ip redirects
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source 109.226.218.80
+ tunnel destination 75.100.20.80
  tunnel protection ipsec profile IPSEC-MSK
 ```  
