@@ -203,3 +203,32 @@ crypto pki trustpoint msk.ru
 
 Сертификаты на R15  
 ![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/R15-CERT.png)  
+
+
+Настройка получения сертификатов от CA-сервера на R27  
+```
+ip host msk.ru 109.226.218.180
+!
+crypto pki trustpoint msk.ru
+ enrollment url http://msk.ru:80
+ serial-number
+ revocation-check crl
+!
+```  
+
+Сертификаты на R27  
+![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/R27-CERT.png)  
+
+Настройка получения сертификатов от CA-сервера на R28  
+```
+ip host msk.ru 109.226.218.180
+!
+crypto pki trustpoint msk.ru
+ enrollment url http://msk.ru:80
+ serial-number
+ revocation-check crl
+!
+```  
+
+Сертификаты на R28  
+![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/R28-CERT.png)  
