@@ -155,3 +155,9 @@ interface Tunnel100
  tunnel destination 75.100.20.80
  tunnel protection ipsec profile IPSEC-MSK
 ```  
+
+Проверяю состояние туннеля  
+![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/GRE-IPSEC.png)  
+
+Туннель работает между R18 & R15  
+
