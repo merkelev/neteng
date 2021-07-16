@@ -402,3 +402,7 @@ R27
 
 R28  
 ![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/R28-IPSEC-DMVPN.png)  
+
+Таблицы маршрутов EIGRP на R14, R15, R27 & R28  
+![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/SH-IP-ROUTE-EIGRP.png)  
+
