@@ -161,3 +161,45 @@ interface Tunnel100
 
 Туннель работает между R18 & R15  
 
+**2. Настройка DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги**  
+Настройка  CA на R19  
+```
+crypto pki server msk.ru
+ no database archive
+!
+crypto pki trustpoint msk.ru
+ enrollment url http://172.18.0.66:80
+ subject-name O=MSK,C=RU
+ revocation-check crl
+ rsakeypair msk.ru
+!
+```  
+
+Настройка получения сертификатов от CA-сервера на R14  
+```
+ip host msk.ru 172.18.0.66
+!
+crypto pki trustpoint msk.ru
+ enrollment url http://msk.ru:80
+ serial-number
+ revocation-check crl
+!
+```  
+
+Сертификаты на R14  
+![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/R14-CERT.png)  
+
+
+Настройка получения сертификатов от CA-сервера на R15  
+```
+ip host msk.ru 172.18.0.66
+!
+crypto pki trustpoint msk.ru
+ enrollment url http://msk.ru:80
+ serial-number
+ revocation-check crl
+!
+```  
+
+Сертификаты на R15  
+![](https://github.com/merkelev/neteng/blob/main/labs/14-IPSec-over-DmVPN/images/R15-CERT.png)  
